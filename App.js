@@ -13,7 +13,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-// Import all your screens - verify these paths are correct
+// Import all your screens
 import HomeScreen from "./app/HomeScreen";
 import AboutScreen from "./app/AboutScreen";
 import FeedbackScreen from "./app/FeedbackScreen";
@@ -101,6 +101,7 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
 
 export default function App() {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  const [messages, setMessages] = React.useState([]); // Moved messages state here
   const slideAnim = React.useRef(new Animated.Value(-250)).current;
 
   React.useEffect(() => {
@@ -148,7 +149,12 @@ export default function App() {
           <Stack.Screen
             name="Home"
             children={(props) => (
-              <HomeScreen {...props} toggleDrawer={toggleDrawer} />
+              <HomeScreen
+                {...props}
+                toggleDrawer={toggleDrawer}
+                messages={messages}
+                setMessages={setMessages}
+              />
             )}
             options={{ headerShown: false }}
           />

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -8,26 +8,39 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useIsFocused } from "@react-navigation/native";
 
-export default function HomeScreen({ navigation, route, toggleDrawer }) {
+export default function HomeScreen({
+  navigation,
+  toggleDrawer,
+  messages,
+  setMessages,
+}) {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
   const scrollViewRef = useRef(null);
   const API_URL = "http://127.0.0.1:5001/predict";
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    if (route.params?.resetChat) {
-      setMessages([]);
-      navigation.setParams({ resetChat: false });
-    }
-  }, [route.params?.resetChat, isFocused]);
 
   const clearChat = () => {
-    setMessages([]);
+    Alert.alert(
+      "Start New Chat",
+      "Are you sure you want to clear the chat?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            setMessages([]);
+            console.log("Chat cleared");
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   const sendMessage = async () => {
@@ -85,6 +98,9 @@ export default function HomeScreen({ navigation, route, toggleDrawer }) {
           <Ionicons name="menu" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Home</Text>
+        <TouchableOpacity onPress={clearChat} style={styles.newChatButton}>
+          <Ionicons name="create-outline" size={24} color="#000" />
+        </TouchableOpacity>
       </View>
 
       <ScrollView
@@ -137,9 +153,10 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     paddingTop: 30,
     paddingHorizontal: 10,
-    height: 70,
+    height: 90,
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
@@ -150,7 +167,11 @@ export const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginLeft: 10,
+    flex: 1,
+    textAlign: "center",
+  },
+  newChatButton: {
+    padding: 10,
   },
   chatArea: {
     flex: 1,
