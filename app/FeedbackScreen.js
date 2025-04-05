@@ -89,7 +89,7 @@ const styles = {
     alignItems: "center",
     paddingTop: 30,
     paddingHorizontal: 10,
-    height: 70,
+    height: 90,
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",

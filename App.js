@@ -1,6 +1,3 @@
-import * as React from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
@@ -12,14 +9,18 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from "react-native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native"; // Already correct
+import { createStackNavigator } from "@react-navigation/stack"; // Add this import
+import React from "react";
 
 // Import all your screens
 import HomeScreen from "./app/HomeScreen";
 import AboutScreen from "./app/AboutScreen";
 import FeedbackScreen from "./app/FeedbackScreen";
 import HelpCenterScreen from "./app/HelpCenterScreen";
+import MapScreen from "./app/MapScreen";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); // This should now work
 
 const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
   const navigation = useNavigation();
@@ -53,6 +54,7 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
         style={styles.itemContainer}
         onPress={() => {
           console.log("Map pressed");
+          navigation.navigate("Map");
           toggleDrawer();
         }}
       >
@@ -101,7 +103,7 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
 
 export default function App() {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const [messages, setMessages] = React.useState([]); // Moved messages state here
+  const [messages, setMessages] = React.useState([]);
   const slideAnim = React.useRef(new Animated.Value(-250)).current;
 
   React.useEffect(() => {
@@ -176,6 +178,13 @@ export default function App() {
             name="About"
             children={(props) => (
               <AboutScreen {...props} toggleDrawer={toggleDrawer} />
+            )}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Map"
+            children={(props) => (
+              <MapScreen {...props} toggleDrawer={toggleDrawer} />
             )}
             options={{ headerShown: false }}
           />
