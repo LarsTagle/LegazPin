@@ -12,22 +12,20 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useIsFocused } from "@react-navigation/native";
 
-export default function IndexScreen({ navigation, route, toggleDrawer }) {
+export default function HomeScreen({ navigation, route, toggleDrawer }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const scrollViewRef = useRef(null);
   const API_URL = "http://127.0.0.1:5001/predict";
   const isFocused = useIsFocused();
 
-  // Reset chat when coming from the drawer or when triggered manually
   useEffect(() => {
     if (route.params?.resetChat) {
       setMessages([]);
-      navigation.setParams({ resetChat: false }); // Prevent re-clearing every render
+      navigation.setParams({ resetChat: false });
     }
   }, [route.params?.resetChat, isFocused]);
 
-  // Function to manually clear chat
   const clearChat = () => {
     setMessages([]);
   };
@@ -57,7 +55,7 @@ export default function IndexScreen({ navigation, route, toggleDrawer }) {
         {
           text: data.response,
           sender: "bot",
-          intent: data.intent, // Optional: Use this for UI styling
+          intent: data.intent,
         },
       ]);
     } catch (error) {
@@ -80,26 +78,24 @@ export default function IndexScreen({ navigation, route, toggleDrawer }) {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0} // Adjust for header height
+      keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
-      {/* Header Row with Drawer Button */}
-      <View style={styles.headerRow}>
+      <View style={styles.header}>
         <TouchableOpacity onPress={toggleDrawer} style={styles.drawerButton}>
           <Ionicons name="menu" size={24} color="#000" />
         </TouchableOpacity>
+        <Text style={styles.headerTitle}>Home</Text>
       </View>
 
-      {/* Chat Area */}
       <ScrollView
         style={styles.chatArea}
         contentContainerStyle={{
           flexGrow: 1,
-          justifyContent: "flex-end", // Pin messages to the bottom
-          paddingBottom: 10, // Add padding to avoid overlap with input
+          justifyContent: "flex-end",
+          paddingBottom: 10,
         }}
         ref={scrollViewRef}
         onContentSizeChange={() => {
-          // Auto-scroll to the bottom when content size changes
           scrollViewRef.current?.scrollToEnd({ animated: true });
         }}
       >
@@ -116,7 +112,6 @@ export default function IndexScreen({ navigation, route, toggleDrawer }) {
         ))}
       </ScrollView>
 
-      {/* Input Area */}
       <View style={[styles.inputContainer, { height: dynamicHeight }]}>
         <TextInput
           style={[styles.textInput, { height: dynamicHeight }]}
@@ -139,26 +134,32 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1F4F8",
   },
-  headerRow: {
+  header: {
     flexDirection: "row",
-    width: "100%", // Span the entire width of the screen
-    height: 100, // Fixed height for the header
-    alignItems: "center", // Center items vertically
-    paddingLeft: 10, // Add padding to avoid overlapping the button
+    alignItems: "center",
     paddingTop: 30,
+    paddingHorizontal: 10,
+    height: 70,
+    backgroundColor: "#fff",
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
   },
   drawerButton: {
-    padding: 10, // Increase padding for better touch area
-    borderRadius: 5, // Rounded corners for a button-like appearance
+    padding: 10,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginLeft: 10,
   },
   chatArea: {
-    flex: 1, // Take up remaining space
+    flex: 1,
   },
   chatBubble: {
     padding: 10,
     borderRadius: 15,
     marginBottom: 10,
-    maxWidth: "75%", // Ensure bubbles don't take up the full width
+    maxWidth: "75%",
   },
   userBubble: {
     backgroundColor: "#007AFF",
@@ -184,7 +185,6 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 2,
-    height: "auto", // Allow dynamic height but prevent shrinking
   },
   textInput: {
     paddingTop: 15,

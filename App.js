@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { StatusBar } from "expo-status-bar";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -13,7 +13,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-// Import all your screens
+// Import all your screens - verify these paths are correct
 import HomeScreen from "./app/HomeScreen";
 import AboutScreen from "./app/AboutScreen";
 import FeedbackScreen from "./app/FeedbackScreen";
@@ -21,44 +21,129 @@ import HelpCenterScreen from "./app/HelpCenterScreen";
 
 const Stack = createStackNavigator();
 
+const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    console.log("DrawerMenu rendered, slideAnim:", slideAnim._value);
+  }, [slideAnim]);
+
+  return (
+    <Animated.View
+      style={[styles.drawer, { transform: [{ translateX: slideAnim }] }]}
+    >
+      <Image
+        source={require("./assets/LegazPin Logo White.png")}
+        style={{ resizeMode: "contain", marginTop: 25, marginBottom: 20 }}
+        onError={(e) => console.log("Image load error:", e.nativeEvent.error)}
+      />
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          console.log("Navigating to Home");
+          navigation.navigate("Home");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="home-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>Home</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          console.log("Map pressed");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="map-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>Map</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          console.log("Navigating to About");
+          navigation.navigate("About");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="information-circle-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>About</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          console.log("Navigating to Feedback");
+          navigation.navigate("Feedback");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="clipboard-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>Feedback</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          console.log("Navigating to HelpCenter");
+          navigation.navigate("HelpCenter");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="help-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>Help Center</Text>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
+
 export default function App() {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const slideAnim = React.useRef(new Animated.Value(-250)).current; // Start off-screen (left)
+  const slideAnim = React.useRef(new Animated.Value(-250)).current;
 
-  // Toggle drawer open/close
+  React.useEffect(() => {
+    console.log("App mounted, isDrawerOpen:", isDrawerOpen);
+  }, []);
+
+  React.useEffect(() => {
+    console.log("isDrawerOpen changed:", isDrawerOpen);
+  }, [isDrawerOpen]);
+
   const toggleDrawer = () => {
-    const toValue = isDrawerOpen ? -250 : 0; // Slide in or out
+    const toValue = isDrawerOpen ? -250 : 0;
+    console.log("Toggling drawer to:", toValue);
     Animated.timing(slideAnim, {
       toValue,
       duration: 300,
       useNativeDriver: true,
-    }).start();
-    setIsDrawerOpen(!isDrawerOpen);
+    }).start(() => {
+      setIsDrawerOpen(!isDrawerOpen);
+      console.log("Animation complete, new isDrawerOpen:", !isDrawerOpen);
+    });
   };
 
-  // Close drawer when clicking outside
   const closeDrawer = () => {
     if (isDrawerOpen) {
+      console.log("Closing drawer");
       Animated.timing(slideAnim, {
         toValue: -250,
         duration: 300,
         useNativeDriver: true,
-      }).start();
-      setIsDrawerOpen(false);
+      }).start(() => setIsDrawerOpen(false));
     }
   };
 
   return (
     <NavigationContainer>
       <View style={styles.container}>
-        {/* Overlay to detect outside clicks */}
         {isDrawerOpen && (
           <TouchableWithoutFeedback onPress={closeDrawer}>
             <View style={styles.overlay} />
           </TouchableWithoutFeedback>
         )}
 
-        {/* Stack Navigator */}
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Home"
@@ -90,60 +175,7 @@ export default function App() {
           />
         </Stack.Navigator>
 
-        {/* Custom Drawer */}
-        <Animated.View
-          style={[
-            styles.drawer,
-            { transform: [{ translateX: slideAnim }] }, // Animate sliding
-          ]}
-        >
-          <Image
-            source={require("./assets/LegazPin Logo White.png")}
-            style={{ resizeMode: "contain", marginTop: 25, marginBottom: 20 }}
-          />
-          <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => navigation.navigate("HomeScreen")}
-          >
-            <Ionicons name="home-outline" size={24} color="#000" />
-            <Text style={styles.drawerItem}>Home</Text>
-          </TouchableOpacity>
-
-          {/* <TouchableOpacity onPress={() => navigation.navigate("Map")}> */}
-
-          <TouchableOpacity style={styles.itemContainer}>
-            <Ionicons name="map-outline" size={24} color="#000" />
-            <Text style={styles.drawerItem}>Map</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => navigation.navigate("AboutScreen")}
-          >
-            <Ionicons
-              name="information-circle-outline"
-              size={24}
-              color="#000"
-            />
-            <Text style={styles.drawerItem}>About</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => navigation.navigate("FeedbackScreen")}
-          >
-            <Ionicons name="clipboard-outline" size={24} color="#000" />
-            <Text style={styles.drawerItem}>Feedback</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => navigation.navigate("HelpCenterScreen")}
-          >
-            <Ionicons name="help-outline" size={24} color="#000" />
-            <Text style={styles.drawerItem}>Help Center</Text>
-          </TouchableOpacity>
-        </Animated.View>
+        <DrawerMenu toggleDrawer={toggleDrawer} slideAnim={slideAnim} />
 
         <StatusBar style="auto" />
       </View>
@@ -162,8 +194,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Semi-transparent overlay
-    zIndex: 1, // Below drawer but above content
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    zIndex: 1,
   },
   drawer: {
     position: "absolute",
@@ -178,7 +210,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    zIndex: 2, // Above overlay
+    zIndex: 2,
   },
   itemContainer: {
     flexDirection: "row",
@@ -186,7 +218,7 @@ const styles = StyleSheet.create({
   },
   drawerItem: {
     fontSize: 17,
-    color: "#2D3748", // Dark gray
+    color: "#2D3748",
     marginVertical: 12,
     paddingVertical: 6,
     paddingHorizontal: 10,
