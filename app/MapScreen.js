@@ -23,13 +23,26 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
   const [focusedInput, setFocusedInput] = useState(null);
   const mapRef = useRef(null);
 
-  // Define Legazpi, Albay region bounds (approximate)
+  // Define Albay region boundaries
+  const ALBAY_BOUNDS = {
+    minLat: 12.9, // Southern boundary
+    maxLat: 13.4, // Northern boundary
+    minLng: 123.4, // Western boundary
+    maxLng: 124.0, // Eastern boundary
+  };
+
   const ALBAY_REGION = {
     latitude: 13.139, // Center of Legazpi City
     longitude: 123.743,
-    latitudeDelta: 0.2, // Roughly covers Albay province
-    longitudeDelta: 0.2,
+    latitudeDelta: 0.5, // Initial zoom covering Albay
+    longitudeDelta: 0.6,
   };
+
+  // Zoom constraints
+  const MIN_ZOOM = 11; // Minimum zoom level (zoomed out)
+  const MAX_ZOOM = 18; // Maximum zoom level (zoomed in)
+  const MIN_DELTA = 0.01; // Tight zoom
+  const MAX_DELTA = 0.5; // Wide zoom
 
   useEffect(() => {
     (async () => {
@@ -41,23 +54,28 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setUserLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
+        latitude: Math.max(
+          ALBAY_BOUNDS.minLat,
+          Math.min(ALBAY_BOUNDS.maxLat, location.coords.latitude)
+        ),
+        longitude: Math.max(
+          ALBAY_BOUNDS.minLng,
+          Math.min(ALBAY_BOUNDS.maxLng, location.coords.longitude)
+        ),
       });
     })();
   }, []);
 
   const reverseGeocode = async (coords) => {
     try {
-      // Check if coordinates are within Albay bounds
       const withinAlbay =
-        coords.latitude >= 12.9 &&
-        coords.latitude <= 13.4 &&
-        coords.longitude >= 123.4 &&
-        coords.longitude <= 124.0;
+        coords.latitude >= ALBAY_BOUNDS.minLat &&
+        coords.latitude <= ALBAY_BOUNDS.maxLat &&
+        coords.longitude >= ALBAY_BOUNDS.minLng &&
+        coords.longitude <= ALBAY_BOUNDS.maxLng;
 
       if (!withinAlbay) {
-        return "Location outside Legazpi, Albay";
+        return "Location outside Albay region";
       }
 
       let address = await Location.reverseGeocodeAsync({
@@ -65,8 +83,8 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         longitude: coords.longitude,
       });
       return address[0]
-        ? `${address[0].name}, ${address[0].city}` // Omit country
-        : "Unknown Location in Legazpi";
+        ? `${address[0].name}, ${address[0].city}`
+        : "Unknown Location in Albay";
     } catch (error) {
       console.error("Reverse Geocode Error:", error);
       return "Error fetching location";
@@ -122,7 +140,7 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         setRoute(points);
       }
 
-      const navigationInstruction = `navigate me from ${startLocation} to ${endLocation}`;
+      const navigationInstruction = `Navigate me from ${startLocation} to ${endLocation}`;
       navigation.navigate("Home", { instruction: navigationInstruction });
     } catch (error) {
       console.error("Directions Error:", error);
@@ -131,10 +149,20 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
   };
 
   const geocode = async (query) => {
-    // Append "Legazpi, Albay" to restrict geocoding to this area
     const fullQuery = `${query}, Legazpi, Albay`;
     const geocoded = await Location.geocodeAsync(fullQuery);
-    return geocoded[0];
+    if (geocoded[0]) {
+      const { latitude, longitude } = geocoded[0];
+      if (
+        latitude >= ALBAY_BOUNDS.minLat &&
+        latitude <= ALBAY_BOUNDS.maxLat &&
+        longitude >= ALBAY_BOUNDS.minLng &&
+        longitude <= ALBAY_BOUNDS.maxLng
+      ) {
+        return geocoded[0];
+      }
+    }
+    return null;
   };
 
   const clearInput = (type) => {
@@ -179,6 +207,72 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
       points.push({ latitude: lat / 1e5, longitude: lng / 1e5 });
     }
     return points;
+  };
+
+  // Restrict region using deltas (Option 1)
+  const restrictRegion = (region) => {
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = region;
+
+    const constrainedLatDelta = Math.max(
+      MIN_DELTA,
+      Math.min(MAX_DELTA, latitudeDelta)
+    );
+    const constrainedLngDelta = Math.max(
+      MIN_DELTA,
+      Math.min(MAX_DELTA, longitudeDelta)
+    );
+
+    const halfLatDelta = constrainedLatDelta / 2;
+    const halfLngDelta = constrainedLngDelta / 2;
+    let newLat = latitude;
+    let newLng = longitude;
+
+    if (latitude - halfLatDelta < ALBAY_BOUNDS.minLat) {
+      newLat = ALBAY_BOUNDS.minLat + halfLatDelta;
+    } else if (latitude + halfLatDelta > ALBAY_BOUNDS.maxLat) {
+      newLat = ALBAY_BOUNDS.maxLat - halfLatDelta;
+    }
+
+    if (longitude - halfLngDelta < ALBAY_BOUNDS.minLng) {
+      newLng = ALBAY_BOUNDS.minLng + halfLatDelta;
+    } else if (longitude + halfLngDelta > ALBAY_BOUNDS.maxLng) {
+      newLng = ALBAY_BOUNDS.maxLng - halfLngDelta;
+    }
+
+    return {
+      latitude: newLat,
+      longitude: newLng,
+      latitudeDelta: constrainedLatDelta,
+      longitudeDelta: constrainedLngDelta,
+    };
+  };
+
+  // Handle region change with camera zoom (Option 2)
+  const handleRegionChange = (region) => {
+    const constrainedRegion = restrictRegion(region);
+    mapRef.current?.getCamera().then((camera) => {
+      const currentZoom = camera.zoom || 14; // Default to 14 if undefined
+      const newZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, currentZoom));
+
+      if (
+        constrainedRegion.latitude !== region.latitude ||
+        constrainedRegion.longitude !== region.longitude ||
+        constrainedRegion.latitudeDelta !== region.latitudeDelta ||
+        constrainedRegion.longitudeDelta !== region.longitudeDelta ||
+        newZoom !== currentZoom
+      ) {
+        mapRef.current?.animateCamera(
+          {
+            center: {
+              latitude: constrainedRegion.latitude,
+              longitude: constrainedRegion.longitude,
+            },
+            zoom: newZoom,
+          },
+          { duration: 200 }
+        );
+      }
+    });
   };
 
   return (
@@ -246,13 +340,9 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         ref={mapRef}
         style={styles.map}
         onPress={handleMapPress}
-        initialRegion={ALBAY_REGION} // Center on Legazpi, Albay
-        region={
-          userLocation ? { ...ALBAY_REGION, ...userLocation } : ALBAY_REGION
-        }
-        showsUserLocation={false}
-        minZoomLevel={10} // Restrict zooming out too far
-        maxZoomLevel={18} // Allow detailed zoom
+        initialRegion={ALBAY_REGION}
+        onRegionChangeComplete={handleRegionChange}
+        showsUserLocation={true}
       >
         {route.length > 0 && (
           <Polyline coordinates={route} strokeColor="#007AFF" strokeWidth={4} />
@@ -286,7 +376,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderBottomColor: "#ddd",
-    zIndex: 10, // Ensure header stays on top
+    zIndex: 10,
   },
   drawerButton: {
     padding: 10,
@@ -302,11 +392,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
     backgroundColor: "#fff",
-    width: "100%", // Ensure it takes the full width
-    zIndex: 5, // Ensure it stays above the map
+    width: "100%",
+    zIndex: 5,
   },
   inputStack: {
-    flex: 1, // Take remaining space after the search button
+    flex: 1,
     flexDirection: "column",
   },
   inputContainer: {
@@ -317,13 +407,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 10,
     backgroundColor: "#F1F4F8",
-    width: "100%", // Ensure input container takes full width of its parent
-    minHeight: 50, // Ensure enough height for multiline text
+    width: "100%",
+    minHeight: 50,
   },
   textInput: {
     flex: 1,
     padding: 10,
-    fontSize: 14, // Slightly smaller font size for better readability
+    fontSize: 14,
   },
   clearButton: {
     padding: 5,
@@ -338,7 +428,7 @@ const styles = StyleSheet.create({
   },
   map: {
     flex: 1,
-    zIndex: 0, // Ensure map stays at the bottom layer
+    zIndex: 0,
   },
 });
 
