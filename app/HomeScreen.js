@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Keyboard,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -17,20 +18,30 @@ export default function HomeScreen({
   toggleDrawer,
   messages,
   setMessages,
+  route,
 }) {
   const [message, setMessage] = useState("");
   const scrollViewRef = useRef(null);
   const API_URL = "http://127.0.0.1:5001/predict";
+
+  // Handle instruction from MapScreen
+  useEffect(() => {
+    const instruction = route.params?.instruction;
+    if (instruction) {
+      Keyboard.dismiss();
+      setMessage(instruction); // Set the message briefly to display it
+      sendMessage(instruction);
+      setMessage(""); // Reset the text box immediately after sending
+      navigation.setParams({ instruction: null });
+    }
+  }, [route.params?.instruction]);
 
   const clearChat = () => {
     Alert.alert(
       "Start New Chat",
       "Are you sure you want to clear the chat?",
       [
-        {
-          text: "Cancel",
-          style: "cancel",
-        },
+        { text: "Cancel", style: "cancel" },
         {
           text: "Yes",
           onPress: () => {
@@ -43,19 +54,20 @@ export default function HomeScreen({
     );
   };
 
-  const sendMessage = async () => {
-    if (message.trim().length === 0) return;
+  const sendMessage = async (overrideMessage) => {
+    const textToSend = overrideMessage || message.trim();
+    if (textToSend.length === 0) return;
 
-    const userMessage = { sender: "user", text: message };
+    const userMessage = { sender: "user", text: textToSend };
     setMessages((prev) => [...prev, userMessage]);
-    setMessage("");
+    if (!overrideMessage) setMessage(""); // Clear only for manual input
 
     try {
-      console.log("Sending message:", message);
+      console.log("Sending message:", textToSend);
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ message: textToSend }),
       });
 
       if (!response.ok) {
@@ -90,7 +102,7 @@ export default function HomeScreen({
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
     >
       <View style={styles.header}>
@@ -136,8 +148,12 @@ export default function HomeScreen({
           multiline
           value={message}
           onChangeText={setMessage}
+          autoFocus={false}
         />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={() => sendMessage()}
+        >
           <Ionicons name="send" size={20} color="black" />
         </TouchableOpacity>
       </View>

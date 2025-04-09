@@ -11,15 +11,25 @@ import { Ionicons } from "@expo/vector-icons";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 
-const GMaps_Key = "YOUR_API_KEY"; // Replace with your Google Maps API key
+const GMaps_Key = "AIzaSyAy2J-28fvMFNZ7JOUYVAAENpXWcv-lHLQ";
 
 const MapScreen = ({ navigation, toggleDrawer }) => {
   const [startLocation, setStartLocation] = useState("");
   const [endLocation, setEndLocation] = useState("");
+  const [startCoords, setStartCoords] = useState(null);
+  const [endCoords, setEndCoords] = useState(null);
   const [route, setRoute] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
-  const [focusedInput, setFocusedInput] = useState(null); // Track which input is focused
+  const [focusedInput, setFocusedInput] = useState(null);
   const mapRef = useRef(null);
+
+  // Define Legazpi, Albay region bounds (approximate)
+  const ALBAY_REGION = {
+    latitude: 13.139, // Center of Legazpi City
+    longitude: 123.743,
+    latitudeDelta: 0.2, // Roughly covers Albay province
+    longitudeDelta: 0.2,
+  };
 
   useEffect(() => {
     (async () => {
@@ -39,13 +49,24 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
 
   const reverseGeocode = async (coords) => {
     try {
+      // Check if coordinates are within Albay bounds
+      const withinAlbay =
+        coords.latitude >= 12.9 &&
+        coords.latitude <= 13.4 &&
+        coords.longitude >= 123.4 &&
+        coords.longitude <= 124.0;
+
+      if (!withinAlbay) {
+        return "Location outside Legazpi, Albay";
+      }
+
       let address = await Location.reverseGeocodeAsync({
         latitude: coords.latitude,
         longitude: coords.longitude,
       });
       return address[0]
-        ? `${address[0].name}, ${address[0].city}, ${address[0].country}`
-        : "Unknown Location";
+        ? `${address[0].name}, ${address[0].city}` // Omit country
+        : "Unknown Location in Legazpi";
     } catch (error) {
       console.error("Reverse Geocode Error:", error);
       return "Error fetching location";
@@ -58,25 +79,51 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
 
     if (focusedInput === "start") {
       setStartLocation(address);
+      setStartCoords(coords);
     } else if (focusedInput === "end") {
       setEndLocation(address);
+      setEndCoords(coords);
     }
   };
 
   const fetchRoute = async () => {
-    if (!startLocation || !endLocation) return;
+    if (!startLocation || !endLocation) {
+      Alert.alert(
+        "Missing Location",
+        "Please enter both Start Location and End Location."
+      );
+      return;
+    }
 
     try {
-      const startCoords = await geocode(startLocation);
-      const endCoords = await geocode(endLocation);
+      const startCoordinates = await geocode(startLocation);
+      const endCoordinates = await geocode(endLocation);
+
+      if (!startCoordinates || !endCoordinates) {
+        Alert.alert("Error", "Invalid location entered.");
+        return;
+      }
+
+      setStartCoords({
+        latitude: startCoordinates.latitude,
+        longitude: startCoordinates.longitude,
+      });
+      setEndCoords({
+        latitude: endCoordinates.latitude,
+        longitude: endCoordinates.longitude,
+      });
+
       const response = await fetch(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${startCoords.latitude},${startCoords.longitude}&destination=${endCoords.latitude},${endCoords.longitude}&key=${GMaps_Key}`
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${startCoordinates.latitude},${startCoordinates.longitude}&destination=${endCoordinates.latitude},${endCoordinates.longitude}&key=${GMaps_Key}`
       );
       const data = await response.json();
       if (data.routes.length) {
         const points = decodePolyline(data.routes[0].overview_polyline.points);
         setRoute(points);
       }
+
+      const navigationInstruction = `navigate me from ${startLocation} to ${endLocation}`;
+      navigation.navigate("Home", { instruction: navigationInstruction });
     } catch (error) {
       console.error("Directions Error:", error);
       Alert.alert("Error", "Could not fetch route.");
@@ -84,16 +131,22 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
   };
 
   const geocode = async (query) => {
-    const geocoded = await Location.geocodeAsync(query);
+    // Append "Legazpi, Albay" to restrict geocoding to this area
+    const fullQuery = `${query}, Legazpi, Albay`;
+    const geocoded = await Location.geocodeAsync(fullQuery);
     return geocoded[0];
   };
 
   const clearInput = (type) => {
-    if (type === "start") setStartLocation("");
-    else setEndLocation("");
+    if (type === "start") {
+      setStartLocation("");
+      setStartCoords(null);
+    } else {
+      setEndLocation("");
+      setEndCoords(null);
+    }
   };
 
-  // Decode polyline from Google Maps API
   const decodePolyline = (encoded) => {
     let points = [];
     let index = 0,
@@ -148,9 +201,9 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
               onChangeText={setStartLocation}
               onFocus={() => setFocusedInput("start")}
               onBlur={() => setFocusedInput(null)}
-              multiline // Enable multiline
-              numberOfLines={2} // Allow up to 2 lines
-              textAlignVertical="center" // Center text vertically
+              multiline
+              numberOfLines={2}
+              textAlignVertical="center"
             />
             {startLocation.length > 0 && (
               <TouchableOpacity
@@ -170,9 +223,9 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
               onChangeText={setEndLocation}
               onFocus={() => setFocusedInput("end")}
               onBlur={() => setFocusedInput(null)}
-              multiline // Enable multiline
-              numberOfLines={2} // Allow up to 2 lines
-              textAlignVertical="center" // Center text vertically
+              multiline
+              numberOfLines={2}
+              textAlignVertical="center"
             />
             {endLocation.length > 0 && (
               <TouchableOpacity
@@ -193,28 +246,26 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         ref={mapRef}
         style={styles.map}
         onPress={handleMapPress}
-        initialRegion={
-          userLocation
-            ? {
-                latitude: userLocation.latitude,
-                longitude: userLocation.longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }
-            : {
-                latitude: 13.139,
-                longitude: 123.743,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }
+        initialRegion={ALBAY_REGION} // Center on Legazpi, Albay
+        region={
+          userLocation ? { ...ALBAY_REGION, ...userLocation } : ALBAY_REGION
         }
-        showsUserLocation={true}
+        showsUserLocation={false}
+        minZoomLevel={10} // Restrict zooming out too far
+        maxZoomLevel={18} // Allow detailed zoom
       >
         {route.length > 0 && (
           <Polyline coordinates={route} strokeColor="#007AFF" strokeWidth={4} />
         )}
-        {userLocation && (
-          <Marker coordinate={userLocation} title="Your Location" />
+        {startCoords && (
+          <Marker
+            coordinate={startCoords}
+            title="Start Location"
+            pinColor="green"
+          />
+        )}
+        {endCoords && (
+          <Marker coordinate={endCoords} title="End Location" pinColor="red" />
         )}
       </MapView>
     </View>
