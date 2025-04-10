@@ -6,24 +6,27 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-} from "react-native"; // Added TouchableOpacity
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const teamMembers = [
   {
-    name: "Lars John Tagle",
+    firstName: "Luar Matthew",
+    lastName: "Basilla",
     role: "Software Developer",
-    image: "https://via.placeholder.com/100",
+    image: require("../assets/Lars Pic.png"),
   },
   {
-    name: "Daniel Cedeño",
+    firstName: "Daniel",
+    lastName: "Cedeño",
     role: "Software Developer",
-    image: "https://via.placeholder.com/100",
+    image: require("../assets/Lars Pic.png"),
   },
   {
-    name: "Luar Matthew Basilla",
+    firstName: "Lars John",
+    lastName: "Tagle",
     role: "Software Developer",
-    image: "https://via.placeholder.com/100",
+    image: require("../assets/Lars Pic.png"),
   },
 ];
 
@@ -62,11 +65,35 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
 
         <View style={styles.card}>
           <Text style={styles.featureTitle}>How It Works</Text>
-          <Text style={styles.howItWorksText}>
-            1️⃣ Enter your location and destination.{"\n"}
-            2️⃣ LegazPIN suggests the best routes and fares.{"\n"}
-            3️⃣ Get real-time navigation and updates!
-          </Text>
+          <View style={styles.featureRow}>
+            <Ionicons
+              name="build-outline"
+              size={20}
+              color="#6366F1"
+              style={styles.contactIcon}
+            />
+            <Text>Enter your location and destination.</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Ionicons
+              name="build-outline"
+              size={20}
+              color="#6366F1"
+              style={styles.contactIcon}
+            />
+            <Text>LegazPIN suggests the best routes and fares.</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Ionicons
+              name="build-outline"
+              size={20}
+              color="#6366F1"
+              style={styles.contactIcon}
+            />
+            <Text>Get real-time navigation and updates!</Text>
+          </View>
         </View>
 
         <View style={styles.card}>
@@ -102,17 +129,45 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
 
         <View style={styles.card}>
           <Text style={styles.featureTitle}>Meet the Team</Text>
-          {/* Uncomment if you want to show team members
-          {teamMembers.map((member, index) => (
-            <View key={index} style={styles.teamMember}>
-              <Image source={{ uri: member.image }} style={styles.profileImage} />
-              <View>
-                <Text style={styles.name}>{member.name}</Text>
-                <Text style={styles.role}>{member.role}</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.teamScrollContent}
+          >
+            {teamMembers.map((member, index) => (
+              <View key={index} style={styles.teamMember}>
+                <Image
+                  source={member.image} // Updated to use require directly
+                  style={styles.profileImage}
+                />
+                <View style={styles.teamMemberText}>
+                  <Text style={styles.firstName}>{member.firstName}</Text>
+                  <Text style={styles.lastName}>{member.lastName}</Text>
+                  <Text style={styles.role}>{member.role}</Text>
+                  <View style={styles.contactIcons}>
+                    <Ionicons
+                      name="mail-outline"
+                      size={20}
+                      color="#6366F1"
+                      style={styles.contactIcon}
+                    />
+                    <Ionicons
+                      name="call-outline"
+                      size={20}
+                      color="#6366F1"
+                      style={styles.contactIcon}
+                    />
+                    <Ionicons
+                      name="logo-twitter"
+                      size={20}
+                      color="#6366F1"
+                      style={styles.contactIcon}
+                    />
+                  </View>
+                </View>
               </View>
-            </View>
-          ))}
-          */}
+            ))}
+          </ScrollView>
         </View>
 
         <View style={styles.card}>
@@ -124,7 +179,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text>support@legazpin.com</Text>
+            <Text style={{ textAlign: "center" }}>support@legazpin.com</Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -133,7 +188,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text>www.legazpin.com</Text>
+            <Text style={{ textAlign: "center" }}>www.legazpin.com</Text>
           </View>
         </View>
 
@@ -143,6 +198,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
   );
 };
 
+// Styles remain unchanged
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -199,34 +255,53 @@ const styles = StyleSheet.create({
   },
   featureRow: {
     flexDirection: "row",
-    alignItems: "center",
+    alignSelf: "center",
     marginBottom: 8,
   },
   icon: {
     marginRight: 8,
   },
+  teamScrollContent: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
   teamMember: {
-    flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    marginRight: 15,
+    width: 200,
   },
   profileImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    marginRight: 10,
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    marginBottom: 5,
   },
-  name: {
-    fontSize: 16,
+  teamMemberText: {
+    alignItems: "center",
+  },
+  firstName: {
+    fontSize: 14,
     fontWeight: "bold",
+    textAlign: "center",
+  },
+  lastName: {
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   role: {
-    fontSize: 14,
+    fontSize: 12,
     color: "gray",
-  },
-  howItWorksText: {
     textAlign: "center",
-    marginBottom: 10,
+    marginBottom: 5,
+  },
+  contactIcons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: 120,
+  },
+  contactIcon: {
+    marginHorizontal: 5,
   },
   footer: {
     textAlign: "center",
