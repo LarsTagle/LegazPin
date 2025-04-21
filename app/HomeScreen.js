@@ -22,7 +22,7 @@ export default function HomeScreen({
 }) {
   const [message, setMessage] = useState("");
   const scrollViewRef = useRef(null);
-  const API_URL = "http://127.0.0.1:5001/predict";
+  const API_URL = "http://10.60.79.133:5001/predict"; // will vary depending on your current ip address (ex. http://<your-ip-address>:5001/predict
 
   // Handle instruction from MapScreen
   useEffect(() => {
