@@ -1,0 +1,25 @@
+version: "3.1"
+
+stories:
+  - story: fare inquiry test
+    steps:
+      - user: |
+          How much is the fare from Legazpi to Daraga by jeepney?
+        intent: fare_inquiry
+      - action: action_fetch_fare
+      - action: utter_fare_inquiry
+
+  - story: route finder test
+    steps:
+      - user: |
+          How do I get from Legazpi to Tabaco by bus?
+        intent: route_finder
+      - action: action_fetch_route
+      - action: utter_route_finder
+
+  - story: location inquiry test
+    steps:
+      - user: |
+          Where is Cagsawa Ruins?
+        intent: location_inquiry
+      - action: utter_location_inquiry

@@ -1,0 +1,19 @@
+{
+  "0": "affirm",
+  "1": "alternate_transpo",
+  "2": "bot_challenge",
+  "3": "deny",
+  "4": "discount_inquiry",
+  "5": "distance_fare_inquiry",
+  "6": "fare_inquiry",
+  "7": "goodbye",
+  "8": "greet",
+  "9": "location_inquiry",
+  "10": "mood_great",
+  "11": "mood_unhappy",
+  "12": "recommend_place",
+  "13": "route_alternative",
+  "14": "route_finder",
+  "15": "tourist_spots",
+  "16": "travel_time_estimate"
+}

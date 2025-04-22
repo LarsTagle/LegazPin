@@ -1,0 +1,196 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - alternate_transpo
+  - fare_inquiry
+  - distance_fare_inquiry
+  - location_inquiry
+  - recommend_place
+  - route_alternative
+  - route_finder
+  - tourist_spots
+  - travel_time_estimate
+  - discount_inquiry
+
+entities:
+  - FARE
+  - DESTINATION
+  - TRANSPORT
+  - DISCOUNT
+  - ORIGIN
+  - ROUTE
+  - TIME
+  - COMMUTER
+  - LOCATION
+  - ACTIVITY
+  - PURPOSE
+  - EVENT
+  - SUGGEST
+  - CONDITION
+  - DISTANCE
+  - ATTRACTION
+  - ALTERNATIVE
+
+slots:
+  FARE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: FARE
+  DESTINATION:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: DESTINATION
+  TRANSPORT:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: TRANSPORT
+        value: "jeepney"
+  DISCOUNT:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: DISCOUNT
+  ORIGIN:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ORIGIN
+  ROUTE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ROUTE
+  TIME:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: TIME
+  COMMUTER:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: COMMUTER
+  LOCATION:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: LOCATION
+  ACTIVITY:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ACTIVITY
+  PURPOSE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: PURPOSE
+  EVENT:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: EVENT
+  SUGGEST:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: SUGGEST
+  CONDITION:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: CONDITION
+  DISTANCE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: DISTANCE
+  ATTRACTION:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ATTRACTION
+  ALTERNATIVE:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ALTERNATIVE
+
+responses:
+  utter_greet:
+    - text: "Hey! How can I help you with your jeepney travel in Legazpi City?"
+  utter_goodbye:
+    - text: "Safe travels! Bye!"
+  utter_iamabot:
+    - text: "I'm LegazPin, your AI travel assistant for Legazpi City, powered by Rasa."
+  utter_cheer_up:
+    - text: "Sorry to hear you're down! Here's a view of Mayon Volcano to lift your spirits:"
+      image: "https://i.imgur.com/nGF1K8f.jpg"
+  utter_did_that_help:
+    - text: "Did that help you?"
+  utter_happy:
+    - text: "Awesome, let's plan your trip!"
+  utter_fare_inquiry:
+    - text: "The fare from {ORIGIN} to {DESTINATION} via {ROUTE} is {FARE}. Would you like to know about discounts?"
+  utter_fare_discount:
+    - text: "For {ROUTE} from {ORIGIN} to {DESTINATION}, the regular fare is ₱{FARE}, and the discounted fare is ₱{DISCOUNT}."
+  utter_location_inquiry:
+    - text: "{LOCATION} is a great spot in Legazpi! Want directions or more details?"
+  utter_recommend_place:
+    - text: "I recommend visiting {ATTRACTION} for {ACTIVITY}. Would you like more suggestions?"
+  utter_route_finder:
+    - text: "To get from {ORIGIN} to {DESTINATION} via {ROUTE}, take a jeepney. Need step-by-step directions?"
+  utter_tourist_spots:
+    - text: "Popular tourist spots in Legazpi include {ATTRACTION}. Want more recommendations?"
+  utter_travel_time_estimate:
+    - text: "Traveling from {ORIGIN} to {DESTINATION} via {ROUTE} takes about {TIME} minutes. Want to explore alternative routes?"
+  utter_alternate_transpo:
+    - text: "Only jeepneys are available for {DESTINATION}. Try a different route."
+  utter_route_alternative:
+    - text: "An alternative route from {ORIGIN} to {DESTINATION} is {ALTERNATIVE}."
+  utter_route_to_location:
+    - text: "To get to {LOCATION} from {ORIGIN} via {ROUTE}, take a jeepney."
+  utter_route_by_landmarks:
+    - text: "To get from {ORIGIN} to {DESTINATION} via {ROUTE}, hop on a jeepney. You'll pass by {LANDMARKS}."
+
+actions:
+  - action_fetch_fare
+  - action_fetch_route
+  - action_recommend_place
+  - action_fetch_travel_time
+  - action_fetch_fare_discount
+  - action_fetch_alternate_transpo
+  - action_fetch_route_alternative
+  - action_fetch_route_by_landmarks
+  - action_fetch_route_to_location
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

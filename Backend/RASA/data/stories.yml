@@ -1,0 +1,95 @@
+version: "3.1"
+
+stories:
+  - story: happy path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_great
+      - action: utter_happy
+
+  - story: sad path
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: affirm
+      - action: utter_happy
+
+  - story: sad path with deny
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: mood_unhappy
+      - action: utter_cheer_up
+      - action: utter_did_that_help
+      - intent: deny
+      - action: utter_goodbye
+
+  - story: fare inquiry path
+    steps:
+      - intent: fare_inquiry
+      - action: action_fetch_fare
+      - action: utter_fare_inquiry
+      - or:
+          - intent: affirm
+          - intent: discount_inquiry
+      - action: action_fetch_fare_discount
+      - action: utter_fare_discount
+
+  - story: route finder path
+    steps:
+      - intent: route_finder
+      - action: action_fetch_route
+      - action: utter_route_finder
+
+  - story: route by landmarks path
+    steps:
+      - intent: route_finder
+      - action: action_fetch_route_by_landmarks
+      - action: utter_route_by_landmarks
+
+  - story: location inquiry path
+    steps:
+      - intent: location_inquiry
+      - action: utter_location_inquiry
+      - intent: affirm
+      - action: action_fetch_route_to_location
+      - action: utter_route_to_location
+
+  - story: recommend place path
+    steps:
+      - intent: recommend_place
+      - action: action_recommend_place
+      - action: utter_recommend_place
+
+  - story: tourist spots path
+    steps:
+      - intent: tourist_spots
+      - action: utter_tourist_spots
+
+  - story: travel time estimate path
+    steps:
+      - intent: travel_time_estimate
+      - action: action_fetch_travel_time
+      - action: utter_travel_time_estimate
+
+  - story: alternate transport path
+    steps:
+      - intent: alternate_transpo
+      - action: action_fetch_alternate_transpo
+      - action: utter_alternate_transpo
+
+  - story: route alternative path
+    steps:
+      - intent: route_alternative
+      - action: action_fetch_route_alternative
+      - action: utter_route_alternative
+
+  - story: discount inquiry path
+    steps:
+      - intent: discount_inquiry
+      - action: action_fetch_fare_discount
+      - action: utter_fare_discount
