@@ -3,8 +3,6 @@ import tensorflow as tf
 import numpy as np
 from transformers import DistilBertTokenizerFast, TFDistilBertForSequenceClassification, DistilBertForTokenClassification
 import pickle
-import firebase_admin
-from firebase_admin import credentials, firestore
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -22,11 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialize Firebase
-cred = credentials.Certificate("C:/Users/tagle/OneDrive/Desktop/Thesis/ExpoProject/Backend/firebase-adminsdk.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
 
 # === Intent Model Setup ===
 intent_model_dir = 'intent_model_distilbert'
@@ -138,82 +131,13 @@ def predict_ner(query):
         entities[current_type] = entities.get(current_type, []) + [current_entity]
     return entities
 
-# Fetch data from Firestore based on intent and entities
-def fetch_firestore_data(intent, entities):
-    response_data = {}
-    
-    if intent in ["get_fare", "check_fare"]:
-        distance = entities.get("DISTANCE", [None])[0]
-        discount = "DISCOUNT" in entities
-        query = db.collection("fares")
-        if distance:
-            try:
-                distance_value = float(distance.split()[0])
-                print(f"Querying fares for distance: {distance_value}")
-                query = query.where("distance", "==", distance_value)
-            except (ValueError, AttributeError) as e:
-                print(f"Error parsing distance '{distance}': {str(e)}")
-                response_data["fares"] = []
-                return response_data
-        docs = query.stream()
-        fares = []
-        for doc in docs:
-            data = doc.to_dict()
-            fare = data["discounted"] if discount else data["regular"]
-            fares.append({"distance": data["distance"], "fare": fare})
-            print(f"Found fare for distance {data['distance']}: {'discounted' if discount else 'regular'} = {fare}")
-        if not fares:
-            print("No fares found for the given distance.")
-        response_data["fares"] = fares
-    
-    elif intent in ["get_route", "find_route"]:
-        origin = entities.get("ORIGIN", [None])[0]
-        destination = entities.get("DESTINATION", [None])[0]
-        query = db.collection("routes")
-        if origin:
-            print(f"Querying routes with start: {origin}")
-            query = query.where("start", "==", origin)
-        if destination:
-            print(f"Querying routes with end: {destination}")
-            query = query.where("end", "==", destination)
-        docs = query.stream()
-        routes = []
-        for doc in docs:
-            data = doc.to_dict()
-            routes.append({
-                "name": data["name"],
-                "start": data["start"],
-                "end": data["end"],
-                "distance": data["distance"],
-                "via": data.get("via", []),
-                "landmarks": data.get("landmarks", []),
-                "zones": data.get("zones", []),
-                "startCoords": data.get("startCoords", {}),
-                "endCoords": data.get("endCoords", {}),
-                "isPrimary": data.get("isPrimary", False)
-            })
-            print(f"Found route: {data['name']} from {data['start']} to {data['end']}")
-        if not routes:
-            print("No routes found for the given origin and destination.")
-        response_data["routes"] = routes
-    
-    elif intent in ["get_feedback", "check_feedback"]:
-        print("Querying recent feedback...")
-        docs = db.collection("feedback").order_by("createdAt", direction=firestore.Query.DESCENDING).limit(5).stream()
-        feedback = [{"rating": doc.to_dict()["rating"], "text": doc.to_dict()["feedbackText"]} for doc in docs]
-        if not feedback:
-            print("No feedback found.")
-        response_data["feedback"] = feedback
-    
-    return response_data
-
 # Generate response 
-def generate_response(query, intents, entities, firestore_data):
+def generate_response(query, intents, entities):
     responses = []
     rasa_payload = {
         "sender": "user",
         "message": query,
-        "metadata": {"intents": intents, "entities": entities, "firestore_data": firestore_data}
+        "metadata": {"intents": intents, "entities": entities}
     }
     try:
         # Handle each intent separately to ensure all are processed
@@ -234,8 +158,7 @@ async def predict(request: QueryRequest):
         query = request.message
         intents = predict_intent(query)
         entities = predict_ner(query)
-        firestore_data = fetch_firestore_data(intents[0] if intents else None, entities)
-        response = generate_response(query, intents, entities, firestore_data)
+        response = generate_response(query, intents, entities)
         return {"response": response, "intent": intents, "entities": entities}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Server error: {str(e)}")
