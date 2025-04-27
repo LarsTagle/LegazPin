@@ -140,7 +140,7 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         setRoute(points);
       }
 
-      const navigationInstruction = `Navigate me from ${startLocation} to ${endLocation}`;
+      const navigationInstruction = `What's the fare from ${startLocation} to ${endLocation}`;
       navigation.navigate("Home", { instruction: navigationInstruction });
     } catch (error) {
       console.error("Directions Error:", error);

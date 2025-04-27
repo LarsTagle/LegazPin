@@ -12,6 +12,7 @@ import {
   Keyboard,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import * as Location from "expo-location";
 
 export default function HomeScreen({
   navigation,
@@ -22,16 +23,24 @@ export default function HomeScreen({
 }) {
   const [message, setMessage] = useState("");
   const scrollViewRef = useRef(null);
-  const API_URL = "http://10.60.79.133:5001/predict"; // will vary depending on your current ip address (ex. http://<your-ip-address>:5001/predict
+  const API_URL = "http://10.60.79.133:5005/webhooks/rest/webhook";
+
+  // Albay region boundaries (consistent with MapScreen.js)
+  const ALBAY_BOUNDS = {
+    minLat: 12.9,
+    maxLat: 13.4,
+    minLng: 123.4,
+    maxLng: 124.0,
+  };
 
   // Handle instruction from MapScreen
   useEffect(() => {
     const instruction = route.params?.instruction;
     if (instruction) {
       Keyboard.dismiss();
-      setMessage(instruction); // Set the message briefly to display it
+      setMessage(instruction);
       sendMessage(instruction);
-      setMessage(""); // Reset the text box immediately after sending
+      setMessage("");
       navigation.setParams({ instruction: null });
     }
   }, [route.params?.instruction]);
@@ -60,14 +69,54 @@ export default function HomeScreen({
 
     const userMessage = { sender: "user", text: textToSend };
     setMessages((prev) => [...prev, userMessage]);
-    if (!overrideMessage) setMessage(""); // Clear only for manual input
+    if (!overrideMessage) setMessage("");
+
+    let latitude = null;
+    let longitude = null;
 
     try {
-      console.log("Sending message:", textToSend);
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.warn("Location permission not granted");
+      } else {
+        // Attempt to fetch location with timeout
+        const locationPromise = Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.High,
+        });
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Location fetch timed out")), 5000)
+        );
+        const location = await Promise.race([locationPromise, timeoutPromise]);
+
+        // Constrain coordinates to Albay region
+        latitude = Math.max(
+          ALBAY_BOUNDS.minLat,
+          Math.min(ALBAY_BOUNDS.maxLat, location.coords.latitude)
+        );
+        longitude = Math.max(
+          ALBAY_BOUNDS.minLng,
+          Math.min(ALBAY_BOUNDS.maxLng, location.coords.longitude)
+        );
+      }
+    } catch (error) {
+      console.error("Location Fetch Error:", error.message);
+      // Fallback to default location
+      latitude = 13.139;
+      longitude = 123.743;
+      console.log("Using fallback location: Legazpi City, Albay");
+    }
+
+    try {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: textToSend }),
+        body: JSON.stringify({
+          message: textToSend,
+          metadata: {
+            latitude: latitude ?? 0,
+            longitude: longitude ?? 0,
+          },
+        }),
       });
 
       if (!response.ok) {
@@ -78,21 +127,23 @@ export default function HomeScreen({
       setMessages((prev) => [
         ...prev,
         {
-          text: data.response,
+          text: data[0].text,
           sender: "bot",
           intent: data.intent,
+          entities: data.entities,
+          isError: !data.response || data.response.includes("Sorry"),
         },
       ]);
     } catch (error) {
+      console.error("Fetch error:", error);
       setMessages((prev) => [
         ...prev,
         {
-          text: "Sorry, I couldn't connect to the server. Please try again later.",
+          text: "Oops, something went wrong. Please try again!",
           sender: "bot",
           isError: true,
         },
       ]);
-      console.error("Fetch error:", error);
     }
   };
 

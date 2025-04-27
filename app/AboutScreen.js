@@ -14,13 +14,13 @@ const teamMembers = [
     firstName: "Luar Matthew",
     lastName: "Basilla",
     role: "Software Developer",
-    image: require("../assets/Lars Pic.png"),
+    image: require("../assets/Luar Pic.png"),
   },
   {
     firstName: "Daniel",
     lastName: "Cedeño",
     role: "Software Developer",
-    image: require("../assets/Lars Pic.png"),
+    image: require("../assets/Dhani Pic.png"),
   },
   {
     firstName: "Lars John",
