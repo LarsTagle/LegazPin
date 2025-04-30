@@ -1,0 +1,26 @@
+[
+  {
+    "name": "DISCOUNT",
+    "pattern": "PWD"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "regular"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "senior"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "student"
+  },
+  {
+    "name": "ORIGIN",
+    "pattern": "(\\bfile:\\ data/lookups/locations\\.txt\\b)"
+  },
+  {
+    "name": "DESTINATION",
+    "pattern": "(\\bfile:\\ data/lookups/locations\\.txt\\b)"
+  }
+]

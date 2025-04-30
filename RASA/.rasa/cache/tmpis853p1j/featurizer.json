@@ -1,0 +1,69 @@
+{
+  "type": "MaxHistoryTrackerFeaturizer",
+  "state_featurizer": {
+    "action_texts": [],
+    "entity_tag_specs": [],
+    "feature_states": {
+      "intent": {
+        "affirm": 0,
+        "back": 1,
+        "bot_challenge": 2,
+        "deny": 3,
+        "fare_inquiry": 4,
+        "goodbye": 5,
+        "greet": 6,
+        "mood_great": 7,
+        "mood_unhappy": 8,
+        "nlu_fallback": 9,
+        "out_of_scope": 10,
+        "restart": 11,
+        "session_start": 12
+      },
+      "action_name": {
+        "action_listen": 0,
+        "action_restart": 1,
+        "action_session_start": 2,
+        "action_default_fallback": 3,
+        "action_deactivate_loop": 4,
+        "action_revert_fallback_events": 5,
+        "action_default_ask_affirmation": 6,
+        "action_default_ask_rephrase": 7,
+        "action_two_stage_fallback": 8,
+        "action_unlikely_intent": 9,
+        "action_back": 10,
+        "...": 11,
+        "action_extract_slots": 12,
+        "action_set_location_slots": 13,
+        "action_handle_fare_inquiry": 14,
+        "utter_ask_destination": 15,
+        "utter_fare_inquiry_response": 16,
+        "utter_greet": 17
+      },
+      "entities": {
+        "ACTIVITY": 0,
+        "ALTERNATIVE": 1,
+        "ATTRACTION": 2,
+        "CONDITION": 3,
+        "DESTINATION": 4,
+        "DISCOUNT": 5,
+        "DISTANCE": 6,
+        "EVENT": 7,
+        "LOCATION": 8,
+        "ORIGIN": 9,
+        "PURPOSE": 10,
+        "ROUTE": 11,
+        "SUGGEST": 12,
+        "TRANSPORT": 13
+      },
+      "slots": {
+        "origin_0": 0,
+        "destination_0": 1,
+        "route_0": 2,
+        "discount_0": 3
+      },
+      "active_loop": {}
+    }
+  },
+  "remove_duplicates": true,
+  "max_history": 5
+}

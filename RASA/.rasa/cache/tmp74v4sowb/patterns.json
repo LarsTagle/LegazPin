@@ -1,0 +1,114 @@
+[
+  {
+    "name": "DISCOUNT",
+    "pattern": "PWD"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "regular"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "senior"
+  },
+  {
+    "name": "DISCOUNT",
+    "pattern": "student"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Alternate"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Daraga Rawis A"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Daraga Rawis B"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Diretso"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Legazpi Camalig"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Legazpi Guinobatan"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Legazpi Santo Domingo"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Legazpi Sto. Domingo"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Loop 1"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "Washington"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "alternate"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "diretso"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "legazpi camalig"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "legazpi guinobatan"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "legazpi santo domingo"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "legazpi sto. domingo"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "letter A"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "letter B"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "loop 1"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "loop 2"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "loop 2"
+  },
+  {
+    "name": "ROUTE",
+    "pattern": "washington"
+  },
+  {
+    "name": "ORIGIN",
+    "pattern": "(\\bfile:\\ data/lookups/locations\\.txt\\b)"
+  },
+  {
+    "name": "DESTINATION",
+    "pattern": "(\\bfile:\\ data/lookups/locations\\.txt\\b)"
+  }
+]

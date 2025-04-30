@@ -1,0 +1,150 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - fare_inquiry # near done
+  - find_nearest # in prog
+  - route_finder # started
+  - location_inquiry
+  - recommend_place
+  - route_alternative
+  - travel_time_estimate
+  - odd_intent
+
+entities:
+  - DESTINATION
+  - DISCOUNT
+  - ORIGIN
+  - ROUTE
+  - POI
+  - LOCATION
+  - ACTIVITY
+  - ALTERNATIVE
+
+slots:
+  origin:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ORIGIN
+  destination:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: DESTINATION
+  route:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ROUTE
+  discount:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: DISCOUNT
+  poi:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: POI
+  activity:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: ACTIVITY
+  eta:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: custom
+  discounted_fare:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
+  regular_fare:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
+  latitude:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
+  longitude:
+    type: float
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "Good day! Ready to explore Legazpi? How may I assist with your route today?"
+    - text: "Hello! Looking for a ride or route? I'm here to help you navigate around Legazpi."
+    - text: "Welcome to LegazPin! How can I assist you in finding your way today?"
+    - text: "Hello! I'm here to help with anything about Legazpi routes and transportation."
+    - text: "Hey, there! Planning a trip within Legazpi? Let me assist you."
+    - text: "Hi! I can help you find jeepney routes, travel times, or local spots in Legazpi."
+    - text: "Good day! Looking for the fastest route in Legazpi? I'm ready to help."
+    - text: "Hello! I'm your friendly assistant for all Legazpi travel-related questions."
+    - text: "Greetings! Need to get from one place to another in Legazpi? Just let me know."
+    - text: "Hello! I'm here to help you travel smarter around Legazpi."
+    - text: "Good day! Where are you coming from and where would you like to go?"
+
+  utter_ask_destination:
+    - text: "Where are you going?"
+
+  utter_fare_inquiry_response:
+    - text: "The fare from {origin} to {destination} is ₱{regular_fare}. For a {discount} discount, it's ₱{discounted_fare}."
+    - text: "The fare from {origin} via {route} to {destination} is ₱{regular_fare}. For a {discount} discount, it's ₱{discounted_fare}."
+    - text: "For a {discount} discount, the fare from {origin} to {destination} is ₱{discounted_fare}."
+    - text: "For a {discount} discount, the fare from {origin} via {route} to {destination} is ₱{discounted_fare}."
+
+  # utter_nearest_poi_response:
+  #   # - text: "The nearest {poi} in your area is {location}."
+  #   # - text: "From your location, {location} is the nearest {poi}."
+  #   # - text: "This is the nearest {poi} based on your {location}."
+  #   # - text: "{location} is the nearest {poi} within your area."
+
+  # utter_route_finder_response:
+  # - text: "To get from {origin} to {destination}, you can take the following route(s): {route}."
+  # - text: "Here are the routes from {origin} to {destination}: {route}."
+  # - text: "You can travel from {origin} to {destination} via: {route}."
+
+actions:
+  # - action_set_location_slots
+  # - action_handle_fare_inquiry
+  # - action_utter_fare_response
+  # - action_reset_slots
+  # - action_find_nearest
+  # - action_route_finder
+
+  - action_handle_fare_inquiry
+  - action_handle_find_nearest
+  - action_handle_route_finder
+  # - action_handle_location_inquiry
+  - action_handle_recommend_place
+  - action_handle_route_alternative
+  - action_handle_travel_time_estimate
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

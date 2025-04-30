@@ -1,0 +1,12 @@
+{
+  "0": "fare_inquiry",
+  "1": "find_nearest",
+  "2": "goodbye",
+  "3": "greet",
+  "4": "location_inquiry",
+  "5": "odd_intent",
+  "6": "recommend_place",
+  "7": "route_alternative",
+  "8": "route_finder",
+  "9": "travel_time_estimate"
+}

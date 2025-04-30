@@ -1,0 +1,64 @@
+version: "3.1"
+
+story:
+  - story: Greet user
+    steps:
+      - intent: greet
+      - action: utter_greet
+
+  # - story: Set location slots for fare inquiry
+  #   steps:
+  #     - intent: fare_inquiry
+  #     - action: action_set_location_slots
+  #     - action: action_handle_fare_inquiry
+  #     - action: action_utter_fare_response
+  #     - action: action_reset_slots
+
+  # - story: Find nearest path
+  #   steps:
+  #     - intent: find_nearest
+  #     - action: action_set_location_slots
+  #     - action: action_find_nearest
+  #     - action: utter_nearest_poi_response
+
+  # - story: Find route path
+  #   steps:
+  #     - intent: route_finder
+  #     - action: action_set_location_slots
+  #     - action: action_route_finder
+  #     - action: utter_route_finder_response
+  #     - action: action_reset_slots
+  - story: fare inquiry path
+    steps:
+      - intent: fare_inquiry
+      - action: action_handle_fare_inquiry
+
+  - story: find nearest path
+    steps:
+      - intent: find_nearest
+      - action: action_handle_find_nearest
+
+  - story: route finder path
+    steps:
+      - intent: route_finder
+      - action: action_handle_route_finder
+
+  # - story: location inquiry path
+  #   steps:
+  #     - intent: location_inquiry
+  #     - action: action_handle_location_inquiry
+
+  - story: recommend place path
+    steps:
+      - intent: recommend_place
+      - action: action_handle_recommend_place
+
+  - story: route alternative path
+    steps:
+      - intent: route_alternative
+      - action: action_handle_route_alternative
+
+  - story: travel time estimate path
+    steps:
+      - intent: travel_time_estimate
+      - action: action_handle_travel_time_estimate

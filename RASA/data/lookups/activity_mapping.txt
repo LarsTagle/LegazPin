@@ -1,0 +1,60 @@
+activity_mapping
+
+hiking
+hike
+relax
+relaxation
+relaxing
+swim
+swimming
+sightseeing
+sunset
+sunrise
+pray
+meditate
+worship
+study
+recreate
+dine
+date
+casual talk
+shop
+movies
+play
+games
+exercise
+jog
+photography
+learn history
+cultural exploration
+banking
+stay overnight
+commute
+view scenery
+seek medical care
+visit government services
+attend events
+sports
+bird watch
+picnic
+cultural shows
+cycle
+explore nature
+family bonding
+workshops
+souvenirs
+nightlife
+festivals
+volunteer
+walk
+leisure
+meet
+quiet
+lectures
+food
+yoga
+performances
+art
+camp
+markets
+fish

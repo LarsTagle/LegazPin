@@ -1,0 +1,44 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-DESTINATION",
+      "2": "I-DESTINATION",
+      "3": "L-DESTINATION",
+      "4": "U-DESTINATION",
+      "5": "B-DISCOUNT",
+      "6": "I-DISCOUNT",
+      "7": "L-DISCOUNT",
+      "8": "U-DISCOUNT",
+      "9": "B-ORIGIN",
+      "10": "I-ORIGIN",
+      "11": "L-ORIGIN",
+      "12": "U-ORIGIN",
+      "13": "B-ROUTE",
+      "14": "I-ROUTE",
+      "15": "L-ROUTE",
+      "16": "U-ROUTE",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-DESTINATION": 1,
+      "I-DESTINATION": 2,
+      "L-DESTINATION": 3,
+      "U-DESTINATION": 4,
+      "B-DISCOUNT": 5,
+      "I-DISCOUNT": 6,
+      "L-DISCOUNT": 7,
+      "U-DISCOUNT": 8,
+      "B-ORIGIN": 9,
+      "I-ORIGIN": 10,
+      "L-ORIGIN": 11,
+      "U-ORIGIN": 12,
+      "B-ROUTE": 13,
+      "I-ROUTE": 14,
+      "L-ROUTE": 15,
+      "U-ROUTE": 16,
+      "O": 0
+    },
+    "num_tags": 17
+  }
+]
