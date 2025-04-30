@@ -53,10 +53,10 @@ story:
       - intent: recommend_place
       - action: action_handle_recommend_place
 
-  - story: route alternative path
-    steps:
-      - intent: route_alternative
-      - action: action_handle_route_alternative
+  # - story: route alternative path
+  #   steps:
+  #     - intent: route_alternative
+  #     - action: action_handle_route_alternative
 
   - story: travel time estimate path
     steps:

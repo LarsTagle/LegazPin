@@ -8,12 +8,7 @@ import os
 from typing import Any, List, Dict, Text
 import time
 from functools import lru_cache
-import logging
 import math
-
-# Initialize logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
 
 # Initialize Firebase
 if not firebase_admin._apps:
@@ -36,9 +31,8 @@ def preload_fares():
                 "regular": fare_data["regular"],
                 "discounted": fare_data["discounted"]
             }
-        logger.info(f"Preloaded {len(FARE_CACHE)} fare entries")
     except Exception as e:
-        logger.error(f"Error preloading fares: {str(e)}")
+        pass
 
 # Load fares at startup
 preload_fares()
@@ -59,7 +53,7 @@ def preload_locations():
             }
             count = count + 1
     except Exception as e:
-        logger.error(f"Error preloading locations: {str(e)}")
+        pass
 
 preload_locations()
 
@@ -73,35 +67,26 @@ def get_nearest_poi(lat: float, lng: float, poi_type: str, max_results: int = 1)
         if places_result.get("results") and len(places_result["results"]) > 0:
             nearest_places = places_result["results"][:max_results]
             place_names = [place["name"] for place in nearest_places]
-            logger.info(f"Nearest {poi_type}(s): {', '.join(place_names)}")
             return ", ".join(place_names) if place_names else f"No {poi_type} found nearby"
         else:
-            logger.info(f"Places API Failed: No nearby {poi_type} found")
             return f"No {poi_type} found nearby"
     except Exception as e:
-        logger.error(f"Places API Error for {poi_type}: {str(e)}")
         return f"No {poi_type} found nearby"
 
 def get_user_current_location(lat: float, lng: float) -> str:
     try:
-        start_time = time.time()
         places_result = gmaps.places_nearby(
             location=(lat, lng),
             type="point_of_interest",
             rank_by="distance"
         )
         if places_result.get("results") and len(places_result["results"]) > 0:
-            logger.info(f"This is the places result: {places_result}")
             nearest_place = places_result["results"][0]
-            place_name = nearest_place["name"]
-            logger.info(f"Nearest Landmark: {place_name}, took {time.time() - start_time:.2f} seconds")
-            return place_name
-        logger.info(f"Places API: No results, took {time.time() - start_time:.2f} seconds")
+            return nearest_place["name"]
         return "Unknown Location"
     except Exception as e:
-        logger.error(f"Places API Error: {str(e)}")
         return "Unknown Location"
-            
+
 def set_location_slots(tracker: Tracker) -> List[Dict[Text, Any]]:
     latest_message = tracker.latest_message.get("metadata", {})
     latitude = latest_message.get("latitude")
@@ -113,7 +98,6 @@ def set_location_slots(tracker: Tracker) -> List[Dict[Text, Any]]:
     except (ValueError, TypeError):
         latitude = None
         longitude = None
-        logger.info("Invalid latitude or longitude values; setting to None")
 
     slots = []
     if latitude is not None and latitude != 0:
@@ -122,7 +106,47 @@ def set_location_slots(tracker: Tracker) -> List[Dict[Text, Any]]:
         slots.append({"name": "longitude", "value": longitude})
 
     return slots
-    
+
+def handle_location_input(
+    origin: str,
+    destination: str,
+    tracker: Tracker,
+    dispatcher: CollectingDispatcher
+) -> tuple[str, str, bool]:
+    if not origin or not destination:
+        dispatcher.utter_message(text="Please specify both origin and destination.")
+        return origin, destination, False
+
+    if origin.lower() == destination.lower():
+        dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
+        return origin, destination, False
+
+    if origin.lower() in ["my location", "here", "where i am", "my place"]:
+        loc_slots = set_location_slots(tracker)
+        user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
+        user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
+        if user_lat and user_lng and user_lat != 0 and user_lng != 0:
+            origin = get_user_current_location(user_lat, user_lng)
+            if origin == "Unknown Location":
+                dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby landmark.")
+                return origin, destination, False
+        else:
+            origin = "Legazpi City Hall"
+
+    return origin, destination, True
+
+def get_fare_data(distance: float) -> Dict[str, float]:
+    rounded_distance = round(distance)
+    fare_data = FARE_CACHE.get(rounded_distance)
+    if not fare_data:
+        min_diff = float("inf")
+        for dist, data in FARE_CACHE.items():
+            diff = abs(dist - rounded_distance)
+            if diff < min_diff and diff <= 1:
+                min_diff = diff
+                fare_data = data
+    return fare_data
+
 class ActionHandleFareInquiry(Action):
     def name(self) -> Text:
         return "action_handle_fare_inquiry"
@@ -130,7 +154,6 @@ class ActionHandleFareInquiry(Action):
     @lru_cache(maxsize=1000)
     def get_cached_distance(self, origin: str, destination: str, region: str = "ph") -> tuple:
         try:
-            start_time = time.time()
             distance_matrix = gmaps.distance_matrix(
                 origins=origin,
                 destinations=destination,
@@ -141,10 +164,8 @@ class ActionHandleFareInquiry(Action):
             element = distance_matrix["rows"][0]["elements"][0]
             status = element["status"]
             distance_km = element["distance"]["value"] / 1000.0 if status == "OK" else None
-            logger.info(f"Distance API call took {time.time() - start_time:.2f} seconds")
             return distance_km, status
         except Exception as e:
-            logger.error(f"Distance API error: {str(e)}")
             return None, "ERROR"
 
     def run(
@@ -153,27 +174,13 @@ class ActionHandleFareInquiry(Action):
         tracker: Tracker,
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
-        destination = tracker.get_slot("destination")
         origin = tracker.get_slot("origin")
+        destination = tracker.get_slot("destination")
         route = tracker.get_slot("route")
         discount = tracker.get_slot("discount")
 
-        logger.debug(f"Slot Values: origin={origin}, destination={destination}, route={route},.3discount={discount}")
-
-        if not origin or origin.lower() in ["my location", "here", "where i am", "my place"]:
-            loc_slots = set_location_slots(tracker)
-            user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
-            user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-            if user_lat and user_lng and user_lat != 0 and user_lng != 0:
-                origin = get_user_current_location(user_lat, user_lng)
-                if origin == "Unknown Location":
-                    dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby point of interest or landmark.")
-                    return []
-            else:
-                origin = "Legazpi City Hall"
-                logger.info("Using default location: Legazpi City Hall")
-        elif origin and destination and origin.lower() == destination.lower():
-            dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
+        origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
+        if not is_valid:
             return []
 
         region = "ph"
@@ -191,19 +198,9 @@ class ActionHandleFareInquiry(Action):
                 dispatcher.utter_message(text="Failed to calculate distance. Please try again.")
                 return [SlotSet("origin", None), SlotSet("destination", None)]
 
-            rounded_distance = round(distance_km)
-
-            fare_data = FARE_CACHE.get(rounded_distance)
+            fare_data = get_fare_data(distance_km)
             if not fare_data:
-                min_diff = float("inf")
-                for dist, data in FARE_CACHE.items():
-                    diff = abs(dist - rounded_distance)
-                    if diff < min_diff and diff <= 1:
-                        min_diff = diff
-                        fare_data = data
-
-            if not fare_data:
-                dispatcher.utter_message(text=f"No fare found for a distance of {rounded_distance} km. Please try different locations.")
+                dispatcher.utter_message(text=f"No fare found for a distance of {round(distance_km)} km. Please try different locations.")
                 return [SlotSet("origin", None), SlotSet("destination", None)]
 
             regular_fare = round(fare_data["regular"])
@@ -215,7 +212,6 @@ class ActionHandleFareInquiry(Action):
             is_discounted = discount in ["student", "senior", "PWD", "students", "seniors", "PWDs"]
 
             response_parts = []
-
             if origin.lower() in ["my location", "here", "where i am", "my place"] or origin == "Legazpi City Hall":
                 response_parts.append(f"Assuming your starting location as {origin}.")
 
@@ -236,16 +232,13 @@ class ActionHandleFareInquiry(Action):
                     f"The regular fare from {origin} to {destination} is ₱{regular_fare:.2f}. For a discount, it's ₱{discounted_fare:.2f}."
                 )
 
-            response = " ".join(response_parts)
-            dispatcher.utter_message(text=response)
-
+            dispatcher.utter_message(text=" ".join(response_parts))
             return []
 
         except Exception as e:
-            logger.error(f"Error in fare inquiry: {str(e)}")
             dispatcher.utter_message(text="An error occurred while calculating the fare. Please try again.")
             return []
-            
+
 class ActionHandleFindNearest(Action):
     def name(self) -> Text:
         return "action_handle_find_nearest"
@@ -265,7 +258,6 @@ class ActionHandleFindNearest(Action):
         loc_slots = set_location_slots(tracker)
         user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
         user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-        logger.info(f"User Location for POI search: lat={user_lat}, lng={user_lng}")
 
         if not user_lat or not user_lng or user_lat == 0 or user_lng == 0:
             dispatcher.utter_message(text="Could not determine your current location. Please share your location or specify a nearby landmark.")
@@ -393,8 +385,6 @@ class ActionHandleFindNearest(Action):
         }
 
         google_poi_type = poi_mapping.get(poi_type.lower(), "point_of_interest")
-        logger.info(f"Searching for POI type: {poi_type} (Google Maps type: {google_poi_type})")
-
         user_input = tracker.latest_message.get("text", "").lower()
         is_list_request = "list" in user_input or poi_type.lower() in plural_poi
 
@@ -409,7 +399,7 @@ class ActionHandleFindNearest(Action):
 
         dispatcher.utter_message(text=response)
         return [SlotSet("location", location)]
-    
+
 class ActionHandleRouteFinder(Action):
     def name(self) -> Text:
         return "action_handle_route_finder"
@@ -423,47 +413,20 @@ class ActionHandleRouteFinder(Action):
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination")
 
-        logger.debug(f"Slot Values: origin={origin}, destination={destination}")
-
-        # Handle missing or invalid origin/destination
-        if not origin or not destination:
-            dispatcher.utter_message(text="Please specify both origin and destination.")
-            return []
-
-        # Handle "my location" for origin
-        if origin.lower() in ["my location", "here", "where i am", "my place"]:
-            loc_slots = set_location_slots(tracker)
-            user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
-            user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-            if user_lat and user_lng and user_lat != 0 and user_lng != 0:
-                origin = get_user_current_location(user_lat, user_lng)
-                if origin == "Unknown Location":
-                    dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby landmark.")
-                    return []
-            else:
-                origin = "Legazpi City Hall"
-                logger.info("Using default location: Legazpi City Hall")
-
-        # Check if origin and destination are the same
-        if origin.lower() == destination.lower():
-            dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
+        origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
+        if not is_valid:
             return []
 
         try:
-            # Initialize list to store matching route names
             list_of_routes = []
-
-            # Get all routes from routes collection
             routes_ref = db.collection("routes")
             routes_docs = routes_ref.stream()
 
-            # Check each route for matching origin and destination in landmarks
             for doc in routes_docs:
                 route_data = doc.to_dict()
                 landmarks = route_data.get("landmarks", [])
                 route_distance = route_data.get("distance", 0)
 
-                # Check if origin and destination are in landmarks (case-insensitive)
                 has_origin = any(
                     landmark.lower() == origin.lower() for landmark in landmarks
                 )
@@ -471,71 +434,51 @@ class ActionHandleRouteFinder(Action):
                     landmark.lower() == destination.lower() for landmark in landmarks
                 )
 
-                # If both origin and destination are found, add route name to list
                 if has_origin and has_destination:
                     list_of_routes.append(route_data["name"])
 
-            # If no routes found, return appropriate message
             if not list_of_routes:
                 dispatcher.utter_message(
                     text=f"No routes found from {origin} to {destination}. Please try different locations."
                 )
                 return []
 
-            # Get fare information based on distance
-            # Use the distance from the first matching route
-            routes_docs = routes_ref.stream()  # Re-stream to reset iterator
+            routes_docs = routes_ref.stream()
             route_distance = 0
             for doc in routes_docs:
                 if doc.to_dict()["name"] in list_of_routes:
                     route_distance = doc.to_dict().get("distance", 0)
                     break
 
-            rounded_distance = round(route_distance)
-
-            # Get fare from FARE_CACHE
-            fare_data = FARE_CACHE.get(rounded_distance)
-            if not fare_data:
-                min_diff = float("inf")
-                for dist, data in FARE_CACHE.items():
-                    diff = abs(dist - rounded_distance)
-                    if diff < min_diff and diff <= 1:
-                        min_diff = diff
-                        fare_data = data
-
+            fare_data = get_fare_data(route_distance)
             if not fare_data:
                 dispatcher.utter_message(
-                    text=f"No fare found for a distance of {rounded_distance} km. Please try different locations."
+                    text=f"No fare found for a distance of {round(route_distance)} km. Please try different locations."
                 )
                 return []
 
             regular_fare = round(fare_data["regular"])
             discounted_fare = round(fare_data["discounted"])
 
-            # Format route names for response
             routes_string = ", ".join(list_of_routes)
-
-            # Build response
             response = (
                 f"From {origin} to {destination}, route/s like {routes_string} "
-                f"should take you there. The regular fare is ₱{regular_fare} "
-                f"and discounted fare is ₱{discounted_fare}"
+                f"should take you there. The regular fare is ₱{regular_fare:.2f} "
+                f"and discounted fare is ₱{discounted_fare:.2f}"
             )
 
             dispatcher.utter_message(text=response)
             return []
 
         except Exception as e:
-            logger.error(f"Error in route finder: {str(e)}")
             dispatcher.utter_message(text="An error occurred while finding routes. Please try again.")
-            return []    
+            return []
 
     # pag nag ask ng two locations, ang gagawin nya ay titingnan sa firebase kung yung two locations 
     # na yun ay nasa firebase and if both yung location nasa firebase ilalagay sya sa array
     # making it a list tapos yun ang irereturn na response ng bot
     # and then based from the distance irerturn din yung fare
 
-    
 class ActionHandleRecommendPlace(Action):
     def name(self) -> Text:
         return "action_handle_recommend_place"
@@ -562,11 +505,20 @@ class ActionHandleRecommendPlace(Action):
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
         activity = tracker.get_slot("activity")
-        
-        # Log the activity slot for debugging
-        logger.info(f"Received activity slot: {activity}")
+        activity = activity.lower() if activity else None
 
-        # Map activities to Firebase tags
+        if not activity:
+            dispatcher.utter_message(text="Sorry, I didn't understand what activity you're looking for. Could you specify, like 'hiking' or 'eat'?")
+            return []
+
+        loc_slots = set_location_slots(tracker)
+        user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
+        user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
+
+        if not user_lat or not user_lng or user_lat == 0 or user_lng == 0:
+            dispatcher.utter_message(text="Could not determine your current location. Please share your location or specify a nearby landmark.")
+            return []
+
         activity_mapping = {
             "hiking": ["hiking", "outdoor", "adventure"],
             "hike": ["hiking", "outdoor", "adventure"],
@@ -584,7 +536,7 @@ class ActionHandleRecommendPlace(Action):
             "study": ["education", "school", "college", "university"],
             "recreate": ["recreation", "park"],
             "dine": ["dining", "restaurant"],
-            "eat": ["dining", "restaurant", "fast food"],  # Added explicit mapping for "eat"
+            "eat": ["dining", "restaurant", "fast food"],
             "food": ["dining", "restaurant", "fast food"],
             "date": ["restaurant", "park", "scenic"],
             "casual talk": ["public space", "park", "dining"],
@@ -630,30 +582,9 @@ class ActionHandleRecommendPlace(Action):
             "fish": ["nature", "recreation", "agri-tourism"]
         }
 
-        # Normalize activity input
-        activity = activity.lower() if activity else None
-        logger.info(f"Normalized activity: {activity}")
-
-        if not activity:
-            dispatcher.utter_message(text="Sorry, I didn't understand what activity you're looking for. Could you specify, like 'hiking' or 'eat'?")
-            return []
-
-        # Get user location
-        loc_slots = set_location_slots(tracker)
-        user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
-        user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-        logger.info(f"User location: lat={user_lat}, lng={user_lng}")
-
-        if not user_lat or not user_lng or user_lat == 0 or user_lng == 0:
-            dispatcher.utter_message(text="Could not determine your current location. Please share your location or specify a nearby landmark.")
-            return []
-
-        # Get matching tags for the activity
         tags = activity_mapping.get(activity, [activity])
-        logger.info(f"Activity tags: {tags}")
 
         try:
-            # Create a list of locations with distances
             locations_with_distance = []
             for _, location_data in LOCATIONS_CACHE.items():
                 coords = location_data.get("coords", {})
@@ -661,24 +592,18 @@ class ActionHandleRecommendPlace(Action):
                 place_lng = coords.get("lon")
                 
                 if place_lat is None or place_lng is None:
-                    logger.warning(f"Skipping location {location_data['name']} due to missing coordinates")
-                    continue  # Skip locations with invalid coordinates
+                    continue
 
                 distance = self.haversine_distance(user_lat, user_lng, place_lat, place_lng)
                 locations_with_distance.append({
                     "name": location_data["name"],
                     "description": location_data["description"],
-                    "tags": [tag.lower() for tag in location_data["tags"]],  # Normalize tags to lowercase
+                    "tags": [tag.lower() for tag in location_data["tags"]],
                     "distance": distance
                 })
 
-            # Log the number of valid locations
-            logger.info(f"Found {len(locations_with_distance)} valid locations in cache")
-
-            # Sort locations by distance (ascending)
             locations_with_distance.sort(key=lambda x: x["distance"])
 
-            # Filter locations by activity tags (case-insensitive)
             recommended_places = []
             description_places = []
             for location in locations_with_distance:
@@ -687,44 +612,24 @@ class ActionHandleRecommendPlace(Action):
                     recommended_places.append(location["name"])
                     description_places.append(location["description"])
                     if len(recommended_places) >= 3:
-                        break  # Stop after finding 3 matches
-
-            # Log the recommended places
-            logger.info(f"Recommended places for {activity}: {recommended_places}")
+                        break
 
             if recommended_places:
-                # Create a list of places with their descriptions
                 places_list = "\n".join([f"{recommended_places[i]} - {description_places[i]}" for i in range(len(recommended_places))])
-                response = f"I would recommend these places for {activity}:\n{places_list}"
-                dispatcher.utter_message(text=response)
+                dispatcher.utter_message(text=f"I would recommend these places for {activity}:\n{places_list}")
                 return [SlotSet("location", recommended_places[0])]
             else:
-                # Fallback suggestion for alternative activities
-                alternative_activities = ["eat", "hiking", "relax"]  # Example alternatives
+                alternative_activities = ["eat", "hiking", "relax"]
                 dispatcher.utter_message(
                     text=f"Sorry, I couldn't find any places for {activity} near your location. "
-                        f"Would you like to try another activity like {', '.join(alternative_activities)}?"
+                         f"Would you like to try another activity like {', '.join(alternative_activities)}?"
                 )
                 return []
 
         except Exception as e:
-            logger.error(f"Error in recommend place: {str(e)}")
             dispatcher.utter_message(text=f"An error occurred while finding places for {activity}. Please try again.")
             return []
-            
-class ActionHandleRouteAlternative(Action):
-    def name(self) -> Text:
-        return "action_handle_route_alternative"
 
-    def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]
-    ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="ROUTE ALTERNATIVE")
-        return []
-    
 class ActionHandleTravelTimeEstimate(Action):
     def name(self) -> Text:
         return "action_handle_travel_time_estimate"
@@ -732,7 +637,6 @@ class ActionHandleTravelTimeEstimate(Action):
     @lru_cache(maxsize=1000)
     def get_cached_directions(self, origin: str, destination: str, region: str = "ph") -> tuple:
         try:
-            start_time = time.time()
             directions_result = gmaps.directions(
                 origin=origin,
                 destination=destination,
@@ -743,13 +647,10 @@ class ActionHandleTravelTimeEstimate(Action):
                 leg = directions_result[0]["legs"][0]
                 duration = leg["duration"]["value"]
                 duration_text = leg["duration"]["text"]
-                logger.info(f"Directions API call took {time.time() - start_time:.2f} seconds")
                 return duration, duration_text, "OK"
             else:
-                logger.info(f"Directions API: No routes found")
                 return None, None, "ZERO_RESULTS"
         except Exception as e:
-            logger.error(f"Directions API error: {str(e)}")
             return None, None, "ERROR"
 
     def run(
@@ -761,26 +662,12 @@ class ActionHandleTravelTimeEstimate(Action):
         destination = tracker.get_slot("destination")
         origin = tracker.get_slot("origin")
 
-        logger.debug(f"Slot Values: origin={origin}, destination={destination}")
-
         if not destination:
             dispatcher.utter_message(text="Please specify a destination.")
             return []
 
-        if not origin or origin.lower() in ["my location", "here", "where i am", "my place"]:
-            loc_slots = set_location_slots(tracker)
-            user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
-            user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-            if user_lat and user_lng and user_lat != 0 and user_lng != 0:
-                origin = get_user_current_location(user_lat, user_lng)
-                if origin == "Unknown Location":
-                    origin = "Legazpi City Hall"
-                    logger.info("Using default location: Legazpi City Hall")
-            else:
-                dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby point of interest or landmark.")
-                return []
-        elif origin and destination and origin.lower() == destination.lower():
-            dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
+        origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
+        if not is_valid:
             return []
 
         region = "ph"
@@ -800,7 +687,6 @@ class ActionHandleTravelTimeEstimate(Action):
                 return [SlotSet("origin", None), SlotSet("destination", None)]
 
             response_parts = []
-
             if origin.lower() in ["my location", "here", "where i am", "my place"] or origin == "Legazpi City Hall":
                 response_parts.append(f"Assuming your starting location as {origin}.")
 
@@ -808,13 +694,10 @@ class ActionHandleTravelTimeEstimate(Action):
                 f"The estimated travel time from {origin} to {destination} is {duration_text}."
             )
 
-            response = " ".join(response_parts)
-            dispatcher.utter_message(text=response)
-
+            dispatcher.utter_message(text=" ".join(response_parts))
             eta_minutes = duration_seconds / 60.0
             return [SlotSet("eta", eta_minutes)]
 
         except Exception as e:
-            logger.error(f"Error in travel time estimation: {str(e)}, origin={origin}, destination={destination}")
             dispatcher.utter_message(text="An error occurred while calculating the travel time. Please try again.")
             return []

@@ -54,10 +54,10 @@ rules:
       - intent: recommend_place
       - action: action_handle_recommend_place
 
-  - rule: route alternative path
-    steps:
-      - intent: route_alternative
-      - action: action_handle_route_alternative
+  # - rule: route alternative path
+  #   steps:
+  #     - intent: route_alternative
+  #     - action: action_handle_route_alternative
 
   - rule: travel time estimate path
     steps:

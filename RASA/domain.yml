@@ -11,9 +11,9 @@ intents:
   - fare_inquiry # near done
   - find_nearest # in prog
   - route_finder # started
-  - location_inquiry
+  # - location_inquiry
   - recommend_place
-  - route_alternative
+  # - route_alternative
   - travel_time_estimate
   - odd_intent
 
@@ -142,7 +142,7 @@ actions:
   - action_handle_route_finder
   # - action_handle_location_inquiry
   - action_handle_recommend_place
-  - action_handle_route_alternative
+  # - action_handle_route_alternative
   - action_handle_travel_time_estimate
 
 session_config:
