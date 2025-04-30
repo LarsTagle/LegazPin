@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate("../firebase-adminsdk.json")
+    cred = credentials.Certificate("C:/Users/tagle/OneDrive/Desktop/Thesis/ExpoProject/LegazPin/firebase-adminsdk.json")
     firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -420,8 +420,121 @@ class ActionHandleRouteFinder(Action):
         tracker: Tracker,
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
-        dispatcher.utter_message(text="ROUTE FINDER")
-        return []
+        origin = tracker.get_slot("origin")
+        destination = tracker.get_slot("destination")
+
+        logger.debug(f"Slot Values: origin={origin}, destination={destination}")
+
+        # Handle missing or invalid origin/destination
+        if not origin or not destination:
+            dispatcher.utter_message(text="Please specify both origin and destination.")
+            return []
+
+        # Handle "my location" for origin
+        if origin.lower() in ["my location", "here", "where i am", "my place"]:
+            loc_slots = set_location_slots(tracker)
+            user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
+            user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
+            if user_lat and user_lng and user_lat != 0 and user_lng != 0:
+                origin = get_user_current_location(user_lat, user_lng)
+                if origin == "Unknown Location":
+                    dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby landmark.")
+                    return []
+            else:
+                origin = "Legazpi City Hall"
+                logger.info("Using default location: Legazpi City Hall")
+
+        # Check if origin and destination are the same
+        if origin.lower() == destination.lower():
+            dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
+            return []
+
+        try:
+            # Initialize list to store matching route names
+            list_of_routes = []
+
+            # Get all routes from routes collection
+            routes_ref = db.collection("routes")
+            routes_docs = routes_ref.stream()
+
+            # Check each route for matching origin and destination in landmarks
+            for doc in routes_docs:
+                route_data = doc.to_dict()
+                landmarks = route_data.get("landmarks", [])
+                route_distance = route_data.get("distance", 0)
+
+                # Check if origin and destination are in landmarks (case-insensitive)
+                has_origin = any(
+                    landmark.lower() == origin.lower() for landmark in landmarks
+                )
+                has_destination = any(
+                    landmark.lower() == destination.lower() for landmark in landmarks
+                )
+
+                # If both origin and destination are found, add route name to list
+                if has_origin and has_destination:
+                    list_of_routes.append(route_data["name"])
+
+            # If no routes found, return appropriate message
+            if not list_of_routes:
+                dispatcher.utter_message(
+                    text=f"No routes found from {origin} to {destination}. Please try different locations."
+                )
+                return []
+
+            # Get fare information based on distance
+            # Use the distance from the first matching route
+            routes_docs = routes_ref.stream()  # Re-stream to reset iterator
+            route_distance = 0
+            for doc in routes_docs:
+                if doc.to_dict()["name"] in list_of_routes:
+                    route_distance = doc.to_dict().get("distance", 0)
+                    break
+
+            rounded_distance = round(route_distance)
+
+            # Get fare from FARE_CACHE
+            fare_data = FARE_CACHE.get(rounded_distance)
+            if not fare_data:
+                min_diff = float("inf")
+                for dist, data in FARE_CACHE.items():
+                    diff = abs(dist - rounded_distance)
+                    if diff < min_diff and diff <= 1:
+                        min_diff = diff
+                        fare_data = data
+
+            if not fare_data:
+                dispatcher.utter_message(
+                    text=f"No fare found for a distance of {rounded_distance} km. Please try different locations."
+                )
+                return []
+
+            regular_fare = round(fare_data["regular"])
+            discounted_fare = round(fare_data["discounted"])
+
+            # Format route names for response
+            routes_string = ", ".join(list_of_routes)
+
+            # Build response
+            response = (
+                f"From {origin} to {destination}, route/s like {routes_string} "
+                f"should take you there. The regular fare is ₱{regular_fare} "
+                f"and discounted fare is ₱{discounted_fare}"
+            )
+
+            dispatcher.utter_message(text=response)
+            return []
+
+        except Exception as e:
+            logger.error(f"Error in route finder: {str(e)}")
+            dispatcher.utter_message(text="An error occurred while finding routes. Please try again.")
+            return []    
+
+    # pag nag ask ng two locations, ang gagawin nya ay titingnan sa firebase kung yung two locations 
+    # na yun ay nasa firebase and if both yung location nasa firebase ilalagay sya sa array
+    # making it a list tapos yun ang irereturn na response ng bot
+    # and then based from the distance irerturn din yung fare
+
     
 class ActionHandleRecommendPlace(Action):
     def name(self) -> Text:
