@@ -9,10 +9,12 @@ from typing import Any, List, Dict, Text
 import time
 from functools import lru_cache
 import math
+import re
+from openlocationcode import openlocationcode
 
 # Initialize Firebase
 if not firebase_admin._apps:
-    cred = credentials.Certificate("C:/Users/tagle/OneDrive/Desktop/Thesis/ExpoProject/LegazPin/firebase-adminsdk.json")
+    cred = credentials.Certificate("../firebase-adminsdk.json")
     firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -57,6 +59,15 @@ def preload_locations():
 
 preload_locations()
 
+def convert_plus_code(plus_code: str) -> tuple[float, float, bool]:
+    try:
+        if openlocationcode.isValid(plus_code):
+            decoded = openlocationcode.decode(plus_code)
+            return decoded.latitudeCenter, decoded.longitudeCenter, True
+        return None, None, False
+    except Exception:
+        return None, None, False
+
 def get_nearest_poi(lat: float, lng: float, poi_type: str, max_results: int = 1) -> str:
     try:
         places_result = gmaps.places_nearby(
@@ -75,6 +86,7 @@ def get_nearest_poi(lat: float, lng: float, poi_type: str, max_results: int = 1)
 
 def get_user_current_location(lat: float, lng: float) -> str:
     try:
+        # Try Places API first
         places_result = gmaps.places_nearby(
             location=(lat, lng),
             type="point_of_interest",
@@ -83,10 +95,15 @@ def get_user_current_location(lat: float, lng: float) -> str:
         if places_result.get("results") and len(places_result["results"]) > 0:
             nearest_place = places_result["results"][0]
             return nearest_place["name"]
+
+        # Fallback to reverse geocoding
+        geocode_result = gmaps.reverse_geocode((lat, lng))
+        if geocode_result and len(geocode_result) > 0:
+            return geocode_result[0]["formatted_address"]
         return "Unknown Location"
     except Exception as e:
         return "Unknown Location"
-
+    
 def set_location_slots(tracker: Tracker) -> List[Dict[Text, Any]]:
     latest_message = tracker.latest_message.get("metadata", {})
     latitude = latest_message.get("latitude")
@@ -121,19 +138,56 @@ def handle_location_input(
         dispatcher.utter_message(text="Origin and destination cannot be the same. Please clarify.")
         return origin, destination, False
 
-    if origin.lower() in ["my location", "here", "where i am", "my place"]:
-        loc_slots = set_location_slots(tracker)
-        user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
-        user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
-        if user_lat and user_lng and user_lat != 0 and user_lng != 0:
-            origin = get_user_current_location(user_lat, user_lng)
-            if origin == "Unknown Location":
-                dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby landmark.")
-                return origin, destination, False
-        else:
-            origin = "Legazpi City Hall"
+    # Regular expression to detect plus codes (e.g., 4QR6+P7V or 4QR6+P7V, Legazpi City)
+    plus_code_pattern = r'^[A-Za-z0-9+]+(?:,\s*[A-Za-z\s]+)?$'
 
-    return origin, destination, True
+    def process_location(location: str) -> str:
+        # Check if the location matches a plus code pattern
+        if location and re.match(plus_code_pattern, location):
+            # Extract the plus code (remove city name if present)
+            plus_code = location.split(',')[0].strip()
+            lat, lng, is_valid = convert_plus_code(plus_code)
+            if is_valid and lat is not None and lng is not None:
+                # Use reverse geocoding to find the nearest landmark
+                landmark = get_user_current_location(lat, lng)
+                if landmark != "Unknown Location":
+                    return landmark
+                else:
+                    dispatcher.utter_message(
+                        text=f"Could not find a landmark for plus code {plus_code}. Please specify a nearby place."
+                    )
+                    return None
+            else:
+                dispatcher.utter_message(
+                    text=f"Invalid plus code {plus_code}. Please provide a valid plus code or location name."
+                )
+                return None
+        # Handle "my location" or similar
+        elif location.lower() in ["my location", "here", "where i am", "my place"]:
+            loc_slots = set_location_slots(tracker)
+            user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
+            user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
+            if user_lat and user_lng and user_lat != 0 and user_lng != 0:
+                landmark = get_user_current_location(user_lat, user_lng)
+                if landmark != "Unknown Location":
+                    return landmark
+                else:
+                    dispatcher.utter_message(
+                        text="Could not determine your current location. Please specify a nearby landmark."
+                    )
+                    return None
+            else:
+                return "Legazpi City Hall"  # Fallback
+        return location  # Return as-is if not a plus code or special case
+
+    # Process origin and destination
+    processed_origin = process_location(origin)
+    processed_destination = process_location(destination)
+
+    if processed_origin is None or processed_destination is None:
+        return origin, destination, False
+
+    return processed_origin, processed_destination, True
 
 def get_fare_data(distance: float) -> Dict[str, float]:
     rounded_distance = round(distance)
@@ -480,7 +534,7 @@ class ActionHandleRouteFinder(Action):
         except Exception as e:
             dispatcher.utter_message(text="An error occurred while finding routes. Please try again.")
             return []
-        
+                
     # pag nag ask ng two locations, ang gagawin nya ay titingnan sa firebase kung yung two locations 
     # na yun ay nasa firebase and if both yung location nasa firebase ilalagay sya sa array
     # making it a list tapos yun ang irereturn na response ng bot
