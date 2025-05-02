@@ -6,6 +6,16 @@ rules:
       - intent: greet
       - action: utter_greet
 
+  - rule: good bye user
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: ask bot path
+    steps:
+      - intent: ask_bot
+      - action: utter_ask_bot
+
   # - rule: Set location slots for fare inquiry
   #   steps:
   #     - intent: fare_inquiry
@@ -63,3 +73,8 @@ rules:
     steps:
       - intent: travel_time_estimate
       - action: action_handle_travel_time_estimate
+
+  - rule: odd intent path
+    steps:
+      - intent: odd_intent
+      - action: utter_odd_intent_response

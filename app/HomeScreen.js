@@ -23,7 +23,7 @@ export default function HomeScreen({
 }) {
   const [message, setMessage] = useState("");
   const scrollViewRef = useRef(null);
-  const API_URL = "http://localhost:5005/webhooks/rest/webhook";
+  const API_URL = "http://10.60.79.133:5005/webhooks/rest/webhook";
 
   // Albay region boundaries (consistent with MapScreen.js)
   const ALBAY_BOUNDS = {

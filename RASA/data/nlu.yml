@@ -26,6 +26,28 @@ nlu:
       - bye
       - later
 
+  - intent: ask_bot
+    examples: |
+      - what are you?
+      - who are you?
+      - what do you do?
+      - what's your purpose?
+      - can you tell me what you are?
+      - what kind of bot are you?
+      - are you a tour guide?
+      - what's your role?
+      - tell me about yourself
+      - what's your job?
+      - who created you?
+      - why were you made?
+      - what can you help me with?
+      - what are you supposed to do?
+      - are you human?
+      - are you an AI?
+      - what services do you offer?
+      - how do you work?
+      - what do people use you for?
+
   - intent: fare_inquiry
     examples: |
       - How much is the fare from [my location](ORIGIN) to [Embarcadero de Legazpi](DESTINATION)?
@@ -1667,6 +1689,21 @@ nlu:
       - what time is it?
       - create a guide for me
       - write me an essay
+      - can you make me coffee?
+      - tell me a joke
+      - sing a song
+      - how do I bake a cake?
+      - generate a business plan
+      - what's your favorite movie?
+      - draw a cat
+      - can you solve my math homework?
+      - what's the weather like on Mars?
+      - write a poem about dragons
+      - build a game for me
+      - help me study chemistry
+      - who is the president of the world?
+      - invent a new language
+      - teach me to dance
 
   - regex: DISCOUNT
     examples: |
@@ -1681,9 +1718,13 @@ nlu:
       - loop 2
       - loop 2
       - letter A
+      - letter a
       - Daraga Rawis A
+      - daraga rawis a
       - letter B
+      - letter b
       - Daraga Rawis B
+      - daraga rawis b
       - Diretso
       - diretso
       - alternate
@@ -1952,8 +1993,11 @@ nlu:
   - synonym: Daraga Municipal Hall
     examples: |
       - Daraga
+      - daraga
       - daraga municipal hall
       - municipal hall of daraga
+      - Daraga Hall
+      - daraga hall
   - synonym: Daraga Church
     examples: |
       - daraga church

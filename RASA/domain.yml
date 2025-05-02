@@ -3,11 +3,7 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - ask_bot
   - fare_inquiry # near done
   - find_nearest # in prog
   - route_finder # started
@@ -109,26 +105,35 @@ responses:
     - text: "Hello! I'm here to help you travel smarter around Legazpi."
     - text: "Good day! Where are you coming from and where would you like to go?"
 
-  utter_ask_destination:
-    - text: "Where are you going?"
+  utter_odd_intent_response:
+    - text: "Sorry, I could not get what you are looking for."
+    - text: "Please be specific with the location you want."
+    - text: "I'm sorry, I do not understand what you are saying."
+    - text: "Hmm, that doesn't seem related to commuting or locations I can help with."
+    - text: "Can you rephrase that or ask something about transportation or places?"
+    - text: "I might not be able to help with that. Try asking about a route or destination!"
+    - text: "I'm not sure how to respond to that. Try asking about travel in Legazpi or Daraga."
+    - text: "Oops! That sounds off-topic. Let me know if you need help getting somewhere."
 
-  utter_fare_inquiry_response:
-    - text: "The fare from {origin} to {destination} is ₱{regular_fare}. For a {discount} discount, it's ₱{discounted_fare}."
-    - text: "The fare from {origin} via {route} to {destination} is ₱{regular_fare}. For a {discount} discount, it's ₱{discounted_fare}."
-    - text: "For a {discount} discount, the fare from {origin} to {destination} is ₱{discounted_fare}."
-    - text: "For a {discount} discount, the fare from {origin} via {route} to {destination} is ₱{discounted_fare}."
+  utter_goodbye:
+    - text: "Thank you for using LegazPin!"
+    - text: "Let me know if you need a tour guide again!"
+    - text: "Happy to help!"
+    - text: "Safe travels and see you next time!"
+    - text: "Goodbye! Feel free to chat with me again anytime."
+    - text: "It was a pleasure assisting you!"
+    - text: "Have a great day exploring Legazpi and Daraga!"
+    - text: "Catch you later! Stay safe on the road."
 
-  # utter_nearest_poi_response:
-  #   # - text: "The nearest {poi} in your area is {location}."
-  #   # - text: "From your location, {location} is the nearest {poi}."
-  #   # - text: "This is the nearest {poi} based on your {location}."
-  #   # - text: "{location} is the nearest {poi} within your area."
-
-  # utter_route_finder_response:
-  # - text: "To get from {origin} to {destination}, you can take the following route(s): {route}."
-  # - text: "Here are the routes from {origin} to {destination}: {route}."
-  # - text: "You can travel from {origin} to {destination} via: {route}."
-
+  utter_ask_bot:
+    - text: "I am LegazPin, your chatbot tour guide!"
+    - text: "I'm LegazPin, here to help with your navigation around Daraga - Legazpi!"
+    - text: "Hello! I'm LegazPin, your virtual guide for commuting and exploring Legazpi and Daraga!"
+    - text: "Hi there! Need help getting around Legazpi or Daraga? I'm LegazPin, at your service!"
+    - text: "LegazPin here! Ask me anything about jeepney routes, fares, or local spots."
+    - text: "Hey! I'm LegazPin — I can assist with directions, transportation, and more."
+    - text: "Welcome! I'm LegazPin, your go-to guide for local travel info around the city."
+    - text: "I'm LegazPin, and I make commuting in Legazpi and Daraga simpler and smarter!"
 actions:
   # - action_set_location_slots
   # - action_handle_fare_inquiry

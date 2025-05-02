@@ -6,28 +6,16 @@ story:
       - intent: greet
       - action: utter_greet
 
-  # - story: Set location slots for fare inquiry
-  #   steps:
-  #     - intent: fare_inquiry
-  #     - action: action_set_location_slots
-  #     - action: action_handle_fare_inquiry
-  #     - action: action_utter_fare_response
-  #     - action: action_reset_slots
+  - story: good bye user
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
 
-  # - story: Find nearest path
-  #   steps:
-  #     - intent: find_nearest
-  #     - action: action_set_location_slots
-  #     - action: action_find_nearest
-  #     - action: utter_nearest_poi_response
+  - story: ask bot path
+    steps:
+      - intent: ask_bot
+      - action: utter_ask_bot
 
-  # - story: Find route path
-  #   steps:
-  #     - intent: route_finder
-  #     - action: action_set_location_slots
-  #     - action: action_route_finder
-  #     - action: utter_route_finder_response
-  #     - action: action_reset_slots
   - story: fare inquiry path
     steps:
       - intent: fare_inquiry
@@ -43,22 +31,17 @@ story:
       - intent: route_finder
       - action: action_handle_route_finder
 
-  # - story: location inquiry path
-  #   steps:
-  #     - intent: location_inquiry
-  #     - action: action_handle_location_inquiry
-
   - story: recommend place path
     steps:
       - intent: recommend_place
       - action: action_handle_recommend_place
 
-  # - story: route alternative path
-  #   steps:
-  #     - intent: route_alternative
-  #     - action: action_handle_route_alternative
-
   - story: travel time estimate path
     steps:
       - intent: travel_time_estimate
       - action: action_handle_travel_time_estimate
+
+  - story: odd intent path
+    steps:
+      - intent: odd_intent
+      - action: utter_odd_intent_response

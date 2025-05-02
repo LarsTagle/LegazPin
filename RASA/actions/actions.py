@@ -413,6 +413,8 @@ class ActionHandleRouteFinder(Action):
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination")
 
+        print(f"Origin: {origin}, Destination: {destination}")
+
         origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
         if not is_valid:
             return []
@@ -427,15 +429,21 @@ class ActionHandleRouteFinder(Action):
                 landmarks = route_data.get("landmarks", [])
                 route_distance = route_data.get("distance", 0)
 
-                has_origin = any(
-                    landmark.lower() == origin.lower() for landmark in landmarks
-                )
-                has_destination = any(
-                    landmark.lower() == destination.lower() for landmark in landmarks
-                )
-
-                if has_origin and has_destination:
-                    list_of_routes.append(route_data["name"])
+                # Check landmarks in order to ensure origin appears before destination
+                origin_found = False
+                destination_found = False
+                for landmark in landmarks:
+                    if landmark.lower() == origin.lower():
+                        origin_found = True
+                    elif landmark.lower() == destination.lower():
+                        destination_found = True
+                        if not origin_found:
+                            # Destination found before origin, skip this route
+                            break
+                    if origin_found and destination_found:
+                        # Both found in correct order, add route to list
+                        list_of_routes.append(route_data["name"])
+                        break
 
             if not list_of_routes:
                 dispatcher.utter_message(
@@ -459,11 +467,10 @@ class ActionHandleRouteFinder(Action):
 
             regular_fare = round(fare_data["regular"])
             discounted_fare = round(fare_data["discounted"])
-
-            routes_string = ", ".join(list_of_routes)
+            routes_string = "\n".join([f"- {list_of_routes[i]}" for i in range(len(list_of_routes))])
             response = (
-                f"From {origin} to {destination}, route/s like {routes_string} "
-                f"should take you there. The regular fare is ₱{regular_fare:.2f} "
+                f"From {origin} to {destination}, the following route/s should take you there:\n{routes_string}\n"
+                f"The regular fare is ₱{regular_fare:.2f} "
                 f"and discounted fare is ₱{discounted_fare:.2f}"
             )
 
@@ -473,7 +480,7 @@ class ActionHandleRouteFinder(Action):
         except Exception as e:
             dispatcher.utter_message(text="An error occurred while finding routes. Please try again.")
             return []
-
+        
     # pag nag ask ng two locations, ang gagawin nya ay titingnan sa firebase kung yung two locations 
     # na yun ay nasa firebase and if both yung location nasa firebase ilalagay sya sa array
     # making it a list tapos yun ang irereturn na response ng bot
