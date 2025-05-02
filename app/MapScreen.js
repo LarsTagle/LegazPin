@@ -93,15 +93,13 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
 
   const handleMapPress = async (e) => {
     const coords = e.nativeEvent.coordinate;
-    const coordString = `${coords.latitude.toFixed(
-      6
-    )}, ${coords.longitude.toFixed(6)}`;
+    const address = await reverseGeocode(coords);
 
     if (focusedInput === "start") {
-      setStartLocation(coordString);
+      setStartLocation(address);
       setStartCoords(coords);
     } else if (focusedInput === "end") {
-      setEndLocation(coordString);
+      setEndLocation(address);
       setEndCoords(coords);
     }
   };
@@ -133,18 +131,6 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
         longitude: endCoordinates.longitude,
       });
 
-      // Update text inputs to show latitude and longitude
-      setStartLocation(
-        `${startCoordinates.latitude.toFixed(
-          6
-        )}, ${startCoordinates.longitude.toFixed(6)}`
-      );
-      setEndLocation(
-        `${endCoordinates.latitude.toFixed(
-          6
-        )}, ${endCoordinates.longitude.toFixed(6)}`
-      );
-
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/directions/json?origin=${startCoordinates.latitude},${startCoordinates.longitude}&destination=${endCoordinates.latitude},${endCoordinates.longitude}&key=${GMaps_Key}`
       );
@@ -163,22 +149,6 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
   };
 
   const geocode = async (query) => {
-    // Check if the query is already in lat,lng format
-    const coordMatch = query.match(/^([-]?\d+\.\d+),\s*([-]?\d+\.\d+)$/);
-    if (coordMatch) {
-      const latitude = parseFloat(coordMatch[1]);
-      const longitude = parseFloat(coordMatch[2]);
-      if (
-        latitude >= ALBAY_BOUNDS.minLat &&
-        latitude <= ALBAY_BOUNDS.maxLat &&
-        longitude >= ALBAY_BOUNDS.minLng &&
-        longitude <= ALBAY_BOUNDS.maxLng
-      ) {
-        return { latitude, longitude };
-      }
-      return null;
-    }
-
     const fullQuery = `${query}, Legazpi, Albay`;
     const geocoded = await Location.geocodeAsync(fullQuery);
     if (geocoded[0]) {
@@ -320,7 +290,7 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
             <TextInput
               id="startInput"
               style={styles.textInput}
-              placeholder="Start Location (lat, lng)"
+              placeholder="Start Location"
               value={startLocation}
               onChangeText={setStartLocation}
               onFocus={() => setFocusedInput("start")}
@@ -342,7 +312,7 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
             <TextInput
               id="endInput"
               style={styles.textInput}
-              placeholder="End Location (lat, lng)"
+              placeholder="End Location"
               value={endLocation}
               onChangeText={setEndLocation}
               onFocus={() => setFocusedInput("end")}
