@@ -385,6 +385,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
+    fontFamily: "Fredoka-Regular",
   },
   inputWithButton: {
     flexDirection: "row",
@@ -414,6 +415,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     fontSize: 14,
+    fontFamily: "Fredoka-Regular",
   },
   clearButton: {
     padding: 5,

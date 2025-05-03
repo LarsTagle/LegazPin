@@ -72,9 +72,10 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.contactIcon}
             />
-            <Text>Enter your location and destination.</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Enter your location and destination.
+            </Text>
           </View>
-
           <View style={styles.featureRow}>
             <Ionicons
               name="build-outline"
@@ -82,9 +83,10 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.contactIcon}
             />
-            <Text>LegazPIN suggests the best routes and fares.</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              LegazPIN suggests the best routes and fares.
+            </Text>
           </View>
-
           <View style={styles.featureRow}>
             <Ionicons
               name="build-outline"
@@ -92,7 +94,9 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.contactIcon}
             />
-            <Text>Get real-time navigation and updates!</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Get real-time navigation and updates!
+            </Text>
           </View>
         </View>
 
@@ -105,7 +109,9 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text>Fast Response Generation</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Fast Response Generation
+            </Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -114,7 +120,9 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text>Natural Conversations</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Natural Conversations
+            </Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -123,7 +131,9 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text>Google Maps Integration</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Google Maps Integration
+            </Text>
           </View>
         </View>
 
@@ -179,7 +189,11 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text style={{ textAlign: "center" }}>support@legazpin.com</Text>
+            <Text
+              style={{ textAlign: "center", fontFamily: "Fredoka-Regular" }}
+            >
+              support@legazpin.com
+            </Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -188,7 +202,11 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text style={{ textAlign: "center" }}>www.legazpin.com</Text>
+            <Text
+              style={{ textAlign: "center", fontFamily: "Fredoka-Regular" }}
+            >
+              www.legazpin.com
+            </Text>
           </View>
         </View>
 
@@ -198,7 +216,6 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
   );
 };
 
-// Styles remain unchanged
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -221,6 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
+    fontFamily: "Fredoka-Regular",
   },
   scrollContent: {
     paddingBottom: 20,
@@ -237,21 +255,25 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     color: "blue",
+    fontFamily: "Fredoka-Regular",
   },
   version: {
     fontSize: 14,
     textAlign: "center",
     color: "gray",
+    fontFamily: "Fredoka-Regular",
   },
   description: {
     marginTop: 10,
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   featureTitle: {
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 5,
+    fontFamily: "Fredoka-Regular",
   },
   featureRow: {
     flexDirection: "row",
@@ -283,17 +305,20 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   lastName: {
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   role: {
     fontSize: 12,
     color: "gray",
     textAlign: "center",
     marginBottom: 5,
+    fontFamily: "Fredoka-Regular",
   },
   contactIcons: {
     flexDirection: "row",
@@ -308,6 +333,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 12,
     color: "gray",
+    fontFamily: "Fredoka-Regular",
   },
 });
 

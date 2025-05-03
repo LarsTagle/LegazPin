@@ -35,6 +35,9 @@
     },
     "web": {
       "favicon": "./assets/PinLogo.png"
-    }
+    },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ]
   }
 }

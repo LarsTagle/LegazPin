@@ -41,7 +41,7 @@ const FeedbackScreen = ({ navigation, toggleDrawer }) => {
       <View style={{ flex: 1, padding: 20 }}>
         <View style={styles.card}>
           <Text style={styles.title}>Rate Your Experience</Text>
-          <Text style={{ textAlign: "center" }}>
+          <Text style={{ textAlign: "center", fontFamily: "Fredoka-Regular" }}>
             Help us improve by sharing your feedback.
           </Text>
         </View>
@@ -101,6 +101,7 @@ const styles = {
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
+    fontFamily: "Fredoka-Regular",
   },
   card: {
     backgroundColor: "white",
@@ -113,6 +114,7 @@ const styles = {
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   starContainer: {
     flexDirection: "row",
@@ -124,6 +126,7 @@ const styles = {
     marginTop: 10,
     textAlign: "center",
     fontWeight: "bold",
+    fontFamily: "Fredoka-Regular",
   },
   textInput: {
     height: 80,
@@ -133,6 +136,7 @@ const styles = {
     padding: 10,
     marginTop: 10,
     backgroundColor: "#F1F4F8",
+    fontFamily: "Fredoka-Regular",
   },
   submitButton: {
     backgroundColor: "#4F46E5",
@@ -145,6 +149,7 @@ const styles = {
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    fontFamily: "Fredoka-Regular",
   },
 };
 

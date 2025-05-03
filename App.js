@@ -11,7 +11,8 @@ import {
 } from "react-native";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
+import * as Font from "expo-font";
 
 import HomeScreen from "./app/HomeScreen";
 import AboutScreen from "./app/AboutScreen";
@@ -21,10 +22,11 @@ import MapScreen from "./app/MapScreen";
 
 const Stack = createStackNavigator();
 
+// DrawerMenu component remains unchanged
 const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
   const navigation = useNavigation();
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("DrawerMenu rendered, slideAnim:", slideAnim._value);
   }, [slideAnim]);
 
@@ -48,7 +50,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
         <Ionicons name="home-outline" size={24} color="#000" />
         <Text style={styles.drawerItem}>Home</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
@@ -60,7 +61,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
         <Ionicons name="map-outline" size={24} color="#000" />
         <Text style={styles.drawerItem}>Map</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
@@ -72,7 +72,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
         <Ionicons name="information-circle-outline" size={24} color="#000" />
         <Text style={styles.drawerItem}>About</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
@@ -84,7 +83,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
         <Ionicons name="clipboard-outline" size={24} color="#000" />
         <Text style={styles.drawerItem}>Feedback</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
@@ -101,15 +99,31 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
 };
 
 export default function App() {
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-  const [messages, setMessages] = React.useState([]);
-  const slideAnim = React.useRef(new Animated.Value(-250)).current;
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [fontLoaded, setFontLoaded] = useState(false);
+  const slideAnim = useRef(new Animated.Value(-250)).current;
 
-  React.useEffect(() => {
+  // Load custom font
+  useEffect(() => {
+    async function loadFont() {
+      try {
+        await Font.loadAsync({
+          "Fredoka-Regular": require("./assets/fonts/Fredoka-Regular.ttf"),
+        });
+        setFontLoaded(true);
+      } catch (error) {
+        console.error("Error loading font:", error);
+      }
+    }
+    loadFont();
+  }, []);
+
+  useEffect(() => {
     console.log("App mounted, isDrawerOpen:", isDrawerOpen);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     console.log("isDrawerOpen changed:", isDrawerOpen);
   }, [isDrawerOpen]);
 
@@ -136,6 +150,11 @@ export default function App() {
       }).start(() => setIsDrawerOpen(false));
     }
   };
+
+  // Render nothing until font informa loaded
+  if (!fontLoaded) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <NavigationContainer>
@@ -236,5 +255,6 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     paddingVertical: 6,
     paddingHorizontal: 10,
+    fontFamily: "Fredoka-Regular",
   },
 });

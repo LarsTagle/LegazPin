@@ -236,6 +236,7 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     flex: 1,
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   newChatButton: {
     padding: 10,
@@ -260,7 +261,7 @@ export const styles = StyleSheet.create({
   chatText: {
     color: "black",
     fontSize: 16,
-    fontFamily: "Fredoka",
+    fontFamily: "Fredoka-Regular",
   },
   inputContainer: {
     flexDirection: "row",
@@ -278,7 +279,7 @@ export const styles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 10,
     flex: 1,
-    fontFamily: "Fredoka",
+    fontFamily: "Fredoka-Regular",
     fontSize: 16,
     paddingVertical: 8,
     borderRadius: 10,

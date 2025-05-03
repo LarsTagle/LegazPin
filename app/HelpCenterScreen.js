@@ -50,7 +50,7 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
                 color="#6366F1"
                 style={{ marginRight: 8 }}
               />
-              <Text>
+              <Text style={{ fontFamily: "Fredoka-Regular" }}>
                 Chat with AI to find jeepney routes, fares, and travel times.
               </Text>
             </View>
@@ -61,7 +61,9 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
                 color="#6366F1"
                 style={{ marginRight: 8 }}
               />
-              <Text>Explore popular spots with the AI Tour Guide.</Text>
+              <Text style={{ fontFamily: "Fredoka-Regular" }}>
+                Explore popular spots with the AI Tour Guide.
+              </Text>
             </View>
             <View style={styles.featureRow}>
               <Ionicons
@@ -70,7 +72,9 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
                 color="#6366F1"
                 style={{ marginRight: 8 }}
               />
-              <Text>Customize your experience for a smoother commute.</Text>
+              <Text style={{ fontFamily: "Fredoka-Regular" }}>
+                Customize your experience for a smoother commute.
+              </Text>
             </View>
           </View>
         </View>
@@ -84,14 +88,22 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
               style={styles.faqItem}
             >
               <View style={styles.faqHeader}>
-                <Text style={{ fontSize: 16 }}>{item.question}</Text>
+                <Text style={{ fontSize: 16, fontFamily: "Fredoka-Regular" }}>
+                  {item.question}
+                </Text>
                 <Ionicons
                   name={faqOpen === index ? "chevron-up" : "chevron-down"}
                   size={20}
                 />
               </View>
               {faqOpen === index && (
-                <Text style={{ marginTop: 5, color: "#555" }}>
+                <Text
+                  style={{
+                    marginTop: 5,
+                    color: "#555",
+                    fontFamily: "Fredoka-Regular",
+                  }}
+                >
                   {item.answer}
                 </Text>
               )}
@@ -108,7 +120,9 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={{ marginRight: 8 }}
             />
-            <Text>Be specific in your route descriptions.</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Be specific in your route descriptions.
+            </Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -117,7 +131,9 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={{ marginRight: 8 }}
             />
-            <Text>Use concise requests to save time.</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Use concise requests to save time.
+            </Text>
           </View>
           <View style={styles.featureRow}>
             <Ionicons
@@ -126,7 +142,9 @@ const HelpCenterScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={{ marginRight: 8 }}
             />
-            <Text>Refine your results as needed.</Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Refine your results as needed.
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -152,6 +170,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginLeft: 10,
+    fontFamily: "Fredoka-Regular",
   },
   card: {
     backgroundColor: "white",
@@ -164,12 +183,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
+    fontFamily: "Fredoka-Regular",
   },
   subtitle: {
     textAlign: "left",
     color: "#6b7280",
     marginBottom: 10,
     flexWrap: "wrap",
+    fontFamily: "Fredoka-Regular",
   },
   featureRow: {
     flexDirection: "row",
