@@ -135,19 +135,10 @@ responses:
     - text: "Welcome! I'm LegazPin, your go-to guide for local travel info around the city."
     - text: "I'm LegazPin, and I make commuting in Legazpi and Daraga simpler and smarter!"
 actions:
-  # - action_set_location_slots
-  # - action_handle_fare_inquiry
-  # - action_utter_fare_response
-  # - action_reset_slots
-  # - action_find_nearest
-  # - action_route_finder
-
   - action_handle_fare_inquiry
   - action_handle_find_nearest
   - action_handle_route_finder
-  # - action_handle_location_inquiry
   - action_handle_recommend_place
-  # - action_handle_route_alternative
   - action_handle_travel_time_estimate
 
 session_config:

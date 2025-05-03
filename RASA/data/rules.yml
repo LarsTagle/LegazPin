@@ -16,29 +16,6 @@ rules:
       - intent: ask_bot
       - action: utter_ask_bot
 
-  # - rule: Set location slots for fare inquiry
-  #   steps:
-  #     - intent: fare_inquiry
-  #     - action: action_set_location_slots
-  #     - action: action_handle_fare_inquiry
-  #     - action: action_utter_fare_response
-  #     - action: action_reset_slots
-
-  # - rule: Find nearest path
-  #   steps:
-  #     - intent: find_nearest
-  #     - action: action_set_location_slots
-  #     - action: action_find_nearest
-  #     - action: utter_nearest_poi_response
-
-  # - rule: Find route path
-  #   steps:
-  #     - intent: route_finder
-  #     - action: action_set_location_slots
-  #     - action: action_route_finder
-  #     - action: utter_route_finder_response
-  #     - action: action_reset_slots
-
   - rule: fare inquiry path
     steps:
       - intent: fare_inquiry
@@ -54,20 +31,10 @@ rules:
       - intent: route_finder
       - action: action_handle_route_finder
 
-  # - rule: location inquiry path
-  #   steps:
-  #     - intent: location_inquiry
-  #     - action: action_handle_location_inquiry
-
   - rule: recommend place path
     steps:
       - intent: recommend_place
       - action: action_handle_recommend_place
-
-  # - rule: route alternative path
-  #   steps:
-  #     - intent: route_alternative
-  #     - action: action_handle_route_alternative
 
   - rule: travel time estimate path
     steps:

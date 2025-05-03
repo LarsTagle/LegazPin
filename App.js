@@ -9,18 +9,17 @@ import {
   Animated,
   TouchableWithoutFeedback,
 } from "react-native";
-import { NavigationContainer, useNavigation } from "@react-navigation/native"; // Already correct
-import { createStackNavigator } from "@react-navigation/stack"; // Add this import
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
-// Import all your screens
 import HomeScreen from "./app/HomeScreen";
 import AboutScreen from "./app/AboutScreen";
 import FeedbackScreen from "./app/FeedbackScreen";
 import HelpCenterScreen from "./app/HelpCenterScreen";
 import MapScreen from "./app/MapScreen";
 
-const Stack = createStackNavigator(); // This should now work
+const Stack = createStackNavigator();
 
 const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
   const navigation = useNavigation();
