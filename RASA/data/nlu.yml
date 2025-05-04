@@ -860,198 +860,6 @@ nlu:
       - What jeepney route goes to [Embarcadero de Legazpi](DESTINATION)?
       - Guide me to [The Oriental Legazpi](DESTINATION).
 
-  # - intent: location_inquiry
-  #   examples: |
-  #     - [Where am I](LOCATION)?
-  #     - Where is [Daraga Church](LOCATION)?
-  #     - Can you tell me where [Kimantong Spring](LOCATION) is?
-  #     - What's the location of [Mayon View Decks](LOCATION)?
-  #     - Where can I find [Daraga Municipal Hall](LOCATION)?
-  #     - Show me where [Daraga Public Market](LOCATION) is.
-  #     - Where is [Daraga Jeepney Terminal](LOCATION) located?
-  #     - Tell me the location of [Bicol International Airport](LOCATION).
-  #     - Where's [Ziga Memorial District Hospital](LOCATION)?
-  #     - Can you find [LCC Daraga](LOCATION) for me?
-  #     - Where is [7-Eleven Daraga](LOCATION)?
-  #     - What's the address of [Kapuntukan Hill](LOCATION)?
-  #     - Where is [St. Gregory the Great Cathedral](LOCATION)?
-  #     - Tell me where [Lignon Hill Nature Park](LOCATION) is.
-  #     - Where can I find [Albay Park and Wildlife](LOCATION)?
-  #     - Show me the location of [Legazpi Boulevard](LOCATION).
-  #     - Where is [Pawa Mangrove Park](LOCATION)?
-  #     - Can you tell me where [Legazpi City Hall](LOCATION) is?
-  #     - Where's [Land Transportation Franchising & Regulatory Board](LOCATION)?
-  #     - What's the location of [Land Transportation Office](LOCATION)?
-  #     - Where is [Legazpi Grand Terminal](LOCATION) located?
-  #     - Tell me the location of [Public Safety & Transport Office Legazpi](LOCATION).
-  #     - Where can I find [Ayala Malls Legazpi](LOCATION)?
-  #     - Where is [SM City Legazpi](LOCATION)?
-  #     - Show me where [Pacific Mall](LOCATION) is.
-  #     - Where is [Gaisano Mall](LOCATION)?
-  #     - Can you find [Embarcadero de Legazpi](LOCATION) for me?
-  #     - Where is [Bicol University Main Campus](LOCATION)?
-  #     - What's the address of [Bicol University East Campus](LOCATION)?
-  #     - Tell me where [Bicol University Daraga Campus](LOCATION) is.
-  #     - Where is [Aquinas University](LOCATION)?
-  #     - Where can I find [University of Santo Tomas Legazpi](LOCATION)?
-  #     - Where's [Bicol Regional Training and Teaching Hospital](LOCATION)?
-  #     - Show me the location of [Bicol Regional Hospital and Medical Center](LOCATION).
-  #     - Where is [Legazpi City Hospital](LOCATION)?
-  #     - Can you tell me where [Estevez Memorial Hospital](LOCATION) is?
-  #     - Where is [The Oriental Legazpi](LOCATION)?
-  #     - What's the location of [Hotel Venezia](LOCATION)?
-  #     - Tell me where [Lotus Blu Hotel](LOCATION) is.
-  #     - Where is [Emerald Boutique Hotel](LOCATION)?
-  #     - Show me where [Camp Ola](LOCATION) is.
-  #     - Where can I find [Camalig Fitness Gym](LOCATION)?
-  #     - Where is [Peñaranda Park](LOCATION)?
-  #     - Can you find [Old Albay District](LOCATION) for me?
-  #     - Where's [Albay Astrodome](LOCATION)?
-  #     - What's the address of [Yashano Mall](LOCATION)?
-  #     - Tell me where [Cagsawa Ruins](LOCATION) is.
-  #     - Where is [Albay Provincial Capitol](LOCATION)?
-  #     - Show me the location of [Robinsons Supermarket Albay](LOCATION).
-  #     - Where can I find [Divine Word College of Legazpi](LOCATION)?
-  #     - Where is [Unitop Legazpi](LOCATION)?
-  #     - Can you tell me where [St. Agnes' Academy](LOCATION) is?
-  #     - Where is [STI College - Legazpi](LOCATION)?
-  #     - What's the location of [St. Raphael the Archangel Parish](LOCATION)?
-  #     - Tell me where [Albay Doctors Hospital](LOCATION) is.
-  #     - Where is [University of Santo Tomas - Legazpi Hospital](LOCATION)?
-  #     - Show me where [Hotel Lucca](LOCATION) is.
-  #     - Where can I find [Tanchuling College](LOCATION)?
-  #     - Where's [Civil Service Commission](LOCATION)?
-  #     - Can you find [Mariners' Polytechnic Colleges Foundation Legazpi City](LOCATION) for me?
-  #     - Where is [Arimbay Parish Church](LOCATION)?
-  #     - What's the address of [Legazpi Public Cemetery](LOCATION)?
-  #     - Tell me where [Department of Environment and Natural Resources](LOCATION) is.
-  #     - Where is [Our Lady's Village](LOCATION)?
-  #     - Show me the location of [Kalayaan Park](LOCATION).
-  #     - Where can I find [Gogon Central School](LOCATION)?
-  #     - Where is [The Marison Hotel](LOCATION)?
-  #     - Can you tell me where [Cruzada Barangay Hall](LOCATION) is?
-  #     - Where's [Sunrise Subdivision](LOCATION)?
-  #     - What's the location of [Sampaguita Tourist Inn](LOCATION)?
-  #     - Tell me where [Pristine Memorial Gardents](LOCATION) is.
-  #     - Where is [ACE Medical Center Legazpi](LOCATION)?
-  #     - Show me where [Daraga Catholic Cemetery](LOCATION) is.
-  #     - Where can I find [Daraga Doctor's Hospital](LOCATION)?
-  #     - Where is [Sumlang Lake](LOCATION)?
-  #     - Can you find [Daraga Community College](LOCATION) for me?
-  #     - Where's [Hotel St. Ellis](LOCATION)?
-  #     - What's the address of [University of Santo Tomas - Legazpi Peñaranda Campus](LOCATION)?
-  #     - Tell me where [Sipi](LOCATION) is.
-  #     - Where is [Sagpon](LOCATION)?
-  #     - Show me the location of [Em's Barrio](LOCATION).
-  #     - Where can I find [Ilawod](LOCATION)?
-  #     - Where is [Cabagnan](LOCATION)?
-  #     - Can you tell me where [Bitano](LOCATION) is?
-  #     - Where's [Legazpi Port District](LOCATION)?
-  #     - What's the location of [Bonot](LOCATION)?
-  #     - Tell me where [Rawis](LOCATION) is.
-  #     - Where is [Arimbay](LOCATION)?
-  #     - Show me where [Gogon](LOCATION) is.
-  #     - Where can I find [Bogtong](LOCATION)?
-  #     - Where is [Cruzada](LOCATION)?
-  #     - Can you find [Washington](LOCATION) for me?
-  #     - Where's [Tagas](LOCATION)?
-  #     - What's the address of [Maroroy](LOCATION)?
-  #     - Tell me where [Bañag](LOCATION) is.
-  #     - Where is [Daraga Church](LOCATION) located?
-  #     - Can you tell me the location of [Kimantong Spring](LOCATION)?
-  #     - Show me where [Mayon View Decks](LOCATION) is.
-  #     - What's the location of [Daraga Municipal Hall](LOCATION)?
-  #     - Where can I find [Daraga Public Market](LOCATION)?
-  #     - Tell me where [Daraga Jeepney Terminal](LOCATION) is.
-  #     - Where is [Bicol International Airport](LOCATION)?
-  #     - Can you find [Ziga Memorial District Hospital](LOCATION) for me?
-  #     - Where's [LCC Daraga](LOCATION)?
-  #     - What's the address of [7-Eleven Daraga](LOCATION)?
-  #     - Show me the location of [Kapuntukan Hill](LOCATION).
-  #     - Tell me where [St. Gregory the Great Cathedral](LOCATION) is.
-  #     - Where is [Lignon Hill Nature Park](LOCATION)?
-  #     - Can you tell me where [Albay Park and Wildlife](LOCATION) is?
-  #     - Where can I find [Legazpi Boulevard](LOCATION)?
-  #     - Show me where [Pawa Mangrove Park](LOCATION) is.
-  #     - What's the location of [Legazpi City Hall](LOCATION)?
-  #     - Tell me where [Land Transportation Franchising & Regulatory Board](LOCATION) is.
-  #     - Where is [Land Transportation Office](LOCATION)?
-  #     - Can you find [Legazpi Grand Terminal](LOCATION) for me?
-  #     - Where's [Public Safety & Transport Office Legazpi](LOCATION)?
-  #     - What's the address of [Ayala Malls Legazpi](LOCATION)?
-  #     - Show me the location of [SM City Legazpi](LOCATION).
-  #     - Tell me where [Pacific Mall](LOCATION) is.
-  #     - Where is [Gaisano Mall](LOCATION)?
-  #     - Can you tell me where [Embarcadero de Legazpi](LOCATION) is?
-  #     - Where can I find [Bicol University Main Campus](LOCATION)?
-  #     - Show me where [Bicol University East Campus](LOCATION) is.
-  #     - What's the location of [Bicol University Daraga Campus](LOCATION)?
-  #     - Tell me where [Aquinas University](LOCATION) is.
-  #     - Where is [University of Santo Tomas Legazpi](LOCATION)?
-  #     - Can you find [Bicol Regional Training and Teaching Hospital](LOCATION) for me?
-  #     - Where's [Bicol Regional Hospital and Medical Center](LOCATION)?
-  #     - What's the address of [Legazpi City Hospital](LOCATION)?
-  #     - Show me the location of [Estevez Memorial Hospital](LOCATION).
-  #     - Tell me where [The Oriental Legazpi](LOCATION) is.
-  #     - Where is [Hotel Venezia](LOCATION)?
-  #     - Can you tell me where [Lotus Blu Hotel](LOCATION) is?
-  #     - Where can I find [Emerald Boutique Hotel](LOCATION)?
-  #     - Show me where [Camp Ola](LOCATION) is.
-  #     - What's the location of [Camalig Fitness Gym](LOCATION)?
-  #     - Tell me where [Peñaranda Park](LOCATION) is.
-  #     - Where is [Old Albay District](LOCATION)?
-  #     - Can you find [Albay Astrodome](LOCATION) for me?
-  #     - Where's [Yashano Mall](LOCATION)?
-  #     - What's the address of [Cagsawa Ruins](LOCATION)?
-  #     - Show me the location of [Albay Provincial Capitol](LOCATION).
-  #     - Tell me where [Robinsons Supermarket Albay](LOCATION) is.
-  #     - Where is [Divine Word College of Legazpi](LOCATION)?
-  #     - Can you tell me where [Unitop Legazpi](LOCATION) is?
-  #     - Where can I find [St. Agnes' Academy](LOCATION)?
-  #     - Show me where [STI College - Legazpi](LOCATION) is.
-  #     - What's the location of [St. Raphael the Archangel Parish](LOCATION)?
-  #     - Tell me where [Albay Doctors Hospital](LOCATION) is.
-  #     - Where is [University of Santo Tomas - Legazpi Hospital](LOCATION)?
-  #     - Can you find [Hotel Lucca](LOCATION) for me?
-  #     - Where's [Tanchuling College](LOCATION)?
-  #     - What's the address of [Civil Service Commission](LOCATION)?
-  #     - Show me the location of [Mariners' Polytechnic Colleges Foundation Legazpi City](LOCATION).
-  #     - Tell me where [Arimbay Parish Church](LOCATION) is.
-  #     - Where is [Legazpi Public Cemetery](LOCATION)?
-  #     - Can you tell me where [Department of Environment and Natural Resources](LOCATION) is?
-  #     - Where can I find [Our Lady's Village](LOCATION)?
-  #     - Show me where [Kalayaan Park](LOCATION) is.
-  #     - What's the location of [Gogon Central School](LOCATION)?
-  #     - Tell me where [The Marison Hotel](LOCATION) is.
-  #     - Where is [Cruzada Barangay Hall](LOCATION)?
-  #     - Can you find [Sunrise Subdivision](LOCATION) for me?
-  #     - Where's [Sampaguita Tourist Inn](LOCATION)?
-  #     - What's the address of [Pristine Memorial Gardents](LOCATION)?
-  #     - Show me the location of [ACE Medical Center Legazpi](LOCATION).
-  #     - Tell me where [Daraga Catholic Cemetery](LOCATION) is.
-  #     - Where is [Daraga Doctor's Hospital](LOCATION)?
-  #     - Can you tell me where [Sumlang Lake](LOCATION) is?
-  #     - Where can I find [Daraga Community College](LOCATION)?
-  #     - Show me where [Hotel St. Ellis](LOCATION) is.
-  #     - What's the location of [University of Santo Tomas - Legazpi Peñaranda Campus](LOCATION)?
-  #     - Tell me where [Sipi](LOCATION) is.
-  #     - Where is [Sagpon](LOCATION)?
-  #     - Can you find [Em's Barrio](LOCATION) for me?
-  #     - Where's [Ilawod](LOCATION)?
-  #     - What's the address of [Cabagnan](LOCATION)?
-  #     - Show me the location of [Bitano](LOCATION).
-  #     - Tell me where [Legazpi Port District](LOCATION) is.
-  #     - Where is [Bonot](LOCATION)?
-  #     - Can you tell me where [Rawis](LOCATION) is?
-  #     - Where can I find [Arimbay](LOCATION)?
-  #     - Show me where [Gogon](LOCATION) is.
-  #     - What's the location of [Bogtong](LOCATION)?
-  #     - Tell me where [Cruzada](LOCATION) is.
-  #     - Where is [Washington](LOCATION)?
-  #     - Can you find [Tagas](LOCATION) for me?
-  #     - Where's [Maroroy](LOCATION)?
-  #     - What's the address of [Bañag](LOCATION)?
-
   - intent: recommend_place
     examples: |
       - Where is the best spot for [hiking](ACTIVITY)?
@@ -1204,255 +1012,6 @@ nlu:
       - Where's a good place to [fish](ACTIVITY)?
       - Can you suggest a spot to [fish](ACTIVITY)?
       - Recommend a location to [fish](ACTIVITY).
-
-  # - intent: route_alternative
-  #   examples: |
-  #     - Other than [loop 1](ROUTE), which route should I take from [Daraga Church](ORIGIN) to [SM City Legazpi](DESTINATION)?
-  #     - Is there an [alternative route](ALTERNATIVE) going from [Kimantong Spring](ORIGIN) to [Ayala Malls Legazpi](DESTINATION)?
-  #     - From [Mayon View Decks](ORIGIN) going to [Cagsawa Ruins](DESTINATION), which route should I take [instead](ALTERNATIVE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Daraga Municipal Hall](ORIGIN) to [Legazpi Boulevard](DESTINATION) besides [loop 2](ROUTE)?
-  #     - What's [another](ALTERNATIVE) way to go from [Daraga Public Market](ORIGIN) to [Yashano Mall](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Daraga Jeepney Terminal](ORIGIN) to [Kapuntukan Hill](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Bicol International Airport](ORIGIN) to [Lignon Hill Nature Park](DESTINATION)?
-  #     - From [Ziga Memorial District Hospital](ORIGIN) to [Pawa Mangrove Park](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [legazpi camalig](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [LCC Daraga](ORIGIN) to [Bicol University Main Campus](DESTINATION) other than [loop 1](ROUTE)?
-  #     - What's an [alternative](ALTERNATIVE) path from [7-Eleven Daraga](ORIGIN) to [Pacific Mall](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Kapuntukan Hill](ORIGIN) to [Gaisano Mall](DESTINATION)?
-  #     - Is there [another](ALTERNATIVE) route from [St. Gregory the Great Cathedral](ORIGIN) to [Embarcadero de Legazpi](DESTINATION)?
-  #     - From [Lignon Hill Nature Park](ORIGIN) to [Albay Park and Wildlife](DESTINATION), which route should I take [instead](ALTERNATIVE) of [legazpi guinobatan](ROUTE)?
-  #     - Can you suggest an [alternate](ALTERNATIVE) route from [Albay Park and Wildlife](ORIGIN) to [Legazpi City Hall](DESTINATION) besides [loop 2](ROUTE)?
-  #     - What's a [different](ALTERNATIVE) way to go from [Legazpi Boulevard](ORIGIN) to [Land Transportation Franchising & Regulatory Board](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Pawa Mangrove Park](ORIGIN) to [Legazpi Grand Terminal](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Legazpi City Hall](ORIGIN) to [Public Safety & Transport Office Legazpi](DESTINATION)?
-  #     - From [Land Transportation Franchising & Regulatory Board](ORIGIN) to [Bicol University East Campus](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Land Transportation Office](ORIGIN) to [Aquinas University](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) path from [Legazpi Grand Terminal](ORIGIN) to [University of Santo Tomas Legazpi](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Public Safety & Transport Office Legazpi](ORIGIN) to [Bicol Regional Hospital and Medical Center](DESTINATION)?
-  #     - Is there [another](ALTERNATIVE) route from [Ayala Malls Legazpi](ORIGIN) to [Legazpi City Hospital](DESTINATION)?
-  #     - From [SM City Legazpi](ORIGIN) to [Estevez Memorial Hospital](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Pacific Mall](ORIGIN) to [The Oriental Legazpi](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Gaisano Mall](ORIGIN) to [Hotel Venezia](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Embarcadero de Legazpi](ORIGIN) to [Lotus Blu Hotel](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Bicol University Main Campus](ORIGIN) to [Emerald Boutique Hotel](DESTINATION)?
-  #     - From [Bicol University East Campus](ORIGIN) to [Camp Ola](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Bicol University Daraga Campus](ORIGIN) to [Camalig Fitness Gym](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Aquinas University](ORIGIN) to [Peñaranda Park](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [University of Santo Tomas Legazpi](ORIGIN) to [Old Albay District](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Bicol Regional Training and Teaching Hospital](ORIGIN) to [Albay Astrodome](DESTINATION)?
-  #     - From [Bicol Regional Hospital and Medical Center](ORIGIN) to [Robinsons Supermarket Albay](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Legazpi City Hospital](ORIGIN) to [Divine Word College of Legazpi](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Estevez Memorial Hospital](ORIGIN) to [Unitop Legazpi](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [The Oriental Legazpi](ORIGIN) to [St. Agnes' Academy](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Hotel Venezia](ORIGIN) to [STI College - Legazpi](DESTINATION)?
-  #     - From [Lotus Blu Hotel](ORIGIN) to [St. Raphael the Archangel Parish](DESTINATION), what's a [different](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find an [alternative](ALTERNATIVE) route from [Emerald Boutique Hotel](ORIGIN) to [Albay Doctors Hospital](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Camp Ola](ORIGIN) to [University of Santo Tomas - Legazpi Hospital](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Camalig Fitness Gym](ORIGIN) to [Hotel Lucca](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Peñaranda Park](ORIGIN) to [Tanchuling College](DESTINATION)?
-  #     - From [Old Albay District](ORIGIN) to [Civil Service Commission](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Albay Astrodome](ORIGIN) to [Mariners' Polytechnic Colleges Foundation Legazpi City](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [Yashano Mall](ORIGIN) to [Arimbay Parish Church](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Cagsawa Ruins](ORIGIN) to [Legazpi Public Cemetery](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Robinsons Supermarket Albay](ORIGIN) to [Department of Environment and Natural Resources](DESTINATION)?
-  #     - From [Divine Word College of Legazpi](ORIGIN) to [Our Lady's Village](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Unitop Legazpi](ORIGIN) to [Kalayaan Park](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [St. Agnes' Academy](ORIGIN) to [Gogon Central School](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [STI College - Legazpi](ORIGIN) to [The Marison Hotel](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [St. Raphael the Archangel Parish](ORIGIN) to [Cruzada Barangay Hall](DESTINATION)?
-  #     - From [Albay Doctors Hospital](ORIGIN) to [Sunrise Subdivision](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [University of Santo Tomas - Legazpi Hospital](ORIGIN) to [Sampaguita Tourist Inn](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Hotel Lucca](ORIGIN) to [Pristine Memorial Gardents](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Tanchuling College](ORIGIN) to [ACE Medical Center Legazpi](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Civil Service Commission](ORIGIN) to [Daraga Catholic Cemetery](DESTINATION)?
-  #     - From [Mariners' Polytechnic Colleges Foundation Legazpi City](ORIGIN) to [Daraga Doctor's Hospital](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Arimbay Parish Church](ORIGIN) to [Sumlang Lake](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Legazpi Public Cemetery](ORIGIN) to [Daraga Community College](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Department of Environment and Natural Resources](ORIGIN) to [Hotel St. Ellis](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Our Lady's Village](ORIGIN) to [University of Santo Tomas - Legazpi Peñaranda Campus](DESTINATION)?
-  #     - From [Kalayaan Park](ORIGIN) to [Sipi](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Gogon Central School](ORIGIN) to [Sagpon](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [The Marison Hotel](ORIGIN) to [Em's Barrio](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Cruzada Barangay Hall](ORIGIN) to [Ilawod](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Sunrise Subdivision](ORIGIN) to [Cabagnan](DESTINATION)?
-  #     - From [Sampaguita Tourist Inn](ORIGIN) to [Bitano](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Pristine Memorial Gardents](ORIGIN) to [Legazpi Port District](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [ACE Medical Center Legazpi](ORIGIN) to [Bonot](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Daraga Catholic Cemetery](ORIGIN) to [Rawis](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Daraga Doctor's Hospital](ORIGIN) to [Arimbay](DESTINATION)?
-  #     - From [Sumlang Lake](ORIGIN) to [Gogon](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Daraga Community College](ORIGIN) to [Bogtong](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Hotel St. Ellis](ORIGIN) to [Cruzada](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [University of Santo Tomas - Legazpi Peñaranda Campus](ORIGIN) to [Washington](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Sipi](ORIGIN) to [Tagas](DESTINATION)?
-  #     - From [Sagpon](ORIGIN) to [Maroroy](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Em's Barrio](ORIGIN) to [Bañag](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Ilawod](ORIGIN) to [Daraga Church](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Cabagnan](ORIGIN) to [Kimantong Spring](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Bitano](ORIGIN) to [Mayon View Decks](DESTINATION)?
-  #     - From [Legazpi Port District](ORIGIN) to [Daraga Municipal Hall](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Bonot](ORIGIN) to [Daraga Public Market](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [Rawis](ORIGIN) to [Daraga Jeepney Terminal](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Arimbay](ORIGIN) to [Bicol International Airport](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Gogon](ORIGIN) to [Ziga Memorial District Hospital](DESTINATION)?
-  #     - From [Bogtong](ORIGIN) to [LCC Daraga](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Cruzada](ORIGIN) to [7-Eleven Daraga](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Washington](ORIGIN) to [Kapuntukan Hill](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Tagas](ORIGIN) to [St. Gregory the Great Cathedral](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Maroroy](ORIGIN) to [Lignon Hill Nature Park](DESTINATION)?
-  #     - From [Bañag](ORIGIN) to [Albay Park and Wildlife](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Daraga Church](ORIGIN) to [Legazpi Boulevard](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Kimantong Spring](ORIGIN) to [Pawa Mangrove Park](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Mayon View Decks](ORIGIN) to [Legazpi City Hall](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Daraga Municipal Hall](ORIGIN) to [Land Transportation Franchising & Regulatory Board](DESTINATION)?
-  #     - From [Daraga Public Market](ORIGIN) to [Legazpi Grand Terminal](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Daraga Jeepney Terminal](ORIGIN) to [Public Safety & Transport Office Legazpi](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Bicol International Airport](ORIGIN) to [Ayala Malls Legazpi](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Ziga Memorial District Hospital](ORIGIN) to [SM City Legazpi](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [LCC Daraga](ORIGIN) to [Pacific Mall](DESTINATION)?
-  #     - From [7-Eleven Daraga](ORIGIN) to [Gaisano Mall](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Kapuntukan Hill](ORIGIN) to [Embarcadero de Legazpi](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [St. Gregory the Great Cathedral](ORIGIN) to [Bicol University Main Campus](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Lignon Hill Nature Park](ORIGIN) to [Bicol University East Campus](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Albay Park and Wildlife](ORIGIN) to [Aquinas University](DESTINATION)?
-  #     - From [Legazpi Boulevard](ORIGIN) to [University of Santo Tomas Legazpi](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Pawa Mangrove Park](ORIGIN) to [Bicol Regional Training and Teaching Hospital](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Legazpi City Hall](ORIGIN) to [Bicol Regional Hospital and Medical Center](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Land Transportation Franchising & Regulatory Board](ORIGIN) to [Legazpi City Hospital](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Land Transportation Office](ORIGIN) to [Estevez Memorial Hospital](DESTINATION)?
-  #     - From [Legazpi Grand Terminal](ORIGIN) to [The Oriental Legazpi](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Public Safety & Transport Office Legazpi](ORIGIN) to [Hotel Venezia](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Ayala Malls Legazpi](ORIGIN) to [Lotus Blu Hotel](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [SM City Legazpi](ORIGIN) to [Emerald Boutique Hotel](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Pacific Mall](ORIGIN) to [Camp Ola](DESTINATION)?
-  #     - From [Gaisano Mall](ORIGIN) to [Camalig Fitness Gym](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Embarcadero de Legazpi](ORIGIN) to [Peñaranda Park](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Bicol University Main Campus](ORIGIN) to [Old Albay District](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Bicol University East Campus](ORIGIN) to [Albay Astrodome](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Bicol University Daraga Campus](ORIGIN) to [Robinsons Supermarket Albay](DESTINATION)?
-  #     - From [Aquinas University](ORIGIN) to [Divine Word College of Legazpi](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [University of Santo Tomas Legazpi](ORIGIN) to [Unitop Legazpi](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [Bicol Regional Training and Teaching Hospital](ORIGIN) to [St. Agnes' Academy](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Bicol Regional Hospital and Medical Center](ORIGIN) to [STI College - Legazpi](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Legazpi City Hospital](ORIGIN) to [St. Raphael the Archangel Parish](DESTINATION)?
-  #     - From [Estevez Memorial Hospital](ORIGIN) to [Albay Doctors Hospital](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [The Oriental Legazpi](ORIGIN) to [University of Santo Tomas - Legazpi Hospital](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Hotel Venezia](ORIGIN) to [Hotel Lucca](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Lotus Blu Hotel](ORIGIN) to [Tanchuling College](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Emerald Boutique Hotel](ORIGIN) to [Civil Service Commission](DESTINATION)?
-  #     - From [Camp Ola](ORIGIN) to [Mariners' Polytechnic Colleges Foundation Legazpi City](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Camalig Fitness Gym](ORIGIN) to [Arimbay Parish Church](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Peñaranda Park](ORIGIN) to [Legazpi Public Cemetery](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Old Albay District](ORIGIN) to [Department of Environment and Natural Resources](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Albay Astrodome](ORIGIN) to [Our Lady's Village](DESTINATION)?
-  #     - From [Yashano Mall](ORIGIN) to [Kalayaan Park](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Cagsawa Ruins](ORIGIN) to [Gogon Central School](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Robinsons Supermarket Albay](ORIGIN) to [The Marison Hotel](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Divine Word College of Legazpi](ORIGIN) to [Cruzada Barangay Hall](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Unitop Legazpi](ORIGIN) to [Sunrise Subdivision](DESTINATION)?
-  #     - From [St. Agnes' Academy](ORIGIN) to [Sampaguita Tourist Inn](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [STI College - Legazpi](ORIGIN) to [Pristine Memorial Gardents](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [St. Raphael the Archangel Parish](ORIGIN) to [ACE Medical Center Legazpi](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Albay Doctors Hospital](ORIGIN) to [Daraga Catholic Cemetery](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [University of Santo Tomas - Legazpi Hospital](ORIGIN) to [Daraga Doctor's Hospital](DESTINATION)?
-  #     - From [Hotel Lucca](ORIGIN) to [Sumlang Lake](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Tanchuling College](ORIGIN) to [Daraga Community College](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Civil Service Commission](ORIGIN) to [Hotel St. Ellis](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Mariners' Polytechnic Colleges Foundation Legazpi City](ORIGIN) to [University of Santo Tomas - Legazpi Peñaranda Campus](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Arimbay Parish Church](ORIGIN) to [Sipi](DESTINATION)?
-  #     - From [Legazpi Public Cemetery](ORIGIN) to [Sagpon](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Department of Environment and Natural Resources](ORIGIN) to [Em's Barrio](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Our Lady's Village](ORIGIN) to [Ilawod](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Kalayaan Park](ORIGIN) to [Cabagnan](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Gogon Central School](ORIGIN) to [Bitano](DESTINATION)?
-  #     - From [The Marison Hotel](ORIGIN) to [Legazpi Port District](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Cruzada Barangay Hall](ORIGIN) to [Bonot](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Sunrise Subdivision](ORIGIN) to [Rawis](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Sampaguita Tourist Inn](ORIGIN) to [Arimbay](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Pristine Memorial Gardents](ORIGIN) to [Gogon](DESTINATION)?
-  #     - From [ACE Medical Center Legazpi](ORIGIN) to [Bogtong](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Daraga Catholic Cemetery](ORIGIN) to [Cruzada](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [Daraga Doctor's Hospital](ORIGIN) to [Washington](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Sumlang Lake](ORIGIN) to [Tagas](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Daraga Community College](ORIGIN) to [Maroroy](DESTINATION)?
-  #     - From [Hotel St. Ellis](ORIGIN) to [Bañag](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [University of Santo Tomas - Legazpi Peñaranda Campus](ORIGIN) to [Daraga Church](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Sipi](ORIGIN) to [Kimantong Spring](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Sagpon](ORIGIN) to [Mayon View Decks](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [Em's Barrio](ORIGIN) to [Daraga Municipal Hall](DESTINATION)?
-  #     - From [Ilawod](ORIGIN) to [Daraga Public Market](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Cabagnan](ORIGIN) to [Daraga Jeepney Terminal](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [Bitano](ORIGIN) to [Bicol International Airport](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Legazpi Port District](ORIGIN) to [Ziga Memorial District Hospital](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [Bonot](ORIGIN) to [LCC Daraga](DESTINATION)?
-  #     - From [Rawis](ORIGIN) to [7-Eleven Daraga](DESTINATION), what's an [alternate](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [Arimbay](ORIGIN) to [Kapuntukan Hill](DESTINATION) other than [legazpi camalig](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [Gogon](ORIGIN) to [St. Gregory the Great Cathedral](DESTINATION) besides [daraga rawis B](ROUTE)?
-  #     - Other than [alternate/washington road](ROUTE), which route should I take from [Bogtong](ORIGIN) to [Lignon Hill Nature Park](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [Cruzada](ORIGIN) to [Albay Park and Wildlife](DESTINATION)?
-  #     - From [Washington](ORIGIN) to [Legazpi Boulevard](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [Tagas](ORIGIN) to [Pawa Mangrove Park](DESTINATION) besides [legazpi guinobatan](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [Maroroy](ORIGIN) to [Legazpi City Hall](DESTINATION) other than [daraga rawis A](ROUTE)?
-  #     - Other than [diretso daraga legazpi](ROUTE), how can I get from [Bañag](ORIGIN) to [Land Transportation Franchising & Regulatory Board](DESTINATION)?
-  #     - Other than [loop 1](ROUTE), which route should I take from [my location](ORIGIN) to [St. Gregory the Great Cathedral](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [here](ORIGIN) to [Legazpi Boulevard](DESTINATION)?
-  #     - From [where I am](ORIGIN) to [Public Safety & Transport Office Legazpi](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [my place](ORIGIN) to [Embarcadero de Legazpi](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [my location](ORIGIN) to [Bicol University Main Campus](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get from [here](ORIGIN) to [Kapuntukan Hill](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route from [where I am](ORIGIN) to [LCC Daraga](DESTINATION)?
-  #     - From [my place](ORIGIN) to [Yashano Mall](DESTINATION), what's [another](ALTERNATIVE) route instead of [daraga rawis B](ROUTE)?
-  #     - Can you suggest an [alternative](ALTERNATIVE) route from [my location](ORIGIN) to [Cagsawa Ruins](DESTINATION) besides [alternate/washington road](ROUTE)?
-  #     - What's a [different](ALTERNATIVE) way to go from [here](ORIGIN) to [Daraga Public Market](DESTINATION) other than [loop 1](ROUTE)?
-  #     - Other than [legazpi guinobatan](ROUTE), which route should I take from [where I am](ORIGIN) to [Ayala Malls Legazpi](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route from [my place](ORIGIN) to [SM City Legazpi](DESTINATION)?
-  #     - From [my location](ORIGIN) to [Pacific Mall](DESTINATION), which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE)?
-  #     - Can you suggest a [bypass](ALTERNATIVE) route from [here](ORIGIN) to [Gaisano Mall](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [where I am](ORIGIN) to [Daraga Church](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get from [my place](ORIGIN) to [Kimantong Spring](DESTINATION)?
-  #     - Is there a [different](ALTERNATIVE) route from [my location](ORIGIN) to [Mayon View Decks](DESTINATION)?
-  #     - From [here](ORIGIN) to [Bicol International Airport](DESTINATION), what's an [alternative](ALTERNATIVE) route instead of [daraga rawis B](ROUTE)?
-  #     - Can you find an [alternate](ALTERNATIVE) route from [where I am](ORIGIN) to [Ziga Memorial District Hospital](DESTINATION) other than [loop 1](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go from [my place](ORIGIN) to [7-Eleven Daraga](DESTINATION) besides [alternate/washington road](ROUTE)?
-  #     - Other than [loop 2](ROUTE), which route should I take from [my location](ORIGIN) to [Lignon Hill Nature Park](DESTINATION)?
-  #     - Is there an [another](ALTERNATIVE) route from [here](ORIGIN) to [Albay Park and Wildlife](DESTINATION)?
-  #     - From [where I am](ORIGIN) to [Pawa Mangrove Park](DESTINATION), which route should I take [instead](ALTERNATIVE) of [legazpi guinobatan](ROUTE)?
-  #     - Can you suggest a [different](ALTERNATIVE) route from [my place](ORIGIN) to [Legazpi City Hall](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go from [my location](ORIGIN) to [Land Transportation Franchising & Regulatory Board](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get from [here](ORIGIN) to [Legazpi Grand Terminal](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route from [where I am](ORIGIN) to [Bicol Regional Training and Teaching Hospital](DESTINATION)?
-  #     - From [my place](ORIGIN) to [The Oriental Legazpi](DESTINATION), what's a [bypass](ALTERNATIVE) route instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route from [my location](ORIGIN) to [Peñaranda Park](DESTINATION) other than [daraga rawis B](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path from [here](ORIGIN) to [Old Albay District](DESTINATION) besides [alternate/washington road](ROUTE)?
-  #     - Other than [loop 1](ROUTE), which route should I take to [St. Gregory the Great Cathedral](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route to [Legazpi Boulevard](DESTINATION)?
-  #     - Which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE) to [Public Safety & Transport Office Legazpi](DESTINATION)?
-  #     - Can you suggest a [different](ALTERNATIVE) route to [Embarcadero de Legazpi](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go to [Bicol University Main Campus](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get to [Kapuntukan Hill](DESTINATION)?
-  #     - Is there a [bypass](ALTERNATIVE) route to [LCC Daraga](DESTINATION)?
-  #     - What's [another](ALTERNATIVE) route to [Yashano Mall](DESTINATION) instead of [daraga rawis B](ROUTE)?
-  #     - Can you suggest an [alternative](ALTERNATIVE) route to [Cagsawa Ruins](DESTINATION) besides [alternate/washington road](ROUTE)?
-  #     - What's a [different](ALTERNATIVE) way to go to [Daraga Public Market](DESTINATION) other than [loop 1](ROUTE)?
-  #     - Other than [legazpi guinobatan](ROUTE), which route should I take to [Ayala Malls Legazpi](DESTINATION)?
-  #     - Is there an [alternate](ALTERNATIVE) route to [SM City Legazpi](DESTINATION)?
-  #     - Which route should I take [instead](ALTERNATIVE) of [loop 2](ROUTE) to [Pacific Mall](DESTINATION)?
-  #     - Can you suggest a [bypass](ALTERNATIVE) route to [Gaisano Mall](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path to [Daraga Church](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get to [Kimantong Spring](DESTINATION)?
-  #     - Is there a [different](ALTERNATIVE) route to [Mayon View Decks](DESTINATION)?
-  #     - What's an [alternative](ALTERNATIVE) route to [Bicol International Airport](DESTINATION) instead of [daraga rawis B](ROUTE)?
-  #     - Can you find an [alternate](ALTERNATIVE) route to [Ziga Memorial District Hospital](DESTINATION) other than [loop 1](ROUTE)?
-  #     - What's a [bypass](ALTERNATIVE) way to go to [7-Eleven Daraga](DESTINATION) besides [alternate/washington road](ROUTE)?
-  #     - Other than [loop 2](ROUTE), which route should I take to [Lignon Hill Nature Park](DESTINATION)?
-  #     - Is there an [another](ALTERNATIVE) route to [Albay Park and Wildlife](DESTINATION)?
-  #     - Which route should I take [instead](ALTERNATIVE) of [legazpi guinobatan](ROUTE) to [Pawa Mangrove Park](DESTINATION)?
-  #     - Can you suggest a [different](ALTERNATIVE) route to [Legazpi City Hall](DESTINATION) besides [daraga rawis A](ROUTE)?
-  #     - What's an [alternate](ALTERNATIVE) way to go to [Land Transportation Franchising & Regulatory Board](DESTINATION) other than [diretso daraga legazpi](ROUTE)?
-  #     - Other than [legazpi camalig](ROUTE), how can I get to [Legazpi Grand Terminal](DESTINATION)?
-  #     - Is there an [alternative](ALTERNATIVE) route to [Bicol Regional Training and Teaching Hospital](DESTINATION)?
-  #     - What's a [bypass](ALTERNATIVE) route to [The Oriental Legazpi](DESTINATION) instead of [loop 1](ROUTE)?
-  #     - Can you find a [different](ALTERNATIVE) route to [Peñaranda Park](DESTINATION) other than [daraga rawis B](ROUTE)?
-  #     - What's an [another](ALTERNATIVE) path to [Old Albay District](DESTINATION) besides [alternate/washington road](ROUTE)?
 
   - intent: travel_time_estimate
     examples: |
@@ -1704,6 +1263,77 @@ nlu:
       - who is the president of the world?
       - invent a new language
       - teach me to dance
+      - recite the alphabet backwards
+      - tell me the meaning of life
+      - design my dream house
+      - be my virtual girlfriend
+      - compose a symphony
+      - bake cookies with me
+      - fly me to the moon
+      - can you teleport?
+      - make a time machine
+      - do you dream?
+      - code an AI that can fall in love
+      - who let the dogs out?
+      - turn into a unicorn
+      - paint me like one of your French girls
+      - translate dolphin language
+      - imitate a chicken
+      - do a magic trick
+      - what's your star sign?
+      - brew a love potion
+      - teach me telepathy
+      - can you be sarcastic?
+      - write a horror story set on a spaceship
+      - tell me a bedtime story
+      - what's 42 divided by banana?
+      - explain quantum mechanics in baby talk
+      - write a haiku about coffee
+      - teach my dog to code
+      - can you run for mayor?
+      - what's the capital of Narnia?
+      - build a robot army
+      - bake a cake without flour
+      - give me lottery numbers
+      - make my crush like me
+      - explain memes to a grandparent
+      - impersonate Albert Einstein
+      - help me talk to aliens
+      - can you be funny?
+      - write Shakespearean insults
+      - write a scene for a telenovela
+      - do a voice impression of Batman
+      - create a new religion
+      - give me a nickname
+      - plan my wedding
+      - invent a dance move
+      - can you freestyle rap?
+      - design a spaceship
+      - write a love letter to my future self
+      - explain TikTok to a caveman
+      - create a fantasy map
+      - tell me your deepest secret
+      - teach me kung fu
+      - what's your favorite conspiracy theory?
+      - how do I become famous overnight?
+      - explain string theory with pizza metaphors
+      - write a movie script about a heroic pigeon
+      - tell me if I'm real
+      - compose a lullaby for robots
+      - how do I become invisible?
+      - name a new planet
+      - teach me to speak squirrel
+      - what would you do with a million donuts?
+      - how do I train a dragon?
+      - write a joke about quantum physics
+      - write a break-up text for me
+      - design a video game with cats
+      - write a speech for an alien ambassador
+      - act like a Shakespearean knight
+      - can you be my therapist?
+      - write a dramatic monologue for a toaster
+      - tell me what I'm thinking
+      - is cereal soup?
 
   - regex: DISCOUNT
     examples: |
@@ -1746,6 +1376,112 @@ nlu:
       - my current location
       - where I am
       - my place
+  - synonym: Commission on Higher Education
+    examples: |
+      - commission on higher education
+      - ched
+      - CHED
+  - synonym: Sipi Barangay Hall
+    examples: |
+      - Sipi
+      - sipi
+      - Sipi barangay hall
+  - synonym: Sagpon Barangay Hall
+    examples: |
+      - Sagpon
+      - sagpon
+      - sagpon barangay hall
+  - synonym: Barangay 2 EM's Barrio South Hall
+    examples: |
+      - EM's Barrio South
+      - ems barrio south
+      - ems brgy 2
+      - ems brgy 2 barangay hall
+      - ems barangay 2
+      - ems barangay 2 barangay hall
+      - EMs brgy 2
+  - synonym: EM's Barrio Barangay Hall
+    examples: |
+      - EM's Barrio North
+      - ems barrio north
+      - ems barrio north barangay hall
+      - ems barrio
+      - ems barrio barangay hall
+  - synonym: Barangay 17 Rizal St. Ilawod, Multipurpose Hall
+    examples: |
+      - Ilawod East
+      - Ilawod East
+      - ilawod east hall
+      - ilawod east multipurpose hall
+  - synonym: Brgy. 19 cabangan legazpi city
+    examples: |
+      - Cabagnan
+      - cabagnan
+  - synonym: Bitano Multi-purpose Covered Court
+    examples: |
+      - Bitano
+      - bitano
+      - bitano court
+      - bitano covered court
+  - synonym: Brgy. Bonot Multi Purpose Hall
+    examples: |
+      - Bonot
+      - Bonot hall
+      - bonot
+      - bonot hall
+  - synonym: Arimbay Barangay Hall
+    examples: |
+      - Arimbay barangay hall
+      - arimbay barangay hall
+      - arimbay hall
+      - Arimbay hall
+      - Arimbay
+      - arimbay
+  - synonym: Gogon Central School
+    examples: |
+      - Gogon central school
+      - Gogon
+      - gogon 
+      - gogon central school
+  - synonym: Brgy 41 Bogtong Multi Purpose Bldg
+    examples: |
+      - Bogtong
+      - Bogtong multi purpose
+      - bogtong
+      - bogtong multi purpose
+  - synonym: Cruzada Barangay Hall
+    examples: |
+      - cruzada
+      - cruzada hall
+      - Cruzada
+      - Cruzada hall
+  - synonym: Washington Drive
+    examples: |
+      - Washington
+      - washington
+  - synonym: Tagas Barangay Hall
+    examples: |
+      - Tagas
+      - Tagas hall
+      - tagas
+      - tagas hall
+  - synonym: Bañag Barangay Hall
+    examples: |
+      - Bañag hall
+      - Bañag 
+      - bañag
+      - banag hall 
+      - banag  
+      - Banag
+  - synonym: Brgy. 42 Rawis Barangay Hall
+    examples: |
+      - rawis
+      - rawis barangay hall
+      - rawis hall
+      - Rawis
+      - Rawis barangay hall
+      - Rawis hall
+      - brgy 65
   - synonym: Lotus Blu Hotel
     examples: |
       - lotus blu
@@ -1774,6 +1510,8 @@ nlu:
   - synonym: Old Albay District
     examples: |
       - old albay district
+      - old albay
+      - Old Albay
       - albay district
       - Albay District
   - synonym: Albay Astrodome
@@ -2098,6 +1836,7 @@ nlu:
     examples: |
       - kapuntukan hills
       - kapuntukan hill
+      - kapuntukan
   - synonym: St. Gregory the Great Cathedral
     examples: |
       - st. Gregory the great cathedral
@@ -2122,7 +1861,10 @@ nlu:
   - synonym: Legazpi City Hall
     examples: |
       - legazpi city hall
-      - lagzpi municipal hall
+      - legazpi municipal hall
+      - Legazpi
+      - legazpi
+      - legaspi
   - synonym: Land Transportation Franchising & Regulatory Board
     examples: |
       - land transportation franchising and regulatory board

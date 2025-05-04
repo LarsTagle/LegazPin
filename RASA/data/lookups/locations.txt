@@ -45,8 +45,9 @@ Albay Astrodome
 Yashano Mall
 Cagsawa Ruins
 Albay Provincial Capitol
-Robinsons Supermarket Albay
 Divine Word College of Legazpi
+Robinsons Supermarket Albay
+Citi Hardware Legazpi
 Unitop Legazpi
 St. Agnes' Academy
 STI College - Legazpi
@@ -76,20 +77,39 @@ Daraga Community College
 Hotel St. Ellis
 University of Santo Tomas - Legazpi Peñaranda Campus
 Sipi
+Sipi Barangay Hall
 Sagpon
-Em's Barrio
+Sagpon Barangay Hall
+EM's Barrio South
+Barangay 2 EM's Barrio South Hall
+EM's Barrio North
+EM's Barrio Barangay Hall
+Old Albay
 Old Albay District
+Barangay 17 Rizal St. Ilawod, Multipurpose Hall
 Ilawod
+Brgy. 19 cabangan legazpi city
 Cabagnan
+Bitano Multi-purpose Covered Court
 Bitano
+Legazpi City Hall
 Legazpi Port District
+Brgy. Bonot Multi Purpose Hall
 Bonot
+Brgy. 42 Rawis Barangay Hall
 Rawis
+Arimbay Barangay Hall
 Arimbay
+Gogon Central School
 Gogon
+Brgy 41 Bogtong Multi Purpose Bldg
 Bogtong
+Cruzada Barangay Hall
 Cruzada
+Washington Drive
 Washington
+Tagas Barangay Hall
 Tagas
 Maroroy
+Bañag Barangay Hall
 Bañag
