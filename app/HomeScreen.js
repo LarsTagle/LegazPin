@@ -251,11 +251,13 @@ export const styles = StyleSheet.create({
     maxWidth: "75%",
   },
   userBubble: {
+    marginRight: 10,
     backgroundColor: "#007AFF",
     alignSelf: "flex-end",
   },
   botBubble: {
-    backgroundColor: "rgb(255, 139, 139)",
+    marginLeft: 10,
+    backgroundColor: "rgb(225, 225, 225)",
     alignSelf: "flex-start",
   },
   chatText: {
