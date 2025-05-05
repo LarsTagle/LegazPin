@@ -211,8 +211,6 @@ class ActionHandleFareInquiry(Action):
         route = tracker.get_slot("route")
         discount = tracker.get_slot("discount")
 
-        print(f"Origin: {origin}, Destination: {destination}")
-
         origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
         # Check if the location input is invalid
         if not is_valid:
@@ -222,7 +220,6 @@ class ActionHandleFareInquiry(Action):
 
         try:
             distance_km, status = self.get_cached_distance(origin, destination, region)
-            print(f"Status: {status}")
             # Check if one of the locations was not found
             if status == "NOT_FOUND":
                 dispatcher.utter_message(text=f"One of the locations ({origin} or {destination}) was not found. Please provide more specific names.")
@@ -462,8 +459,6 @@ class ActionHandleRouteFinder(Action):
         origin = tracker.get_slot("origin")
         destination = tracker.get_slot("destination")
 
-        print(f"Origin: {origin}, Destination: {destination}")
-
         origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
         # Check if the location input is invalid
         if not is_valid:
@@ -564,8 +559,6 @@ class ActionHandleRecommendPlace(Action):
         activity = activity.lower() if activity else None
         location = tracker.get_slot("location")
         location = location.lower() if location else None
-
-        print(f"Activity: {activity} or Location: {location}")
 
         # Check if neither activity nor location is specified
         if not activity and not location:
@@ -746,13 +739,11 @@ class ActionHandleRecommendPlace(Action):
             description_places = []
             for locs in locations_with_distance:
                 loc_tags = locs["tags"]
-                print(f"Location Tag: {loc_tags}")
                 # Check if activity or location tags match the location's tags
                 if (activity and any(tag.lower() in loc_tags for tag in activity_tags)) or \
                    (location and any(tag.lower() in loc_tags for tag in location_tag)):
                     recommended_places.append(locs["name"])
                     description_places.append(locs["description"])
-                    print(f"Match found for {locs['name']} with tags {loc_tags}")
                     # Stop after collecting 5 recommendations
                     if len(recommended_places) >= 5:
                         break
@@ -823,7 +814,6 @@ class ActionHandleTravelTimeEstimate(Action):
 
         try:
             duration_seconds, duration_text, status = self.get_cached_directions(origin, destination, region)
-            print(f"Status: {status}")
             # Check if one of the locations was not found
             if status == "NOT_FOUND":
                 self.get_cached_directions.cache_clear()
