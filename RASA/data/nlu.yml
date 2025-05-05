@@ -282,6 +282,7 @@ nlu:
       - Jeep fare from [Sagpon](ORIGIN) to [Legazpi Boulevard](DESTINATION)?
       - What's the fare from [Em's Barrio](ORIGIN) to [Cagsawa Ruins](DESTINATION)?
       - How much to [Ilawod](ORIGIN) to [SM City Legazpi](DESTINATION)?
+      - How much to [SM](ORIGIN) to [Ilawod](DESTINATION)?
       - Fare from [Cabagnan](ORIGIN) to [Yashano Mall](DESTINATION)?
       - What's the cost from [Bitano](ORIGIN) to [Kapuntukan Hill](DESTINATION)?
       - How much is the fare from [Bonot](ORIGIN) to [Busay Falls](DESTINATION)?
@@ -862,156 +863,213 @@ nlu:
 
   - intent: recommend_place
     examples: |
-      - Where is the best spot for [hiking](ACTIVITY)?
-      - Can you suggest a place to go [hiking](ACTIVITY)?
-      - What's a good location for [hiking](ACTIVITY) around here?
-      - Where can I [relax](ACTIVITY)?
-      - Suggest a spot where I can [relax](ACTIVITY) peacefully.
-      - What's the best place to [relax](ACTIVITY) nearby?
-      - Can you give me some place to [swim](ACTIVITY)?
-      - Where should I go to [swim](ACTIVITY)?
-      - Recommend a location for [swim](ACTIVITY) in the area.
+      - Where can I go for [hiking](ACTIVITY)?
+      - Can you recommend a place to [relaxing](ACTIVITY)?
+      - Suggest a spot for [swimming](ACTIVITY).
       - What's a great place for [sightseeing](ACTIVITY)?
-      - Can you recommend a spot for [sightseeing](ACTIVITY)?
-      - Where can I go for some [sightseeing](ACTIVITY)?
-      - Suggest a place to [pray](ACTIVITY).
-      - Where's the best spot to [pray](ACTIVITY)?
-      - Can you tell me a good place to [pray](ACTIVITY)?
-      - Where can I go to [meditate](ACTIVITY)?
-      - Recommend a location for [meditate](ACTIVITY).
-      - What's a good place to [meditate](ACTIVITY)?
-      - Can you suggest a spot for [study](ACTIVITY)?
-      - Where's the best place for [study](ACTIVITY)?
-      - Tell me a location great for [study](ACTIVITY).
-      - What's a good place to go [recreate](ACTIVITY)?
-      - Can you recommend a spot for [recreate](ACTIVITY)?
-      - Where should I go for [recreate](ACTIVITY)?
-      - Suggest a place for [fine dine](ACTIVITY).
-      - Where can I go for [fine dine](ACTIVITY)?
-      - What's a great spot for [fine dine](ACTIVITY)?
-      - Where's a good place to [date](ACTIVITY)?
-      - Can you suggest a spot to [date](ACTIVITY)?
-      - Recommend a location to [date](ACTIVITY).
+      - Recommend a location for [sunset](ACTIVITY).
+      - Where should I go for [sunrise](ACTIVITY)?
+      - Can you suggest a place for [praying](ACTIVITY)?
+      - Find a spot to [meditate](ACTIVITY).
+      - Where's the best place for [worshiping](ACTIVITY)?
+      - Suggest a place for [studying](ACTIVITY).
+      - Recommend a [library](LOCATION) for [studying](ACTIVITY).
+      - Where can I go for [recreation](ACTIVITY)?
+      - What's a good spot for [dining](ACTIVITY)?
+      - Can you recommend a [restaurant](LOCATION) for [eating](ACTIVITY)?
+      - Suggest a place for [dates](ACTIVITY).
       - Where can I go for [casual talk](ACTIVITY)?
-      - What's the best place for [casual talk](ACTIVITY)?
-      - Suggest a spot for [casual talk](ACTIVITY).
-      - What's a great place for [shop](ACTIVITY)?
-      - Can you recommend a spot for [shop](ACTIVITY)?
-      - Where can I go to [shop](ACTIVITY)?
-      - Suggest a place to [watch movies](ACTIVITY).
-      - Where's the best spot to [watch movies](ACTIVITY)?
-      - Can you tell me a good place to [watch movies](ACTIVITY)?
-      - Where can I go to [play games](ACTIVITY)?
-      - Recommend a location for [play games](ACTIVITY).
-      - What's a good place to [play games](ACTIVITY)?
+      - Recommend a [cafe](LOCATION) for [casual talk](ACTIVITY).
+      - What's a great place for [shopping](ACTIVITY)?
+      - Suggest a [mall](LOCATION) for [shopping](ACTIVITY).
+      - Where can I go for [playing](ACTIVITY)?
+      - Recommend a [park](LOCATION) for [playing](ACTIVITY).
       - Can you suggest a spot for [exercise](ACTIVITY)?
-      - Where's the best place for [exercise](ACTIVITY)?
-      - Tell me a location great for [exercise](ACTIVITY).
-      - What's a good place to go [jog](ACTIVITY)?
-      - Can you recommend a spot for [jog](ACTIVITY)?
-      - Where should I go for [jog](ACTIVITY)?
-      - Suggest a place for [photography](ACTIVITY).
+      - Where's the best place for [jogging](ACTIVITY)?
+      - Suggest a [nature park](LOCATION) for [jogging](ACTIVITY).
       - Where can I go for [photography](ACTIVITY)?
-      - What's a great spot for [photography](ACTIVITY)?
-      - Where's a good place to [learn history](ACTIVITY)?
-      - Can you suggest a spot to [learn history](ACTIVITY)?
-      - Recommend a location to [learn history](ACTIVITY).
-      - Where can I go for [cultural exploration](ACTIVITY)?
-      - What's the best place for [cultural exploration](ACTIVITY)?
-      - Suggest a spot for [cultural exploration](ACTIVITY).
-      - What's a great place for [banking](ACTIVITY)?
-      - Can you recommend a spot for [banking](ACTIVITY)?
-      - Where can I go to [banking](ACTIVITY)?
-      - Suggest a place to [stay overnight](ACTIVITY).
-      - Where's the best spot to [stay overnight](ACTIVITY)?
-      - Can you tell me a good place to [stay overnight](ACTIVITY)?
-      - Where can I go to [commute](ACTIVITY)?
-      - Recommend a location for [commute](ACTIVITY).
-      - What's a good place to [commute](ACTIVITY)?
-      - Can you suggest a spot for [view scenery](ACTIVITY)?
-      - Where's the best place for [view scenery](ACTIVITY)?
-      - Tell me a location great for [view scenery](ACTIVITY).
-      - What's a good place to go [shop locally](ACTIVITY)?
-      - Can you recommend a spot for [shop locally](ACTIVITY)?
-      - Where should I go for [shop locally](ACTIVITY)?
-      - Suggest a place for [seek medical care](ACTIVITY).
-      - Where can I go for [seek medical care](ACTIVITY)?
+      - Recommend a [photo spot](LOCATION) for [photography](ACTIVITY).
+      - What's a good place for [learn history](ACTIVITY)?
+      - Suggest a [museum](LOCATION) for [cultural exploration](ACTIVITY).
+      - Where can I go for [banking](ACTIVITY)?
+      - Recommend a [bank](LOCATION) for [banking](ACTIVITY).
+      - Can you suggest a place for [stay overnight](ACTIVITY)?
+      - Where's a good [hotel](LOCATION) for [stay overnight](ACTIVITY)?
+      - Suggest a place for [commute](ACTIVITY).
+      - Recommend a [terminal](LOCATION) for [commute](ACTIVITY).
+      - Where can I go for [view scenery](ACTIVITY)?
       - What's a great spot for [seek medical care](ACTIVITY)?
-      - Where's a good place to [visit government services](ACTIVITY)?
-      - Can you suggest a spot to [visit government services](ACTIVITY)?
-      - Recommend a location to [visit government services](ACTIVITY).
-      - Where can I go for [attend events](ACTIVITY)?
-      - What's the best place for [attend events](ACTIVITY)?
-      - Suggest a spot for [attend events](ACTIVITY).
-      - What's a great place for [play sports](ACTIVITY)?
-      - Can you recommend a spot for [play sports](ACTIVITY)?
-      - Where can I go to [play sports](ACTIVITY)?
-      - Suggest a place to [bird watch](ACTIVITY).
-      - Where's the best spot to [bird watch](ACTIVITY)?
-      - Can you tell me a good place to [bird watch](ACTIVITY)?
-      - Where can I go to [picnic](ACTIVITY)?
-      - Recommend a location for [picnic](ACTIVITY).
-      - What's a good place to [picnic](ACTIVITY)?
-      - Can you suggest a spot for [attend cultural shows](ACTIVITY)?
-      - Where's the best place for [attend cultural shows](ACTIVITY)?
-      - Tell me a location great for [attend cultural shows](ACTIVITY).
-      - What's a good place to go [cycle](ACTIVITY)?
-      - Can you recommend a spot for [cycle](ACTIVITY)?
-      - Where should I go for [cycle](ACTIVITY)?
-      - Suggest a place for [explore nature](ACTIVITY).
-      - Where can I go for [explore nature](ACTIVITY)?
-      - What's a great spot for [explore nature](ACTIVITY)?
-      - Where's a good place to [hang out with family](ACTIVITY)?
-      - Can you suggest a spot to [hang out with family](ACTIVITY)?
-      - Recommend a location to [hang out with family](ACTIVITY).
-      - Where can I go for [attend workshops](ACTIVITY)?
-      - What's the best place for [attend workshops](ACTIVITY)?
-      - Suggest a spot for [attend workshops](ACTIVITY).
-      - What's a great place for [buy souvenirs](ACTIVITY)?
-      - Can you recommend a spot for [buy souvenirs](ACTIVITY)?
-      - Where can I go to [buy souvenirs](ACTIVITY)?
-      - Suggest a place to [enjoy nightlife](ACTIVITY).
-      - Where's the best spot to [enjoy nightlife](ACTIVITY)?
-      - Can you tell me a good place to [enjoy nightlife](ACTIVITY)?
-      - Where can I go to [attend festivals](ACTIVITY)?
-      - Recommend a location for [attend festivals](ACTIVITY).
-      - What's a good place to [attend festivals](ACTIVITY)?
-      - Can you suggest a spot for [volunteer](ACTIVITY)?
-      - Where's the best place for [volunteer](ACTIVITY)?
-      - Tell me a location great for [volunteer](ACTIVITY).
-      - What's a good place to go [walk leisurely](ACTIVITY)?
-      - Can you recommend a spot for [walk leisurely](ACTIVITY)?
-      - Where should I go for [walk leisurely](ACTIVITY)?
-      - Suggest a place for [meet new people](ACTIVITY).
-      - Where can I go for [meet new people](ACTIVITY)?
-      - What's a great spot for [meet new people](ACTIVITY)?
-      - Where's a good place to [read quietly](ACTIVITY)?
-      - Can you suggest a spot to [read quietly](ACTIVITY)?
-      - Recommend a location to [read quietly](ACTIVITY).
-      - Where can I go for [attend lectures](ACTIVITY)?
-      - What's the best place for [attend lectures](ACTIVITY)?
-      - Suggest a spot for [attend lectures](ACTIVITY).
-      - What's a great place for [try local food](ACTIVITY)?
-      - Can you recommend a spot for [try local food](ACTIVITY)?
-      - Where can I go to [try local food](ACTIVITY)?
-      - Suggest a place to [practice yoga](ACTIVITY).
-      - Where's the best spot to [practice yoga](ACTIVITY)?
-      - Can you tell me a good place to [practice yoga](ACTIVITY)?
-      - Where can I go to [watch performances](ACTIVITY)?
-      - Recommend a location for [watch performances](ACTIVITY).
-      - What's a good place to [watch performances](ACTIVITY)?
-      - Can you suggest a spot for [explore art](ACTIVITY)?
-      - Where's the best place for [explore art](ACTIVITY)?
-      - Tell me a location great for [explore art](ACTIVITY).
-      - What's a good place to go [camp](ACTIVITY)?
+      - Recommend a [hospital](LOCATION) for [see a doctor](ACTIVITY).
+      - Suggest a [clinic](LOCATION) for [seek medical care](ACTIVITY).
+      - Where can I go for [visit government services](ACTIVITY)?
+      - Recommend a [government office](LOCATION) for [visit government services](ACTIVITY).
+      - Can you suggest a spot for [attend events](ACTIVITY)?
+      - Where's the best place for [sports](ACTIVITY)?
+      - Suggest a [park](LOCATION) for [sports](ACTIVITY).
+      - Where can I go for [bird watch](ACTIVITY)?
+      - Recommend a [wildlife sanctuary](LOCATION) for [bird watch](ACTIVITY).
+      - What's a good place for [picnic](ACTIVITY)?
+      - Suggest a [garden](LOCATION) for [picnic](ACTIVITY).
+      - Where can I go for [cultural shows](ACTIVITY)?
+      - Recommend a [events center](LOCATION) for [cultural shows](ACTIVITY).
+      - Can you suggest a place for [cycle](ACTIVITY)?
+      - Where's a great spot for [explore nature](ACTIVITY)?
+      - Suggest a [nature park](LOCATION) for [explore nature](ACTIVITY).
+      - Where can I go for [family bonding](ACTIVITY)?
+      - Recommend a [park](LOCATION) for [family bonding](ACTIVITY).
+      - What's a good place for [workshops](ACTIVITY)?
+      - Suggest a [community center](LOCATION) for [workshops](ACTIVITY).
+      - Where can I go for [souvenirs](ACTIVITY)?
+      - Recommend a [market](LOCATION) for [souvenirs](ACTIVITY).
+      - Can you suggest a spot for [nightlife](ACTIVITY)?
+      - Where's the best [bar](LOCATION) for [nightlife](ACTIVITY)?
+      - Suggest a place for [festivals](ACTIVITY).
+      - Recommend a [plaza](LOCATION) for [festivals](ACTIVITY).
+      - Where can I go for [volunteer](ACTIVITY)?
+      - Suggest a [community center](LOCATION) for [volunteer](ACTIVITY).
+      - What's a great place for [walking](ACTIVITY)?
+      - Recommend a [park](LOCATION) for [leisure](ACTIVITY).
+      - Where can I go for [meet](ACTIVITY)?
+      - Suggest a [cafe](LOCATION) for [meet](ACTIVITY).
+      - Can you recommend a place for [quiet](ACTIVITY)?
+      - Where's a good [library](LOCATION) for [read](ACTIVITY)?
+      - Suggest a spot for [lectures](ACTIVITY).
+      - Recommend a [university](LOCATION) for [lectures](ACTIVITY).
+      - Where can I go for [yoga](ACTIVITY)?
+      - Suggest a [spa](LOCATION) for [yoga](ACTIVITY).
+      - What's a great place for [performances](ACTIVITY)?
+      - Recommend a [events center](LOCATION) for [performances](ACTIVITY).
+      - Where can I go for [art](ACTIVITY)?
+      - Suggest a [museum](LOCATION) for [art](ACTIVITY).
       - Can you recommend a spot for [camp](ACTIVITY)?
-      - Where should I go for [camp](ACTIVITY)?
-      - Suggest a place for [attend markets](ACTIVITY).
-      - Where can I go for [attend markets](ACTIVITY)?
-      - What's a great spot for [attend markets](ACTIVITY).
-      - Where's a good place to [fish](ACTIVITY)?
-      - Can you suggest a spot to [fish](ACTIVITY)?
-      - Recommend a location to [fish](ACTIVITY).
+      - Where's a good [resort](LOCATION) for [camp](ACTIVITY)?
+      - Suggest a place for [markets](ACTIVITY).
+      - Recommend a [public market](LOCATION) for [markets](ACTIVITY).
+      - Where can I go for [boating](ACTIVITY)?
+      - Suggest a [lake](LOCATION) for [boating](ACTIVITY).
+      - What's a great spot for [fishing](ACTIVITY)?
+      - Recommend a [lake](LOCATION) for [fishing](ACTIVITY).
+      - Where can I go for [zipline](ACTIVITY)?
+      - Suggest a [amusement park](LOCATION) for [zipline](ACTIVITY).
+      - Can you recommend a place for [visit museum](ACTIVITY)?
+      - Where's a good [museum](LOCATION) for [visit museum](ACTIVITY)?
+      - Suggest a spot for [hot spring bath](ACTIVITY).
+      - Recommend a [spring](LOCATION) for [hot spring bath](ACTIVITY).
+      - Where can I go for [snorkeling](ACTIVITY)?
+      - Suggest a [beach](LOCATION) for [snorkeling](ACTIVITY).
+      - What's a great place for [scuba diving](ACTIVITY)?
+      - Recommend a [beach](LOCATION) for [scuba diving](ACTIVITY).
+      - Where can I go for [spa](ACTIVITY)?
+      - Suggest a [spa](LOCATION) for [spa](ACTIVITY).
+      - Can you recommend a place for [rest](ACTIVITY)?
+      - Where's a good [hotel](LOCATION) for [rest](ACTIVITY)?
+      - Suggest a spot for [stargazing](ACTIVITY).
+      - Recommend a [nature park](LOCATION) for [stargazing](ACTIVITY).
+      - Where can I go for [wedding](ACTIVITY)?
+      - Suggest a [garden](LOCATION) for [wedding](ACTIVITY).
+      - What's a great place for [attend mass](ACTIVITY)?
+      - Recommend a [church](LOCATION) for [attend mass](ACTIVITY).
+      - Where can I go for [visit cemetery](ACTIVITY)?
+      - Suggest a [cemetery](LOCATION) for [visit cemetery](ACTIVITY).
+      - Can you recommend a place for [resort stay](ACTIVITY)?
+      - Where's a good [resort](LOCATION) for [resort stay](ACTIVITY)?
+      - Suggest a spot for [campfire](ACTIVITY).
+      - Recommend a [resort](LOCATION) for [campfire](ACTIVITY).
+      - Where can I go for [trekking](ACTIVITY)?
+      - Suggest a [nature park](LOCATION) for [trekking](ACTIVITY).
+      - What's a great place for [eco-tour](ACTIVITY)?
+      - Recommend a [wildlife sanctuary](LOCATION) for [eco-tour](ACTIVITY).
+      - Where can I go for [river cruise](ACTIVITY)?
+      - Suggest a [lake](LOCATION) for [river cruise](ACTIVITY).
+      - Can you recommend a place for [plant visit](ACTIVITY)?
+      - Where's a good [garden](LOCATION) for [plant visit](ACTIVITY)?
+      - Suggest a spot for [community service](ACTIVITY).
+      - Recommend a [community center](LOCATION) for [community service](ACTIVITY).
+      - Where can I go for [join parade](ACTIVITY)?
+      - Suggest a [plaza](LOCATION) for [join parade](ACTIVITY).
+      - What's a great place for [nature walk](ACTIVITY)?
+      - Recommend a [park](LOCATION) for [nature walk](ACTIVITY).
+      - Where can I go for [photo walk](ACTIVITY)?
+      - Suggest a [photo spot](LOCATION) for [photo walk](ACTIVITY).
+      - Can you recommend a place for [beach games](ACTIVITY)?
+      - Where's a good [beach](LOCATION) for [beach games](ACTIVITY)?
+      - Suggest a spot for [grocery](ACTIVITY).
+      - Recommend a [convenience store](LOCATION) for [grocery](ACTIVITY).
+      - Where can I go for [hardware shopping](ACTIVITY)?
+      - Suggest a [hardware store](LOCATION) for [hardware shopping](ACTIVITY).
+      - What's a great place for [bike tour](ACTIVITY)?
+      - Recommend a [park](LOCATION) for [bike tour](ACTIVITY).
+      - Where can I go for [visit port](ACTIVITY)?
+      - Suggest a [port](LOCATION) for [visit port](ACTIVITY).
+      - Can you recommend a place for [commute via tricycle](ACTIVITY)?
+      - Where's a good [terminal](LOCATION) for [commute via tricycle](ACTIVITY)?
+      - Suggest a spot for [jeepney ride](ACTIVITY).
+      - Recommend a [terminal](LOCATION) for [jeepney ride](ACTIVITY).
+      - Where can I go for [visit city hall](ACTIVITY)?
+      - Suggest a [government office](LOCATION) for [visit city hall](ACTIVITY).
+      - What's a great place for [buy gadgets](ACTIVITY)?
+      - Recommend a [mall](LOCATION) for [buy gadgets](ACTIVITY).
+      - Where can I go for [refuel](ACTIVITY)?
+      - Suggest a [fuel station](LOCATION) for [refuel](ACTIVITY).
+      - Can you recommend a place for [attend seminar](ACTIVITY)?
+      - Where's a good [community center](LOCATION) for [attend seminar](ACTIVITY)?
+      - Suggest a spot for [watch play](ACTIVITY).
+      - Recommend a [events center](LOCATION) for [watch play](ACTIVITY).
+      - Where can I go for [sleeping](ACTIVITY)?
+      - Suggest a [hotel](LOCATION) for [sleeping](ACTIVITY).
+      - Recommend a [hospital](LOCATION).
+      - Suggest a [fast food](LOCATION) restaurant.
+      - Where is the best [park](LOCATION)?
+      - What are great [lake](LOCATION) here?
+      - Best [university](LOCATION).
+      - Where can I find a good [museum](LOCATION)?
+      - Suggest a nearby [clinic](LOCATION).
+      - Recommend a quiet [library](LOCATION).
+      - Where's a good [cafe](LOCATION)?
+      - Find me a nice [beach](LOCATION).
+      - Best [mall](LOCATION) around here.
+      - Locate a [convenience store](LOCATION).
+      - A good [restaurant](LOCATION) near me.
+      - Recommend a cheap [hotel](LOCATION).
+      - Suggest a cool [bar](LOCATION).
+      - A [church](LOCATION) to attend nearby.
+      - Nearest [fuel station](LOCATION)?
+      - Best [pharmacy](LOCATION) close to me.
+      - Show me a [spa](LOCATION).
+      - Where's the best [park](LOCATION) for [playing](ACTIVITY)?
+      - A peaceful [garden](LOCATION) for a walk.
+      - Find a top-rated [restaurant](LOCATION).
+      - Good [cinema](LOCATION) nearby?
+      - Recommend a [wildlife sanctuary](LOCATION) for kids.
+      - Closest [school](LOCATION) in the area.
+      - Suggest a public [market](LOCATION).
+      - A [hardware store](LOCATION) close to here.
+      - Best [events center](LOCATION) around.
+      - Closest [barangay hall](LOCATION)?
+      - A trusted [clinic](LOCATION).
+      - Find a local [museum](LOCATION).
+      - Suggest an affordable [resort](LOCATION).
+      - Recommend a good [public market](LOCATION).
+      - Where's the nearest [terminal](LOCATION)?
+      - Popular [photo spot](LOCATION)?
+      - Suggest a beautiful [garden](LOCATION).
+      - A [photo spot](LOCATION) with sunset views?
+      - Good [resort](LOCATION) nearby?
+      - Suggest a family-friendly [amusement park](LOCATION).
+      - Locate a [bank](LOCATION) close to me.
+      - Best [community center](LOCATION) nearby.
+      - Recommend a quiet [library](LOCATION).
+      - Suggest a nice [restaurant](LOCATION).
+      - Where's a local [convenience store](LOCATION)?
+      - Find a scenic [lake](LOCATION).
+      - A [events center](LOCATION) in the city.
+      - Best [nature park](LOCATION) around.
+      - A [spring](LOCATION) to explore.
+      - Where's the nearest [port](LOCATION)?
+      - Recommend a [park](LOCATION).
+      - Good [nature park](LOCATION) to try.
+      - Suggest a [museum](LOCATION).
+      - Find a famous [church](LOCATION).
 
   - intent: travel_time_estimate
     examples: |
@@ -1334,6 +1392,36 @@ nlu:
       - write a dramatic monologue for a toaster
       - tell me what I'm thinking
       - is cereal soup?
+
+  - intent: location_inquiry
+    examples: |
+      - where am I?
+      - where is my location?
+      - where am I located?
+      - Can you tell me where I am?
+      - What's my current location?
+      - Where exactly am I now?
+      - Do you know where I am?
+      - What's my GPS location?
+      - Show me my current position
+      - Where is this place?
+      - Where am I on the map?
+      - Locate me
+      - Find my location
+      - What's my present location?
+      - Am I near downtown?
+      - Where am I situated?
+      - What's my live location?
+      - What location am I at?
+      - Where do I appear to be?
+      - Track where I am now
+      - Where's my current spot?
+      - Can you find my coordinates?
+      - Show my location on the map
+      - Identify my current location
+      - Please tell me where I'm at now
+      - my location
+      - get my current location
 
   - regex: DISCOUNT
     examples: |
@@ -1899,6 +1987,101 @@ nlu:
   - synonym: Hotel Venezia
     examples: |
       - hotel venezia
+  - synonym: hiking
+    examples: |
+      - hike
+      - Hiking
+      - Hike
+  - synonym: relaxing
+    examples: |
+      - relax
+      - Relax
+      - relaxation
+      - Relaxation
+  - synonym: swimming
+    examples: |
+      - swim
+      - Swim
+      - Swimming
+  - synonym: praying
+    examples: |
+      - pray
+      - Pray
+      - Praying
+  - synonym: worshiping
+    examples: |
+      - worship
+      - Worship
+      - Worshiping
+  - synonym: studying
+    examples: |
+      - study
+      - Study
+      - Studying
+  - synonym: sightseeing
+    examples: |
+      - Sightseeing
+  - synonym: recreation
+    examples: |
+      - Recreation
+      - recreate
+      - Recreate
+  - synonym: dining
+    examples: |
+      - Dining
+      - Dine
+      - dine
+  - synonym: eating
+    examples: |
+      - eat
+      - Eat
+      - Eating
+  - synonym: dates
+    examples: |
+      - Dates
+      - Date
+      - date
+  - synonym: casual talk
+    examples: |
+      - Casual talk
+      - Casual Talk
+      - Talk
+      - talk
+  - synonym: shopping
+    examples: |
+      - Shopping
+      - shop
+      - Shop
+  - synonym: playing
+    examples: |
+      - Playing
+      - Play
+      - play
+  - synonym: exercise
+    examples: |
+      - Exercise
+      - Exercising
+      - exercising
+  - synonym: walking
+    examples: |
+      - Walking
+      - Walk
+      - walk
+  - synonym: camping
+    examples: |
+      - Camping
+      - camp
+      - Camp
+  - synonym: fishing
+    examples: |
+      - fish
+      - Fishing
+      - Fish
+  - synonym: sleeping
+    examples: |
+      - sleep
+      - Sleep
+      - Sleeping
 
   - lookup: ORIGIN
     examples: |

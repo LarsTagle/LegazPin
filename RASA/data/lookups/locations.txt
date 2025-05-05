@@ -1,115 +1,196 @@
-Daraga Church
-Kimantong Spring
-Mayon View Decks
-Daraga Municipal Hall
-Daraga Public Market
-Daraga Jeepney Terminal
-Bicol International Airport
-Ziga Memorial District Hospital
-LCC Daraga
-7-Eleven Daraga
-Kapuntukan Hill
-St. Gregory the Great Cathedral
-Lignon Hill Nature Park
-Albay Park and Wildlife
-Legazpi Boulevard
-Pawa Mangrove Park
-Legazpi City Hall
-Land Transportation Franchising & Regulatory Board
-Land Transportation Office
-Legazpi Grand Terminal
-Public Safety & Transport Office Legazpi 
-Ayala Malls Legazpi
-SM City Legazpi
-Pacific Mall
-Gaisano Mall
-Embarcadero de Legazpi
-Bicol University Main Campus
-Bicol University East Campus
-Bicol University Daraga Campus
-Aquinas University
-University of Santo Tomas Legazpi
-Bicol Regional Training and Teaching Hospital
-Bicol Regional Hospital and Medical Center
-Legazpi City Hospital
-Estevez Memorial Hospital
-The Oriental Legazpi
-Hotel Venezia
-Lotus Blu Hotel
-Emerald Boutique Hotel
-Camp Ola
-Camalig Fitness Gym
-Peñaranda Park
-Old Albay District
-Albay Astrodome
-Yashano Mall
-Cagsawa Ruins
-Albay Provincial Capitol
-Divine Word College of Legazpi
-Robinsons Supermarket Albay
-Citi Hardware Legazpi
-Unitop Legazpi
-St. Agnes' Academy
-STI College - Legazpi
-St. Raphael the Archangel Parish
-Albay Doctors Hospital
-University of Santo Tomas - Legazpi Hospital
-Hotel Lucca
-Tanchuling College
-Civil Service Commission
-Mariners' Polytechnic Colleges Foundation Legazpi City
-Arimbay Parish Church
-Legazpi Public Cemetery
-Department of Environment and Natural Resources
-Our Lady's Village
-Kalayaan Park
-Gogon Central School
-The Marison Hotel
-Cruzada Barangay Hall
-Sunrise Subdivision
-Sampaguita Tourist Inn
-Pristine Memorial Gardents
-ACE Medical Center Legazpi
-Daraga Catholic Cemetery
-Daraga Doctor's Hospital
-Sumlang Lake
-Daraga Community College
-Hotel St. Ellis
-University of Santo Tomas - Legazpi Peñaranda Campus
-Sipi
-Sipi Barangay Hall
-Sagpon
-Sagpon Barangay Hall
-EM's Barrio South
-Barangay 2 EM's Barrio South Hall
-EM's Barrio North
-EM's Barrio Barangay Hall
-Old Albay
-Old Albay District
-Barangay 17 Rizal St. Ilawod, Multipurpose Hall
-Ilawod
-Brgy. 19 cabangan legazpi city
-Cabagnan
-Bitano Multi-purpose Covered Court
-Bitano
-Legazpi City Hall
-Legazpi Port District
-Brgy. Bonot Multi Purpose Hall
-Bonot
-Brgy. 42 Rawis Barangay Hall
-Rawis
-Arimbay Barangay Hall
-Arimbay
-Gogon Central School
-Gogon
-Brgy 41 Bogtong Multi Purpose Bldg
-Bogtong
-Cruzada Barangay Hall
-Cruzada
-Washington Drive
-Washington
-Tagas Barangay Hall
-Tagas
-Maroroy
-Bañag Barangay Hall
-Bañag
+7-Eleven Daraga  
+A and A bed and Breakfast inn  
+Abenson Rawis Legazpi Albay  
+Abion Falls  
+ACE Medical Center Legazpi  
+Albay Astrodome  
+Albay Doctors Hospital  
+Albay Park and Wildlife  
+Albay Provincial Capitol  
+Aquinas University  
+Arimbay  
+Arimbay Barangay Hall  
+Arimbay Parish Church  
+Aswang Bay  
+Ayala Malls Legazpi  
+Bangko Sentral ng Pilipinas  
+Banquerohan Barangay Hall  
+Bañag  
+Bañag Barangay Hall  
+Barangay 17 Rizal St. Ilawod, Multipurpose Hall  
+Barangay 2 EM's Barrio South Hall  
+Bicol College  
+Bicol International Airport  
+Bicol Regional Hospital and Medical Center  
+Bicol Regional Training and Teaching Hospital  
+Bicol University  
+Bicol University Daraga Campus  
+Bicol University East Campus  
+Bicol University Main Campus  
+BIGGS Daraga  
+Bitano  
+Bitano Multi-purpose Covered Court  
+Black Sand Beaches  
+Bogtong  
+Bonot  
+Brgy 41 Bogtong Multi Purpose Bldg  
+Brgy. 19 cabangan legazpi city  
+Brgy. 42 Rawis Barangay Hall  
+Brgy. Bonot Multi Purpose Hall  
+Breakfast Republic  
+Buenavista Wharf and Boulevard  
+Bulakbugak Spring Falls  
+Busay Falls  
+Cabagnan  
+Cagsawa Ruins  
+Camalig Fitness Gym  
+Camalig Market  
+Camalig Municipal Hall  
+Camp Ola  
+Camp Ola Legazpi City  
+Carmela's Resort  
+Cawayan Hut Bicol  
+Citi Hardware Legazpi  
+Civil Service Commission  
+Cruzada  
+Cruzada Barangay Hall  
+DComC  
+Dalipay River Resort  
+Daraga
+Daraga Catholic Cemetery  
+Daraga Church  
+Daraga Community College  
+Daraga Doctor's Hospital  
+Daraga Jeepney Terminal  
+Daraga Municipal Hall  
+Daraga Public Market  
+Daraga Tourist Inn  
+Department of Environment and Natural Resources  
+Department of Health Regional Compound  
+Divine Word College of Legazpi  
+Doña Maria Subdivision Park  
+Eco Park Agri-Tourism Farm  
+EM's Barrio Barangay Hall  
+EM's Barrio North  
+EM's Barrio South  
+Emerald Boutique Hotel  
+Embarcadero de Legazpi  
+Estevez Memorial Hospital  
+Farm Plate  
+Gaisano Mall  
+Gogon  
+Gogon Central School  
+Guinobatan Church  
+Guinobatan Plaza  
+Guinobatan Public Market  
+Guinobatan Town Hall  
+Hacienda De Alamo  
+Highlands Park Legazpi  
+Homapon Barangay Hall  
+Hotel Lucca  
+Hotel Sentro Legazpi  
+Hotel St. Ellis  
+Hotel Venezia  
+Iglesia ni Cristo  
+Ilawod  
+J&T Express - Legazpi  
+Jollibee Albay  
+Kalayaan Park  
+Kapuntukan Hill  
+Karagahan Falls  
+Kawa-Kawa Hill and Natural Park  
+Kimantong Spring  
+LCC Daraga  
+LCC Legazpi  
+Land Transportation Franchising & Regulatory Board  
+Land Transportation Office  
+Legazpi Boulevard  
+Legazpi City Hall  
+Legazpi City Hospital  
+Legazpi City Water District  
+Legazpi Garden Hotel  
+Legazpi Grand Terminal  
+Legazpi Port District  
+Legazpi Public Cemetery  
+Legazpi Public Market  
+Ligao City Hall  
+Ligao Public Market  
+Lignon Hill Nature Park  
+Lola Feling Restaurant Legazpi  
+Lotus Blu Hotel  
+Luksuhan Falls  
+Malilipot Municipal Hall  
+Malilipot Public Market  
+Malobago View Deck  
+Mamay's  
+Manito Municipal Hall  
+Manumbalay Barangay Hall  
+Mariners' Polytechnic Colleges Foundation Legazpi City  
+Maroroy  
+Mayon SkyDrive  
+Mayon SkyDrive ATV Adventure  
+Mount Masaraga Viewpoint  
+New Country Homes Subdivision  
+Oas Community College  
+Oas Municipal Hall  
+Oas Public Market  
+Old Albay  
+Old Albay District  
+Our Lady's Village  
+Pacific Mall  
+Palamigan  
+Pawa Mangrove Park  
+Peñaranda Park  
+Pristine Memorial Gardents  
+Public Safety & Transport Office Legazpi  
+Quituinan Hill  
+Rawis  
+Robinsons Supermarket Albay  
+Sagpon  
+Sagpon Barangay Hall  
+Sampaguita Tourist Inn  
+San Francisco Farm  
+Santa Florentina Church  
+Sawangan Park  
+Serenity Memorial Park  
+Shell Daraga  
+Sipi  
+Sipi Barangay Hall  
+SM City Legazpi  
+SM Legazpi
+SM
+St. Agnes' Academy  
+St. Gregory the Great Cathedral  
+St. Michael the Archangel Parish Church  
+St. Padre Pio Chapel  
+St. Raphael the Archangel Parish  
+St. Stephen Protomartyr Parish Church  
+STI College - Legazpi  
+Sto. Domingo Municipal Hall  
+Sto. Domingo People's Center  
+Sto. Domingo Public Market  
+Sumlang Lake  
+Sunrise Subdivision  
+Tabaco City Hall  
+Tabaco Port  
+Tabaco Public Market  
+Tagas  
+Tagas Barangay Hall  
+Tanchuling College  
+Taysan Barangay Hall  
+The Marison Hotel  
+The Oriental Legazpi  
+Tinapian Barangay Hall  
+Tong Yang SM City Legazpi  
+Uma ni Islao Private Farm  
+University of Santo Tomas - Legazpi  
+University of Santo Tomas - Legazpi Hospital  
+University of Santo Tomas - Legazpi Peñaranda Campus  
+Unitop Legazpi  
+Vanishing Island  
+Villa Conchita  
+Washington  
+Washington Drive  
+Yashano Mall  
+Ziga Memorial District Hospital  
+Zoie's White Beach Resort  

@@ -41,6 +41,11 @@ story:
       - intent: travel_time_estimate
       - action: action_handle_travel_time_estimate
 
+  - story: location inquiry path
+    steps:
+      - intent: location_inquiry
+      - action: action_handle_location_inquiry
+
   - story: odd intent path
     steps:
       - intent: odd_intent

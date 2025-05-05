@@ -18,7 +18,7 @@ if not firebase_admin._apps:
 db = firestore.client()
 
 # Initialize Google Maps client
-gmaps = googlemaps.Client(key="AIzaSyAy2J-28fvMFNZ7JOUYAAENpXWcv-lHLQ")
+gmaps = googlemaps.Client(key="AIzaSyAy2J-28fvMFNZ7JOUYVAAENpXWcv-lHLQ")
 
 # Preload fare data into memory
 FARE_CACHE = {}
@@ -91,6 +91,23 @@ def get_user_current_location(lat: float, lng: float) -> str:
         return "Unknown Location"
     except Exception as e:
         return "Unknown Location"
+    
+def get_user_reverse_geocode(lat: float, lng: float) -> str:
+    try:
+        # Call Google Maps Reverse Geocoding API
+        geocode_result = gmaps.reverse_geocode((lat, lng))
+        if geocode_result and len(geocode_result) > 0:
+            # Get the formatted address
+            formatted_address = geocode_result[0]["formatted_address"]
+            # Remove the country (e.g., ", Philippines") if present
+            parts = formatted_address.split(", ")
+            if len(parts) > 1 and parts[-1].lower() in ["philippines", "ph"]:
+                return ", ".join(parts[:-1])
+            return formatted_address
+        return "Unknown Address"
+    except Exception as e:
+        return "Unknown Address"
+        
 
 def set_location_slots(tracker: Tracker) -> List[Dict[Text, Any]]:
     latest_message = tracker.latest_message.get("metadata", {})
@@ -141,7 +158,7 @@ def handle_location_input(
             # Check if the current location could not be determined
             if origin == "Unknown Location":
                 dispatcher.utter_message(text="Could not determine your current location. Please specify a nearby landmark.")
-                return origin, destination, False
+                return [origin, destination, False]
         # If user location is invalid, default to Legazpi City Hall
         else:
             origin = "Legazpi City Hall"
@@ -199,7 +216,7 @@ class ActionHandleFareInquiry(Action):
         origin, destination, is_valid = handle_location_input(origin, destination, tracker, dispatcher)
         # Check if the location input is invalid
         if not is_valid:
-            return []
+            return [SlotSet("origin", None), SlotSet("destination", None)]
 
         region = "ph"
 
@@ -545,11 +562,15 @@ class ActionHandleRecommendPlace(Action):
     ) -> List[Dict[Text, Any]]:
         activity = tracker.get_slot("activity")
         activity = activity.lower() if activity else None
+        location = tracker.get_slot("location")
+        location = location.lower() if location else None
 
-        # Check if the activity is not specified
-        if not activity:
-            dispatcher.utter_message(text="Sorry, I didn't understand what activity you're looking for. Could you specify, like 'hiking' or 'eat'?")
-            return []
+        print(f"Activity: {activity} or Location: {location}")
+
+        # Check if neither activity nor location is specified
+        if not activity and not location:
+            dispatcher.utter_message(text="Sorry, I didn't understand what activity or place you're looking for.")
+            return [SlotSet("activity", None), SlotSet("location", None)]
 
         loc_slots = set_location_slots(tracker)
         user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
@@ -558,35 +579,28 @@ class ActionHandleRecommendPlace(Action):
         # Check if user location (latitude/longitude) is invalid or missing
         if not user_lat or not user_lng or user_lat == 0 or user_lng == 0:
             dispatcher.utter_message(text="Could not determine your current location. Please share your location or specify a nearby landmark.")
-            return []
+            return [SlotSet("activity", None), SlotSet("location", None)]
 
         activity_mapping = {
             "hiking": ["hiking", "outdoor", "adventure"],
-            "hike": ["hiking", "outdoor", "adventure"],
-            "relax": ["park", "nature", "beach"],
-            "relaxation": ["park", "nature"],
             "relaxing": ["park", "nature"],
-            "swim": ["outdoor", "recreation", "adventure"],
             "swimming": ["outdoor", "recreation", "adventure"],
             "sightseeing": ["sightseeing", "photography", "scenic"],
             "sunset": ["photography", "scenic", "outdoor"],
             "sunrise": ["photography", "scenic", "outdoor"],
-            "pray": ["religious"],
+            "praying": ["religious", "church"],
             "meditate": ["park", "religious", "quiet"],
-            "worship": ["religious"],
-            "study": ["education", "school", "college", "university"],
-            "recreate": ["recreation", "park"],
-            "dine": ["dining", "restaurant"],
-            "eat": ["dining", "restaurant", "fast food"],
-            "food": ["dining", "restaurant", "fast food"],
-            "date": ["restaurant", "park", "scenic"],
+            "worshiping": ["religious", "church"],
+            "studying": ["education", "school", "college", "university"],
+            "recreation": ["recreation", "park"],
+            "dining": ["dining", "restaurant"],
+            "eating": ["dining", "restaurant", "fast food"],
+            "dates": ["restaurant", "park", "scenic"],
             "casual talk": ["public space", "park", "dining"],
-            "shop": ["shopping", "commercial", "market"],
-            "movies": ["entertainment", "leisure"],
-            "play": ["recreation", "outdoor"],
-            "games": ["entertainment", "leisure"],
+            "shopping": ["shopping", "commercial", "market"],
+            "playing": ["recreation", "outdoor"],
             "exercise": ["sports", "fitness"],
-            "jog": ["sports", "fitness", "outdoor"],
+            "jogging": ["sports", "fitness", "outdoor"],
             "photography": ["photography", "scenic", "nature"],
             "learn history": ["historic", "cultural", "education"],
             "cultural exploration": ["cultural", "historic", "education"],
@@ -610,8 +624,8 @@ class ActionHandleRecommendPlace(Action):
             "nightlife": ["entertainment", "dining", "nightlife"],
             "festivals": ["cultural", "events", "entertainment"],
             "volunteer": ["community", "events"],
-            "walk": ["outdoor", "park", "recreation"],
-            "leisure": ["leisure", "recreation", "public space"],
+            "walking": ["outdoor", "park", "recreation"],
+            "leisure": ["recreation", "public space"],
             "meet": ["public space", "dining", "community"],
             "quiet": ["park", "religious", "public space"],
             "lectures": ["education", "school", "university"],
@@ -620,10 +634,93 @@ class ActionHandleRecommendPlace(Action):
             "art": ["cultural", "education", "entertainment"],
             "camp": ["adventure", "outdoor", "nature"],
             "markets": ["shopping", "market"],
-            "fish": ["nature", "recreation", "agri-tourism"]
+            "boating": ["waterfront", "adventure", "recreation"],
+            "fishing": ["agri-tourism", "recreation", "nature"],
+            "zipline": ["adventure", "outdoor", "eco-tourism"],
+            "visit museum": ["historic", "education", "cultural"],
+            "hot spring bath": ["spring", "recreation", "nature"],
+            "snorkeling": ["beach", "adventure", "eco-tourism"],
+            "scuba diving": ["beach", "adventure", "eco-tourism"],
+            "spa": ["healthcare", "relax", "budget"],
+            "read": ["education", "public space", "quiet"],
+            "rest": ["accommodation", "recreation", "quiet"],
+            "stargazing": ["scenic", "outdoor", "nature"],
+            "wedding": ["events", "religious", "community"],
+            "attend mass": ["religious", "community", "public"],
+            "visit cemetery": ["cemetery", "religious", "historic"],
+            "resort stay": ["accommodation", "resort", "recreation"],
+            "campfire": ["outdoor", "nature", "recreation"],
+            "trekking": ["hiking", "adventure", "eco-tourism"],
+            "eco-tour": ["eco-tourism", "nature", "outdoor"],
+            "river cruise": ["waterfront", "eco-tourism", "sightseeing"],
+            "plant visit": ["education", "logistics", "environment"],
+            "community service": ["community", "public", "events"],
+            "join parade": ["events", "cultural", "community"],
+            "nature walk": ["outdoor", "eco-tourism", "nature"],
+            "photo walk": ["photography", "scenic", "outdoor"],
+            "beach games": ["beach", "recreation", "sports"],
+            "grocery": ["retail", "shopping", "convenience"],
+            "hardware shopping": ["shopping", "hardware", "retail"],
+            "bike tour": ["outdoor", "adventure", "eco-tourism"],
+            "visit port": ["port", "transportation", "logistics"],
+            "commute via tricycle": ["transportation", "public transport", "logistics"],
+            "jeepney ride": ["transportation", "public transport", "logistics"],
+            "visit city hall": ["government", "administrative", "public"],
+            "buy gadgets": ["shopping", "electronics", "commercial"],
+            "refuel": ["fuel", "utility", "transportation"],
+            "attend seminar": ["education", "events", "university"],
+            "watch play": ["entertainment", "events", "cultural"],
+            "sleeping": ["accommodation", "resort", "hotel"],
         }
 
-        tags = activity_mapping.get(activity, [activity])
+        activity_tags = activity_mapping.get(activity, [activity]) if activity else []
+
+        location_mapping = {
+            "hospital": ["hospital", "healthcare"],
+            "pharmacy": ["hospital", "healthcare"],
+            "lake": ["nature", "spring"],
+            "university": ["university", "college", "education"],
+            "mall": ["shopping", "commercial", "retail"],
+            "beach": ["beach", "nature", "outdoor"],
+            "library": ["education", "public space"],
+            "cinema": ["entertainment", "events"],
+            "garden": ["park", "nature", "public space"],
+            "resort": ["resort", "accommodation", "recreation"],
+            "waterfall": ["nature", "scenic", "eco-tourism"],
+            "park": ["park", "recreation", "outdoor"],
+            "government office": ["government", "administrative"],
+            "church": ["church"],
+            "temple": ["religious", "public space"],
+            "market": ["market", "shopping", "retail"],
+            "fast food": ["fast food", "dining", "restaurant"],
+            "restaurant": ["restaurant", "dining"],
+            "bank": ["banking", "utility"],
+            "barangay hall": ["government", "barangay"],
+            "airport": ["airport", "transportation", "travel"],
+            "port": ["port", "maritime", "transportation"],
+            "terminal": ["terminal", "transportation", "public transport"],
+            "cemetery": ["cemetery", "public space"],
+            "wildlife sanctuary": ["wildlife", "eco-tourism", "nature"],
+            "spring": ["spring", "nature", "eco-tourism"],
+            "museum": ["cultural", "historic", "education"],
+            "boutique": ["shopping", "boutique", "retail"],
+            "school": ["education", "college", "university"],
+            "plaza": ["public space", "park", "recreation"],
+            "fuel station": ["fuel", "utility", "convenience"],
+            "amusement park": ["recreation", "entertainment", "park"],
+            "hotel": ["accommodation", "resort"],
+            "hardware store": ["hardware", "shopping"],
+            "clinic": ["hospital", "healthcare"],
+            "nature park": ["nature", "park", "eco-tourism"],
+            "photo spot": ["photography", "scenic"],
+            "public market": ["market", "community"],
+            "convenience store": ["convenience", "retail"],
+            "events center": ["events", "entertainment"],
+            "community center": ["community", "public space"],
+            "estate office": ["estate", "administrative"],
+            "logistics hub": ["logistics", "transportation"],
+        }
+        location_tag = location_mapping.get(location, [location]) if location else []
 
         try:
             locations_with_distance = []
@@ -631,8 +728,7 @@ class ActionHandleRecommendPlace(Action):
                 coords = location_data.get("coords", {})
                 place_lat = coords.get("lat")
                 place_lng = coords.get("lon")
-                
-                # Check if place coordinates are valid
+                # Skip if place coordinates are invalid
                 if place_lat is None or place_lng is None:
                     continue
 
@@ -648,34 +744,37 @@ class ActionHandleRecommendPlace(Action):
 
             recommended_places = []
             description_places = []
-            for location in locations_with_distance:
-                location_tags = location["tags"]
-                # Check if any activity tags match the location's tags
-                if any(tag.lower() in location_tags for tag in tags):
-                    recommended_places.append(location["name"])
-                    description_places.append(location["description"])
-                    # Check if enough recommendations (3) have been collected
-                    if len(recommended_places) >= 3:
+            for locs in locations_with_distance:
+                loc_tags = locs["tags"]
+                print(f"Location Tag: {loc_tags}")
+                # Check if activity or location tags match the location's tags
+                if (activity and any(tag.lower() in loc_tags for tag in activity_tags)) or \
+                   (location and any(tag.lower() in loc_tags for tag in location_tag)):
+                    recommended_places.append(locs["name"])
+                    description_places.append(locs["description"])
+                    print(f"Match found for {locs['name']} with tags {loc_tags}")
+                    # Stop after collecting 5 recommendations
+                    if len(recommended_places) >= 5:
                         break
 
             # Check if any recommended places were found
             if recommended_places:
                 places_list = "\n".join([f"{recommended_places[i]} - {description_places[i]}" for i in range(len(recommended_places))])
-                dispatcher.utter_message(text=f"I would recommend these places for {activity}:\n{places_list}")
-                return [SlotSet("location", recommended_places[0])]
-            # Handle case where no places were found for the activity
+                dispatcher.utter_message(text=f"I would recommend these places for {activity or location}:\n{places_list}")
+                return [SlotSet("activity", None), SlotSet("location", None)]
+            # Handle case where no places were found
             else:
                 alternative_activities = ["eat", "hiking", "relax"]
                 dispatcher.utter_message(
-                    text=f"Sorry, I couldn't find any places for {activity} near your location. "
-                         f"Would you like to try another activity like {', '.join(alternative_activities)}?"
+                    text=f"Sorry, I couldn't find any places for {activity or location} near your location. "
+                         f"Would you like to try another activity or location like {', '.join(alternative_activities)}?"
                 )
-                return []
+                return [SlotSet("activity", None), SlotSet("location", None)]
 
         except Exception as e:
-            dispatcher.utter_message(text=f"An error occurred while finding places for {activity}. Please try again.")
-            return []
-
+            dispatcher.utter_message(text=f"An error occurred while finding places for {activity or location}. Please try again.")
+            return [SlotSet("activity", None), SlotSet("location", None)]
+        
 class ActionHandleTravelTimeEstimate(Action):
     def name(self) -> Text:
         return "action_handle_travel_time_estimate"
@@ -754,4 +853,47 @@ class ActionHandleTravelTimeEstimate(Action):
 
         except Exception as e:
             dispatcher.utter_message(text="An error occurred while calculating the travel time. Please try again.")
+            return []
+
+class ActionHandleLocationInquiry(Action):
+    def name(self) -> Text:
+        return "action_handle_location_inquiry"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+        loc_slots = set_location_slots(tracker)
+        user_lat = next((slot["value"] for slot in loc_slots if slot["name"] == "latitude"), None)
+        user_lng = next((slot["value"] for slot in loc_slots if slot["name"] == "longitude"), None)
+        # Check if user location (latitude/longitude) is invalid or missing
+        if not user_lat or not user_lng or user_lat == 0 or user_lng == 0:
+            dispatcher.utter_message(text="Could not determine your current location. Please share your location or specify a nearby landmark.")
+            return []
+
+        try:
+            current_location = get_user_reverse_geocode(user_lat, user_lng)
+            # Check if address could not be determined
+            if current_location == "Unknown Address":
+                dispatcher.utter_message(text="Sorry, I couldn't identify your current address. Please try again or share your location.")
+                return []
+
+            nearest_landmark = get_nearest_poi(user_lat, user_lng, "point_of_interest", max_results=1)
+            # Check if no nearby landmark was found
+            if nearest_landmark.startswith("No "):
+                nearest_landmark = "a notable landmark"
+                
+
+            response = f"You are currently at {current_location}. "
+            if not nearest_landmark.startswith("No ") and nearest_landmark.lower() not in current_location.lower():
+                response += f"Nearby, you can find {nearest_landmark}."
+            else:
+                response += "There are no additional notable landmarks nearby."
+            dispatcher.utter_message(text=response)
+            return []
+
+        except Exception as e:
+            dispatcher.utter_message(text="An error occurred while determining your location. Please try again.")
             return []

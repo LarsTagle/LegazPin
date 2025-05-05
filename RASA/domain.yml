@@ -4,13 +4,12 @@ intents:
   - greet
   - goodbye
   - ask_bot
-  - fare_inquiry # near done
-  - find_nearest # in prog
-  - route_finder # started
-  # - location_inquiry
+  - fare_inquiry
+  - find_nearest
+  - route_finder
   - recommend_place
-  # - route_alternative
   - travel_time_estimate
+  - location_inquiry
   - odd_intent
 
 entities:
@@ -60,14 +59,15 @@ slots:
     mappings:
       - type: from_entity
         entity: ACTIVITY
-  eta:
-    type: float
-    influence_conversation: false
-    mappings:
-      - type: custom
   location:
     type: text
     influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: LOCATION
+  eta:
+    type: float
+    influence_conversation: false
     mappings:
       - type: custom
   discounted_fare:
@@ -140,6 +140,7 @@ actions:
   - action_handle_route_finder
   - action_handle_recommend_place
   - action_handle_travel_time_estimate
+  - action_handle_location_inquiry
 
 session_config:
   session_expiration_time: 60

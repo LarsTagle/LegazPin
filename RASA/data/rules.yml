@@ -41,6 +41,11 @@ rules:
       - intent: travel_time_estimate
       - action: action_handle_travel_time_estimate
 
+  - rule: location inquiry path
+    steps:
+      - intent: location_inquiry
+      - action: action_handle_location_inquiry
+
   - rule: odd intent path
     steps:
       - intent: odd_intent
