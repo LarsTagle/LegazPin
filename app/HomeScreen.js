@@ -10,6 +10,7 @@ import {
   Platform,
   Alert,
   Keyboard,
+  Animated,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Location from "expo-location";
@@ -22,8 +23,12 @@ export default function HomeScreen({
   route,
 }) {
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const scrollViewRef = useRef(null);
   const API_URL = "http://10.60.79.133:5005/webhooks/rest/webhook";
+  const dot1Anim = useRef(new Animated.Value(0)).current;
+  const dot2Anim = useRef(new Animated.Value(0)).current;
+  const dot3Anim = useRef(new Animated.Value(0)).current;
 
   // Albay region boundaries (consistent with MapScreen.js)
   const ALBAY_BOUNDS = {
@@ -32,6 +37,44 @@ export default function HomeScreen({
     minLng: 123.4,
     maxLng: 124.0,
   };
+
+  // Animate dots when loading
+  useEffect(() => {
+    if (isLoading) {
+      const animateDot = (dot, delay) => {
+        Animated.loop(
+          Animated.sequence([
+            Animated.timing(dot, {
+              toValue: -5,
+              duration: 300,
+              delay,
+              useNativeDriver: true,
+            }),
+            Animated.timing(dot, {
+              toValue: -2.5,
+              duration: 300,
+              useNativeDriver: true,
+            }),
+            Animated.timing(dot, {
+              toValue: 0,
+              duration: 300,
+              useNativeDriver: true,
+            }),
+          ])
+        ).start();
+      };
+      animateDot(dot1Anim, 0);
+      animateDot(dot2Anim, 100);
+      animateDot(dot3Anim, 200);
+    } else {
+      dot1Anim.stopAnimation();
+      dot2Anim.stopAnimation();
+      dot3Anim.stopAnimation();
+      dot1Anim.setValue(0);
+      dot2Anim.setValue(0);
+      dot3Anim.setValue(0);
+    }
+  }, [isLoading]);
 
   // Handle instruction from MapScreen
   useEffect(() => {
@@ -70,6 +113,7 @@ export default function HomeScreen({
     const userMessage = { sender: "user", text: textToSend };
     setMessages((prev) => [...prev, userMessage]);
     if (!overrideMessage) setMessage("");
+    setIsLoading(true);
 
     let latitude = null;
     let longitude = null;
@@ -144,6 +188,8 @@ export default function HomeScreen({
           isError: true,
         },
       ]);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -189,6 +235,37 @@ export default function HomeScreen({
             <Text style={styles.chatText}>{msg.text}</Text>
           </View>
         ))}
+        {isLoading && (
+          <View
+            style={[styles.chatBubble, styles.botBubble, styles.loadingBubble]}
+          >
+            <Text style={styles.chatText}>Typing</Text>
+            <Animated.Text
+              style={[
+                styles.dotText,
+                { transform: [{ translateY: dot1Anim }] },
+              ]}
+            >
+              .
+            </Animated.Text>
+            <Animated.Text
+              style={[
+                styles.dotText,
+                { transform: [{ translateY: dot2Anim }] },
+              ]}
+            >
+              .
+            </Animated.Text>
+            <Animated.Text
+              style={[
+                styles.dotText,
+                { transform: [{ translateY: dot3Anim }] },
+              ]}
+            >
+              .
+            </Animated.Text>
+          </View>
+        )}
       </ScrollView>
 
       <View style={[styles.inputContainer, { height: dynamicHeight }]}>
@@ -260,9 +337,18 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgb(225, 225, 225)",
     alignSelf: "flex-start",
   },
+  loadingBubble: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   chatText: {
     color: "black",
     fontSize: 16,
+    fontFamily: "Fredoka-Regular",
+  },
+  dotText: {
+    color: "black",
+    fontSize: 25,
     fontFamily: "Fredoka-Regular",
   },
   inputContainer: {
