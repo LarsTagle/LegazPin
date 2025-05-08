@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -15,18 +16,27 @@ const teamMembers = [
     lastName: "Basilla",
     role: "Software Developer",
     image: require("../assets/Luar Pic.png"),
+    email: "luarmatthewatole.basilla@bicol-u.edu.ph",
+    phone: "+639128061114",
+    instagram: "el_em_bee18",
   },
   {
     firstName: "Daniel",
     lastName: "Cedeño",
     role: "Software Developer",
     image: require("../assets/Dhani Pic.png"),
+    email: "danielmontalban.cedeno@bicol-u.edu.ph",
+    phone: "+639150210877",
+    instagram: "dhanigurlx",
   },
   {
     firstName: "Lars John",
     lastName: "Tagle",
     role: "Software Developer",
     image: require("../assets/Lars Pic.png"),
+    email: "larsjohnarciaga.tagle@bicol-u.edu.ph",
+    phone: "+639054555865",
+    instagram: "urlarsiii",
   },
 ];
 
@@ -34,6 +44,37 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
   React.useEffect(() => {
     console.log("AboutScreen mounted");
   }, []);
+
+  // Function to open Gmail with pre-filled recipient
+  const openGmail = (email) => {
+    const mailtoUrl = `mailto:${email}`;
+    Linking.openURL(mailtoUrl).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
+  // Function to open phone dialer with pre-filled number
+  const openDialer = (phone) => {
+    const telUrl = `tel:${phone}`;
+    Linking.openURL(telUrl).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
+  // Function to open Instagram profile
+  const openInstagram = (username) => {
+    const instagramUrl = `https://www.instagram.com/${username}`;
+    Linking.openURL(instagramUrl).catch((err) =>
+      console.error("Failed to open Instagram URL:", err)
+    );
+  };
+
+  // Function to open website
+  const openWebsite = (url) => {
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open website URL:", err)
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -73,7 +114,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               style={styles.contactIcon}
             />
             <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Enter your location and destination.
+              Enter your location and destination
             </Text>
           </View>
           <View style={styles.featureRow}>
@@ -84,7 +125,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               style={styles.contactIcon}
             />
             <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              LegazPIN suggests the best routes and fares.
+              Ask about the fare for the locations you entered
             </Text>
           </View>
           <View style={styles.featureRow}>
@@ -95,7 +136,29 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               style={styles.contactIcon}
             />
             <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Get real-time navigation and updates!
+              Search nearby landmarks
+            </Text>
+          </View>
+          <View style={styles.featureRow}>
+            <Ionicons
+              name="build-outline"
+              size={20}
+              color="#6366F1"
+              style={styles.contactIcon}
+            />
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              We can help you recommend a place
+            </Text>
+          </View>
+          <View style={styles.featureRow}>
+            <Ionicons
+              name="build-outline"
+              size={20}
+              color="#6366F1"
+              style={styles.contactIcon}
+            />
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>
+              Try asking how long your travels are
             </Text>
           </View>
         </View>
@@ -131,9 +194,7 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
               color="#6366F1"
               style={styles.icon}
             />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Google Maps Integration
-            </Text>
+            <Text style={{ fontFamily: "Fredoka-Regular" }}>Google Maps</Text>
           </View>
         </View>
 
@@ -146,33 +207,38 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
           >
             {teamMembers.map((member, index) => (
               <View key={index} style={styles.teamMember}>
-                <Image
-                  source={member.image} // Updated to use require directly
-                  style={styles.profileImage}
-                />
+                <Image source={member.image} style={styles.profileImage} />
                 <View style={styles.teamMemberText}>
                   <Text style={styles.firstName}>{member.firstName}</Text>
                   <Text style={styles.lastName}>{member.lastName}</Text>
                   <Text style={styles.role}>{member.role}</Text>
                   <View style={styles.contactIcons}>
-                    <Ionicons
-                      name="mail-outline"
-                      size={20}
-                      color="#6366F1"
-                      style={styles.contactIcon}
-                    />
-                    <Ionicons
-                      name="call-outline"
-                      size={20}
-                      color="#6366F1"
-                      style={styles.contactIcon}
-                    />
-                    <Ionicons
-                      name="logo-twitter"
-                      size={20}
-                      color="#6366F1"
-                      style={styles.contactIcon}
-                    />
+                    <TouchableOpacity onPress={() => openGmail(member.email)}>
+                      <Ionicons
+                        name="mail-outline"
+                        size={20}
+                        color="#6366F1"
+                        style={styles.contactIcon}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => openDialer(member.phone)}>
+                      <Ionicons
+                        name="call-outline"
+                        size={20}
+                        color="#6366F1"
+                        style={styles.contactIcon}
+                      />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => openInstagram(member.instagram)}
+                    >
+                      <Ionicons
+                        name="logo-instagram"
+                        size={20}
+                        color="#6366F1"
+                        style={styles.contactIcon}
+                      />
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
@@ -183,30 +249,32 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
         <View style={styles.card}>
           <Text style={styles.featureTitle}>Contact Us</Text>
           <View style={styles.featureRow}>
-            <Ionicons
-              name="mail-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.icon}
-            />
-            <Text
-              style={{ textAlign: "center", fontFamily: "Fredoka-Regular" }}
+            <TouchableOpacity
+              onPress={() => openGmail("support@legazpin.com")}
+              style={styles.clickableRow}
             >
-              support@legazpin.com
-            </Text>
+              <Ionicons
+                name="mail-outline"
+                size={20}
+                color="#6366F1"
+                style={styles.icon}
+              />
+              <Text style={styles.contactText}>support@legazpin.com</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.featureRow}>
-            <Ionicons
-              name="globe-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.icon}
-            />
-            <Text
-              style={{ textAlign: "center", fontFamily: "Fredoka-Regular" }}
+            <TouchableOpacity
+              onPress={() => openWebsite("https://www.legazpin.com")}
+              style={styles.clickableRow}
             >
-              www.legazpin.com
-            </Text>
+              <Ionicons
+                name="globe-outline"
+                size={20}
+                color="#6366F1"
+                style={styles.icon}
+              />
+              <Text style={styles.contactText}>www.legazpin.com</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -280,8 +348,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 8,
   },
+  clickableRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   icon: {
     marginRight: 8,
+  },
+  contactText: {
+    fontFamily: "Fredoka-Regular",
+    color: "#000",
   },
   teamScrollContent: {
     paddingHorizontal: 10,
