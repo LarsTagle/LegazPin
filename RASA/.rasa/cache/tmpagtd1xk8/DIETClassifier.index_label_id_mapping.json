@@ -1,0 +1,12 @@
+{
+  "0": "ask_bot",
+  "1": "fare_inquiry",
+  "2": "find_nearest",
+  "3": "goodbye",
+  "4": "greet",
+  "5": "location_inquiry",
+  "6": "odd_intent",
+  "7": "recommend_place",
+  "8": "route_finder",
+  "9": "travel_time_estimate"
+}
