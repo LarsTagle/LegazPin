@@ -15,10 +15,11 @@ import React, { useEffect, useState, useRef } from "react";
 import * as Font from "expo-font";
 
 import HomeScreen from "./app/HomeScreen";
+import ChatScreen from "./app/ChatScreen";
+import MapScreen from "./app/MapScreen";
 import AboutScreen from "./app/AboutScreen";
 import FeedbackScreen from "./app/FeedbackScreen";
 import HelpCenterScreen from "./app/HelpCenterScreen";
-import MapScreen from "./app/MapScreen";
 
 const Stack = createStackNavigator();
 
@@ -42,7 +43,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
-          console.log("Navigating to Home");
           navigation.navigate("Home");
           toggleDrawer();
         }}
@@ -53,7 +53,16 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
-          console.log("Map pressed");
+          navigation.navigate("Chat");
+          toggleDrawer();
+        }}
+      >
+        <Ionicons name="chatbubble-ellipses-outline" size={24} color="#000" />
+        <Text style={styles.drawerItem}>Chat</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
           navigation.navigate("Map");
           toggleDrawer();
         }}
@@ -64,7 +73,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
-          console.log("Navigating to About");
           navigation.navigate("About");
           toggleDrawer();
         }}
@@ -75,7 +83,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
-          console.log("Navigating to Feedback");
           navigation.navigate("Feedback");
           toggleDrawer();
         }}
@@ -86,7 +93,6 @@ const DrawerMenu = ({ toggleDrawer, slideAnim }) => {
       <TouchableOpacity
         style={styles.itemContainer}
         onPress={() => {
-          console.log("Navigating to HelpCenter");
           navigation.navigate("HelpCenter");
           toggleDrawer();
         }}
@@ -119,30 +125,19 @@ export default function App() {
     loadFont();
   }, []);
 
-  useEffect(() => {
-    console.log("App mounted, isDrawerOpen:", isDrawerOpen);
-  }, []);
-
-  useEffect(() => {
-    console.log("isDrawerOpen changed:", isDrawerOpen);
-  }, [isDrawerOpen]);
-
   const toggleDrawer = () => {
     const toValue = isDrawerOpen ? -250 : 0;
-    console.log("Toggling drawer to:", toValue);
     Animated.timing(slideAnim, {
       toValue,
       duration: 300,
       useNativeDriver: true,
     }).start(() => {
       setIsDrawerOpen(!isDrawerOpen);
-      console.log("Animation complete, new isDrawerOpen:", !isDrawerOpen);
     });
   };
 
   const closeDrawer = () => {
     if (isDrawerOpen) {
-      console.log("Closing drawer");
       Animated.timing(slideAnim, {
         toValue: -250,
         duration: 300,
@@ -151,7 +146,7 @@ export default function App() {
     }
   };
 
-  // Render nothing until font informa loaded
+  // Render nothing until font is loaded
   if (!fontLoaded) {
     return null; // Or a loading spinner
   }
@@ -169,7 +164,14 @@ export default function App() {
           <Stack.Screen
             name="Home"
             children={(props) => (
-              <HomeScreen
+              <HomeScreen {...props} toggleDrawer={toggleDrawer} />
+            )}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Chat"
+            children={(props) => (
+              <ChatScreen
                 {...props}
                 toggleDrawer={toggleDrawer}
                 messages={messages}

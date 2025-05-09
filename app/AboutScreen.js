@@ -105,65 +105,6 @@ const AboutScreen = ({ navigation, toggleDrawer }) => {
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.featureTitle}>How It Works</Text>
-          <View style={styles.featureRow}>
-            <Ionicons
-              name="build-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.contactIcon}
-            />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Enter your location and destination
-            </Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Ionicons
-              name="build-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.contactIcon}
-            />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Ask about the fare for the locations you entered
-            </Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Ionicons
-              name="build-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.contactIcon}
-            />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Search nearby landmarks
-            </Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Ionicons
-              name="build-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.contactIcon}
-            />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              We can help you recommend a place
-            </Text>
-          </View>
-          <View style={styles.featureRow}>
-            <Ionicons
-              name="build-outline"
-              size={20}
-              color="#6366F1"
-              style={styles.contactIcon}
-            />
-            <Text style={{ fontFamily: "Fredoka-Regular" }}>
-              Try asking how long your travels are
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.card}>
           <Text style={styles.featureTitle}>Features</Text>
           <View style={styles.featureRow}>
             <Ionicons
