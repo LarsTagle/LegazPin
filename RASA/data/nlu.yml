@@ -1731,7 +1731,6 @@ nlu:
       - Nearest [fuel station](LOCATION)?
       - Best [pharmacy](LOCATION) close to me.
       - Show me a [spa](LOCATION).
-      - Where's the best [park](LOCATION) for [playing](ACTIVITY)?
       - A peaceful [garden](LOCATION) for a walk.
       - Find a top-rated [restaurant](LOCATION).
       - Good [cinema](LOCATION) nearby?
@@ -1765,6 +1764,161 @@ nlu:
       - Good [nature park](LOCATION) to try.
       - Suggest a [museum](LOCATION).
       - Find a famous [church](LOCATION).
+      - I want to go [hiking](ACTIVITY) this weekend.
+      - I need a place for [relaxing](ACTIVITY) after work.
+      - I'm looking for a spot to go [swimming](ACTIVITY).
+      - I'd like a location for [sightseeing](ACTIVITY) in Legazpi.
+      - I want to watch the [sunset](ACTIVITY) somewhere nice.
+      - I'm interested in a place for [sunrise](ACTIVITY) viewing.
+      - I need somewhere for [praying](ACTIVITY).
+      - I'm searching for a spot to [meditate](ACTIVITY).
+      - I want a place for [worshiping](ACTIVITY) on Sunday.
+      - I need somewhere for [studying](ACTIVITY) quietly.
+      - I want a place for [recreation](ACTIVITY) with friends.
+      - I'm craving a spot for [eating](ACTIVITY) tonight.
+      - I need a place for [dates](ACTIVITY) this evening.
+      - I want somewhere for [casual talk](ACTIVITY) with colleagues.
+      - I need a place for [shopping](ACTIVITY).
+      - I want a place for kids to go [playing](ACTIVITY).
+      - I need a spot for [exercise](ACTIVITY) in the morning.
+      - I want a place for [jogging](ACTIVITY) daily.
+      - I need somewhere for [photography](ACTIVITY) this weekend.
+      - I'm interested in a place to [learn history](ACTIVITY).
+      - I want a place for [banking](ACTIVITY).
+      - I'm looking for a place to [stay overnight](ACTIVITY).
+      - I need a place for [commute](ACTIVITY).
+      - I want a place for [view scenery](ACTIVITY).
+      - I'm searching for a place for [seek medical care](ACTIVITY).
+      - I want a place for [visit government services](ACTIVITY).
+      - I'm looking for a place to [attend events](ACTIVITY).
+      - I need somewhere for [sports](ACTIVITY) with friends.
+      - I'm interested in a place for [bird watch](ACTIVITY).
+      - I want a place for a [picnic](ACTIVITY).
+      - I'm looking for a place for [cultural shows](ACTIVITY).
+      - I need a place for [cycle](ACTIVITY) on weekends.
+      - I want a place to [explore nature](ACTIVITY).
+      - I'm searching for a place for [family bonding](ACTIVITY).
+      - I need a place for [workshops](ACTIVITY).
+      - I want a place to buy [souvenirs](ACTIVITY).
+      - I'm looking for a place for [nightlife](ACTIVITY).
+      - I need a place for [festivals](ACTIVITY).
+      - I want a place to [volunteer](ACTIVITY).
+      - I'm interested in a place for [walking](ACTIVITY).
+      - I need a place for a [meet](ACTIVITY).
+      - I want a place for [quiet](ACTIVITY).
+      - I'm looking for a place for [lectures](ACTIVITY).
+      - I need a place for [yoga](ACTIVITY).
+      - I want a place for [performances](ACTIVITY).
+      - I'm searching for a place for [art](ACTIVITY).
+      - I need a place to [camp](ACTIVITY).
+      - I want a place for [markets](ACTIVITY).
+      - I'm looking for a place for [boating](ACTIVITY).
+      - I need a place for [fishing](ACTIVITY).
+      - I want a place for [zipline](ACTIVITY).
+      - I'm interested in a place for [visit museum](ACTIVITY).
+      - I need a place for [hot spring bath](ACTIVITY).
+      - I want a place for [snorkeling](ACTIVITY).
+      - I'm looking for a place for [scuba diving](ACTIVITY).
+      - I need a place for [spa](ACTIVITY).
+      - I want a place for [rest](ACTIVITY).
+      - I'm searching for a place for [stargazing](ACTIVITY).
+      - I need a place for [wedding](ACTIVITY).
+      - I want a place to [attend mass](ACTIVITY).
+      - I'm looking for a place to [visit cemetery](ACTIVITY).
+      - I need a place for [resort stay](ACTIVITY).
+      - I want a place for [campfire](ACTIVITY).
+      - I'm interested in a place for [trekking](ACTIVITY).
+      - I need a place for [eco-tour](ACTIVITY).
+      - I want a place for [river cruise](ACTIVITY).
+      - I'm looking for a place for [plant visit](ACTIVITY).
+      - I need a place for [community service](ACTIVITY).
+      - I want a place to [join parade](ACTIVITY).
+      - I'm searching for a place for [nature walk](ACTIVITY).
+      - I need a place for [photo walk](ACTIVITY).
+      - I want a place for [beach games](ACTIVITY).
+      - I'm looking for a place for [grocery](ACTIVITY).
+      - I need a place for [hardware shopping](ACTIVITY).
+      - I want a place for [bike tour](ACTIVITY).
+      - I'm interested in a place to [visit port](ACTIVITY).
+      - I need a place for [commute via tricycle](ACTIVITY).
+      - I want a place for [jeepney ride](ACTIVITY).
+      - I'm looking for a place for [visit city hall](ACTIVITY).
+      - I need a place to [buy gadgets](ACTIVITY).
+      - I want a place for [refuel](ACTIVITY).
+      - I'm searching for a place for [attend seminar](ACTIVITY).
+      - I need a place to [watch play](ACTIVITY).
+      - I want a place for [sleeping](ACTIVITY).
+      - I need a [library](LOCATION) for studying.
+      - I'm looking for a [church](LOCATION) to pray.
+      - I want a [restaurant](LOCATION) for dining.
+      - I need a [cafe](LOCATION) for casual talk.
+      - I'm searching for a [mall](LOCATION) to shop.
+      - I want a [park](LOCATION) for playing.
+      - I need a [nature park](LOCATION) for jogging.
+      - I'm looking for a [photo spot](LOCATION) for photography.
+      - I want a [museum](LOCATION) to learn history.
+      - I need a [bank](LOCATION) for banking.
+      - I'm searching for a [hotel](LOCATION) to stay overnight.
+      - I want a [terminal](LOCATION) for commuting.
+      - I need a [hospital](LOCATION) for medical care.
+      - I'm looking for a [clinic](LOCATION) for health checkups.
+      - I want a [government office](LOCATION) for government services.
+      - I need a [park](LOCATION) for sports.
+      - I'm searching for a [wildlife sanctuary](LOCATION) to bird watch.
+      - I want a [garden](LOCATION) for picnics.
+      - I need an [events center](LOCATION) for cultural shows.
+      - I'm looking for a [nature park](LOCATION) to explore nature.
+      - I want a [park](LOCATION) for family bonding.
+      - I need a [community center](LOCATION) for workshops.
+      - I'm searching for a [market](LOCATION) for souvenirs.
+      - I want a [bar](LOCATION) for nightlife.
+      - I need a [plaza](LOCATION) for festivals.
+      - I'm looking for a [community center](LOCATION) to volunteer.
+      - I want a [park](LOCATION) for walking.
+      - I need a [cafe](LOCATION) for meetings.
+      - I'm searching for a [library](LOCATION) for quiet time.
+      - I want a [university](LOCATION) for lectures.
+      - I need a [spa](LOCATION) for yoga.
+      - I'm looking for an [events center](LOCATION) for performances.
+      - I want a [museum](LOCATION) for art.
+      - I need a [resort](LOCATION) to camp.
+      - I'm searching for a [public market](LOCATION) for markets.
+      - I want a [lake](LOCATION) for boating.
+      - I need a [lake](LOCATION) for fishing.
+      - I'm looking for an [amusement park](LOCATION) for ziplining.
+      - I want a [museum](LOCATION) to visit.
+      - I need a [spring](LOCATION) for a hot spring bath.
+      - I'm searching for a [beach](LOCATION) for snorkeling.
+      - I want a [beach](LOCATION) for scuba diving.
+      - I need a [spa](LOCATION) for spa treatments.
+      - I'm looking for a [hotel](LOCATION) to rest.
+      - I want a [nature park](LOCATION) for stargazing.
+      - I need a [garden](LOCATION) for a wedding.
+      - I'm searching for a [church](LOCATION) to attend mass.
+      - I want a [cemetery](LOCATION) to visit.
+      - I need a [resort](LOCATION) for a resort stay.
+      - I'm looking for a [resort](LOCATION) for a campfire.
+      - I want a [nature park](LOCATION) for trekking.
+      - I need a [wildlife sanctuary](LOCATION) for an eco-tour.
+      - I'm searching for a [lake](LOCATION) for a river cruise.
+      - I want a [garden](LOCATION) for a plant visit.
+      - I need a [community center](LOCATION) for community service.
+      - I'm looking for a [plaza](LOCATION) for a parade.
+      - I want a [park](LOCATION) for a nature walk.
+      - I need a [photo spot](LOCATION) for a photo walk.
+      - I'm searching for a [beach](LOCATION) for beach games.
+      - I want a [convenience store](LOCATION) for groceries.
+      - I need a [hardware store](LOCATION) for hardware shopping.
+      - I'm looking for a [park](LOCATION) for a bike tour.
+      - I want a [port](LOCATION) to visit.
+      - I need a [terminal](LOCATION) for a tricycle ride.
+      - I'm searching for a [terminal](LOCATION) for a jeepney ride.
+      - I want a [government office](LOCATION) for a city hall visit.
+      - I need a [mall](LOCATION) to buy gadgets.
+      - I'm looking for a [fuel station](LOCATION) to refuel.
+      - I want a [community center](LOCATION) for a seminar.
+      - I need an [events center](LOCATION) to watch a play.
+      - I'm searching for a [hotel](LOCATION) for sleeping.
 
   - intent: travel_time_estimate
     examples: |
@@ -2654,6 +2808,8 @@ nlu:
       - write a dramatic monologue for a toaster
       - tell me what I'm thinking
       - is cereal soup?
+      - 1 + 1
+      - calculate this
 
   - intent: location_inquiry
     examples: |
@@ -2741,7 +2897,6 @@ nlu:
       - abenson rawis
   - synonym: Abion Falls
     examples: |
-      - Abion falls
       - abion falls
   - synonym: Aswang Bay
     examples: |
@@ -2750,7 +2905,7 @@ nlu:
     examples: |
       - black sand beaches
       - black sand
-  - synonym: BiGGS Daraga
+  - synonym: BIGGS Daraga
     examples: |
       - biggs daraga
       - BIGGS daraga
@@ -2974,21 +3129,6 @@ nlu:
   - synonym: Mamay's
     examples: |
       - mamay's
-  - synonym: Mariners' Polytechnic Colleges Foundation Legazpi City
-    examples: |
-      - mariners' polytechnic colleges foundation legazpi city
-      - mariners polytechnic colleges foundation legazpi city
-      - Mariners' Polytechnic Colleges Foundation 
-      - Mariners Polytechnic Colleges Foundation 
-      - mariners polytechnic colleges foundation 
-      - Mariners' Polytechnic
-      - Mariners Polytechnic
-      - mariners' polytechnic
-      - mariners polytechnic
-      - Mariners
-      - Mariners'
-      - mariners
-      - mariners'
   - synonym: Mayon SkyDrive ATV Adventure
     examples: |
       - mayon skyDrive ATV adventure
@@ -3023,14 +3163,11 @@ nlu:
       - oas municipal hall
       - Oas Municipal
       - oas municipal
-      - Oas Hall
       - oas hall
       - oas
-      - Oas
   - synonym: Oas Public Market
     examples: |
       - oas public market
-      - Oas Market
       - oas market
   - synonym: Pristine Memorial Gardens
     examples: |
@@ -3086,15 +3223,6 @@ nlu:
       - st. stephen protomartyr parish church
       - St. Stephen Protomartyr
       - st. stephen protomartyr
-  - synonym: STI College - Legazpi
-    examples: |
-      - STI college - legazpi
-      - STI college legazpi
-      - STI College
-      - STI college
-      - sti college
-      - STI
-      - sti
   - synonym: Sto. Domingo Municipal Hall
     examples: |
       - sto. domingo municipal hall
@@ -3202,6 +3330,7 @@ nlu:
       - ems barrio south
       - em's barrio south
       - ems brgy 2
+      - ems brgy 2 barangay hall
       - ems brgy 2 barangay hall
       - ems barangay 2
       - ems barangay 2 barangay hall
@@ -3313,6 +3442,8 @@ nlu:
       - Emerald
   - synonym: Camp Ola Legazpi City
     examples: |
+      - camp ola legazpi
+      - Camp Ola Legazpi
       - camp ola
       - Camp Ola
   - synonym: Camalig Fitness Gym
@@ -3378,6 +3509,7 @@ nlu:
       - unitop
   - synonym: STI College Legazpi
     examples: |
+      - sti college - legazpi
       - sti college legazpi
       - STI College
       - sti college
@@ -3397,6 +3529,8 @@ nlu:
     examples: |
       - university of santo tomas - legazpi hospital
       - university of santo tomas legazpi hospital
+      - ust legazpi hospital
+      - UST Legazpi Hospital
       - USTL Hospital
       - ustl hospital
       - University of Santo Tomas Hospital
@@ -3419,10 +3553,16 @@ nlu:
   - synonym: Mariner's Polytechnic Colleges Foundation Legazpi City
     examples: |
       - mariner's polytechnic colleges foundation legazpi city
-      - Mariners
-      - mariners
       - Mariners Polytechnic College
       - mariners polytechnic college
+      - Mariners College Legazpi
+      - mariners college legazpi
+      - mariners legazpi
+      - Mariners Legazpi
+      - mariners college 
+      - Mariners College 
+      - Mariners
+      - mariners
   - synonym: Arimbay Parish Church
     examples: |
       - arimbay parish church
@@ -3533,15 +3673,18 @@ nlu:
       - SM
       - sm
       - SM Mall
-      - sm all
+      - sm mall
   - synonym: Bicol University
     examples: |
       - BU
       - Bicol Univ
       - BU Main
+      - bicol univ
+      - bu main
       - bu
       - bicol u
       - bu main campus
+      - bicol university
   - synonym: Yashano Mall
     examples: |
       - Yashano Shopping Mall
@@ -3552,13 +3695,14 @@ nlu:
   - synonym: Ayala Malls Legazpi
     examples: |
       - Ayala
+      - ayala
       - Ayala Mall
       - Ayala Malls
-      - Ayala malls
       - ayala malls
-      - Ayala mall
       - ayala mall
-      - ayala
+      - ayala malls legazpi
+      - ayala mall legazpi
+      - ayala legazpi
   - synonym: Daraga Municipal Hall
     examples: |
       - Daraga
@@ -3586,40 +3730,49 @@ nlu:
       - Legazpi Terminal
       - legazpi terminal
       - Bus Terminal
+      - bus terminal
       - Van Terminal
+      - van terminal
   - synonym: Bicol University East Campus
     examples: |
       - bicol university east campus
-      - BU east Campus
+      - bicol university east
       - bu east campus
-      - BU East
+      - bu east
+      - BU East 
+      - BU East Campus
   - synonym: Bicol University Daraga Campus
     examples: |
-      - BU Daraga
-      - bu daraga
       - bicol university daraga campus
+      - bicol university daraga
+      - Bicol University Daraga
       - BU Daraga Campus
       - bu daraga campus
-      - biocol university daraga
-      - Bicol University Daraga
+      - BU Daraga
+      - bu daraga
   - synonym: Gaisano Mall
     examples: |
-      - Gaisano mall
-      - gaisano
       - gaisano mall
+      - gaisano
       - Pacific Mall
       - Pacific
       - pacific mall
+      - pacific
   - synonym: Old Albay
     examples: |
       - Albay
       - albay
   - synonym: Ago Medical and Educational Center
     examples: |
+      - ago medical and educational center
+      - ago
+      - AGO
       - Ago
+      - amec
       - AMEC
   - synonym: Bicol College
     examples: |
+      - bicol college
       - BC
       - bc
   - synonym: Sawangan Park
@@ -3641,14 +3794,18 @@ nlu:
       - Peñaranda
       - peñaranda
       - Penaranda
-      - penaranda
+      - penaranda 
       - Penaranda Park
-      - Albay Park
+      - peñaranda park
+      - penaranda
+      - penaranda park
       - albay park
+      - Albay Park
   - synonym: Kimantong Spring
     examples: |
       - kimantong spring
       - kimantong
+      - Kimantong
   - synonym: Bicol International Airport
     examples: |
       - bicol international airport
@@ -3696,6 +3853,8 @@ nlu:
     examples: |
       - albay park and wildlife
       - wildlife park
+      - albay wildlife park
+      - albay wildlife
       - wildlife
       - legazpi zoo
   - synonym: Legazpi Boulevard

@@ -9,16 +9,32 @@ from typing import Any, List, Dict, Text
 import time
 from functools import lru_cache
 import math
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+# Create Firebase credentials dictionary
+firebase_credentials = {
+    "type": "service_account",
+    "project_id": os.getenv("FIREBASE_PROJECT_ID"),
+    "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),  # Handle newlines in private key
+    "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
+    "client_id": os.getenv("FIREBASE_CLIENT_ID"),
+    "auth_uri": os.getenv("FIREBASE_AUTH_URI"),
+    "token_uri": os.getenv("FIREBASE_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_X509_CERT_URL"),
+}
 
 # Initialize Firebase
-# Check if Firebase app is not already initialized to avoid duplicate initialization
 if not firebase_admin._apps:
-    cred = credentials.Certificate("../firebase-adminsdk.json")
+    cred = credentials.Certificate(firebase_credentials)
     firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # Initialize Google Maps client
-gmaps = googlemaps.Client(key="AIzaSyAy2J-28fvMFNZ7JOUYVAAENpXWcv-lHLQ")
+gmaps = googlemaps.Client(key=os.getenv("GOOGLE_MAPS_API_KEY"))
 
 # Preload fare data into memory
 FARE_CACHE = {}
@@ -449,6 +465,24 @@ class ActionHandleFindNearest(Action):
 class ActionHandleRouteFinder(Action):
     def name(self) -> Text:
         return "action_handle_route_finder"
+    
+    @lru_cache(maxsize=1000)
+    def get_cached_distance(self, origin: str, destination: str, region: str = "ph") -> tuple:
+        try:
+            distance_matrix = gmaps.distance_matrix(
+                origins=origin,
+                destinations=destination,
+                mode="driving",
+                units="metric",
+                region=region
+            )
+            element = distance_matrix["rows"][0]["elements"][0]
+            status = element["status"]
+            distance_km = element["distance"]["value"] / 1000.0 if status == "OK" else None
+            return distance_km, status
+        except Exception as e:
+            return None, "ERROR"
+
 
     def run(
         self,
@@ -463,8 +497,33 @@ class ActionHandleRouteFinder(Action):
         # Check if the location input is invalid
         if not is_valid:
             return []
+        
+        region = "ph"
 
         try:
+            distance_km, status = self.get_cached_distance(origin, destination, region)
+            # Check if one of the locations was not found
+            if status == "NOT_FOUND":
+                dispatcher.utter_message(text=f"One of the locations ({origin} or {destination}) was not found. Please provide more specific names.")
+                return [SlotSet("origin", None), SlotSet("destination", None)]
+            # Check if no driving route exists between the locations
+            elif status == "ZERO_RESULTS":
+                dispatcher.utter_message(text=f"No driving route exists between {origin} and {destination}.")
+                return [SlotSet("origin", None), SlotSet("destination", None)]
+            # Check if there was an error or distance could not be calculated
+            elif status == "ERROR" or distance_km is None:
+                dispatcher.utter_message(text="Failed to calculate distance. Please try again.")
+                return [SlotSet("origin", None), SlotSet("destination", None)]
+
+            fare_data = get_fare_data(distance_km)
+            # Check if no fare data was found for the distance
+            if not fare_data:
+                dispatcher.utter_message(text=f"No fare found for a distance of {round(distance_km)} km. Please try different locations.")
+                return [SlotSet("origin", None), SlotSet("destination", None)]
+
+            regular_fare = round(fare_data["regular"])
+            discounted_fare = round(fare_data["discounted"])
+        
             list_of_routes = []
             routes_ref = db.collection("routes")
             routes_docs = routes_ref.stream()
@@ -472,7 +531,6 @@ class ActionHandleRouteFinder(Action):
             for doc in routes_docs:
                 route_data = doc.to_dict()
                 landmarks = route_data.get("landmarks", [])
-                route_distance = route_data.get("distance", 0)
 
                 origin_found = False
                 destination_found = False
@@ -498,24 +556,6 @@ class ActionHandleRouteFinder(Action):
                 )
                 return []
 
-            routes_docs = routes_ref.stream()
-            route_distance = 0
-            for doc in routes_docs:
-                # Check if the current route is in the list of valid routes
-                if doc.to_dict()["name"] in list_of_routes:
-                    route_distance = doc.to_dict().get("distance", 0)
-                    break
-
-            fare_data = get_fare_data(route_distance)
-            # Check if fare data was found for the route distance
-            if not fare_data:
-                dispatcher.utter_message(
-                    text=f"No fare found for a distance of {round(route_distance)} km. Please try different locations."
-                )
-                return []
-
-            regular_fare = round(fare_data["regular"])
-            discounted_fare = round(fare_data["discounted"])
             routes_string = "\n".join([f"- {list_of_routes[i]}" for i in range(len(list_of_routes))])
             response = (
                 f"From {origin} to {destination}, the following route/s should take you there:\n{routes_string}\n"

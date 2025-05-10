@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-ACTIVITY",
+      "2": "I-ACTIVITY",
+      "3": "L-ACTIVITY",
+      "4": "U-ACTIVITY",
+      "5": "B-DESTINATION",
+      "6": "I-DESTINATION",
+      "7": "L-DESTINATION",
+      "8": "U-DESTINATION",
+      "9": "B-LOCATION",
+      "10": "I-LOCATION",
+      "11": "L-LOCATION",
+      "12": "U-LOCATION",
+      "13": "B-ORIGIN",
+      "14": "I-ORIGIN",
+      "15": "L-ORIGIN",
+      "16": "U-ORIGIN",
+      "17": "B-POI",
+      "18": "I-POI",
+      "19": "L-POI",
+      "20": "U-POI",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-ACTIVITY": 1,
+      "I-ACTIVITY": 2,
+      "L-ACTIVITY": 3,
+      "U-ACTIVITY": 4,
+      "B-DESTINATION": 5,
+      "I-DESTINATION": 6,
+      "L-DESTINATION": 7,
+      "U-DESTINATION": 8,
+      "B-LOCATION": 9,
+      "I-LOCATION": 10,
+      "L-LOCATION": 11,
+      "U-LOCATION": 12,
+      "B-ORIGIN": 13,
+      "I-ORIGIN": 14,
+      "L-ORIGIN": 15,
+      "U-ORIGIN": 16,
+      "B-POI": 17,
+      "I-POI": 18,
+      "L-POI": 19,
+      "U-POI": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]
