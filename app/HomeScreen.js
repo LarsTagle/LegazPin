@@ -156,7 +156,7 @@ const HomeScreen = ({ toggleDrawer }) => {
 
           <TouchableOpacity
             style={[styles.startButton, styles.prominentButton]}
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.navigate("Chat")}
           >
             <Text style={styles.startButtonText}>Let's Start Chatting!</Text>
           </TouchableOpacity>
