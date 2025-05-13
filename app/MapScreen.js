@@ -141,7 +141,7 @@ const MapScreen = ({ navigation, toggleDrawer }) => {
       }
 
       const navigationInstruction = `Navigate me from ${startLocation} to ${endLocation}`;
-      navigation.navigate("Home", { instruction: navigationInstruction });
+      navigation.navigate("Chat", { instruction: navigationInstruction });
     } catch (error) {
       console.error("Directions Error:", error);
       Alert.alert("Error", "Could not fetch route.");

@@ -228,7 +228,7 @@ const HelpCenterScreen = ({ toggleDrawer }) => {
           </View>
         </View>
 
-        <View style={styles.card}>
+        <View style={[styles.card, { marginBottom: 50 }]}>
           <Text style={styles.title}>Contact Support</Text>
           <TouchableOpacity style={styles.contactButton} onPress={openEmail}>
             <Ionicons
@@ -250,13 +250,6 @@ const HelpCenterScreen = ({ toggleDrawer }) => {
             </Text>
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate("Landing")}
-        >
-          <Text style={styles.backButtonText}>Back to Start</Text>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );

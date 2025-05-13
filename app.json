@@ -4,17 +4,18 @@
     "slug": "LegazPin",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/PinLogo.png",
+    "icon": "./assets/PinLogo.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/PinLogo.png",
+      "image": "./assets/PinLogo.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "android": {
+      "package": "com.legazpin.app",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/PinLogo.png",
+        "foregroundImage": "./assets/PinLogo.jpg",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -34,10 +35,15 @@
       }
     },
     "web": {
-      "favicon": "./assets/PinLogo.png"
+      "favicon": "./assets/PinLogo.jpg"
     },
     "assetBundlePatterns": [
       "assets/**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "dca484fc-abae-4525-a0bf-2ee63d44c7d2"
+      }
+    }
   }
 }

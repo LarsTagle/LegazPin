@@ -25,7 +25,7 @@ export default function ChatScreen({
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollViewRef = useRef(null);
-  const API_URL = "http://192.168.192.1:5005/webhooks/rest/webhook";
+  const API_URL = "https://legazpin-rasa.serveo.net/webhooks/rest/webhook";
   const dot1Anim = useRef(new Animated.Value(0)).current;
   const dot2Anim = useRef(new Animated.Value(0)).current;
   const dot3Anim = useRef(new Animated.Value(0)).current;
