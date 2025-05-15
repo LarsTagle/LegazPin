@@ -24,6 +24,7 @@ export default function ChatScreen({
 }) {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [inputHeight, setInputHeight] = useState(50); // Initial height for input field
   const scrollViewRef = useRef(null);
   const API_URL = "https://legazpin-rasa.serveo.net/webhooks/rest/webhook";
   const dot1Anim = useRef(new Animated.Value(0)).current;
@@ -193,9 +194,6 @@ export default function ChatScreen({
     }
   };
 
-  const numLines = message.split("\n").length;
-  const dynamicHeight = Math.min(30 + numLines * 20, 150);
-
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -268,15 +266,22 @@ export default function ChatScreen({
         )}
       </ScrollView>
 
-      <View style={[styles.inputContainer, { height: dynamicHeight }]}>
+      <View style={[styles.inputContainer, { height: inputHeight }]}>
         <TextInput
-          style={[styles.textInput, { height: dynamicHeight }]}
+          style={[styles.textInput, { height: inputHeight }]}
           placeholder="Type your message..."
           placeholderTextColor="rgba(0, 0, 0, 0.5)"
           multiline
           value={message}
           onChangeText={setMessage}
           autoFocus={false}
+          onContentSizeChange={(e) => {
+            const newHeight = Math.min(
+              Math.max(50, e.nativeEvent.contentSize.height + 20), // Minimum height 50, add padding
+              150 // Maximum height
+            );
+            setInputHeight(newHeight);
+          }}
         />
         <TouchableOpacity
           style={styles.sendButton}
@@ -363,14 +368,12 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   textInput: {
-    paddingTop: 15,
-    paddingLeft: 10,
     flex: 1,
     fontFamily: "Fredoka-Regular",
     fontSize: 16,
     paddingVertical: 8,
+    paddingHorizontal: 10,
     borderRadius: 10,
-    maxHeight: 120,
     backgroundColor: "transparent",
     borderWidth: 0,
     outlineStyle: "none",
